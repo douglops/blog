@@ -1,0 +1,187 @@
+\chapter{Operating Procedure and Radio Terminology}
+\label{ch:operating-procedures}
+
+Good operating practice is what makes a shared, crowded radio spectrum
+usable by everyone. This chapter defines the core vocabulary and
+procedural concepts used universally across amateur radio operating,
+independent of any particular country's specific rules.
+
+\section{Core Definitions}
+
+\begin{itemize}
+\item \textbf{Station}: one or more transmitters, receivers, or
+transceivers, together with any associated equipment, necessary at one
+location to carry out a radiocommunication service.
+\item \textbf{Emission}: the radiation produced by a transmitting
+station --- the actual radio energy sent out, as distinct from the
+information it may carry.
+\item \textbf{Radio spectrum}: the range of electromagnetic frequencies
+used for radiocommunication, allocated internationally by the ITU
+(Chapter~\ref{ch:regulatory-bodies}) and subdivided nationally among
+different services.
+\item \textbf{Interference}: the effect of unwanted energy, from one or
+more emissions or from other sources, on the reception of a wanted
+signal --- ranging from mild degradation to complete disruption.
+\end{itemize}
+
+\section{Emission Classification (Emission Designators)}
+
+Internationally, radio emissions are described using a standardized
+alphanumeric code (an \textbf{emission designator}) capturing bandwidth,
+modulation type, nature of the modulating signal, and type of
+information transmitted. The general structure, defined by the ITU
+Radio Regulations, is:
+\[
+\underbrace{\text{Bandwidth}}_{\text{e.g., 2K80}}\ \underbrace{\text{Letter}}_{\text{modulation type}}\ \underbrace{\text{Digit}}_{\text{modulating signal}}\ \underbrace{\text{Letter}}_{\text{information type}}
+\]
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol (1st letter, modulation) & Meaning \\
+\midrule
+N & Unmodulated carrier \\
+A & Double-sideband AM \\
+J & Single-sideband, suppressed carrier (SSB) \\
+F & Frequency modulation \\
+G & Phase modulation \\
+\bottomrule
+\end{tabular}
+\quad
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol (3rd, information) & Meaning \\
+\midrule
+A & Telegraphy, aural (Morse by ear) \\
+B & Telegraphy, automatic reception \\
+E & Telephony (voice) \\
+F & Television/video \\
+W & Combination of the above \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examplebox}[Reading an emission designator]
+Interpret the emission designator \texttt{J3E}.
+
+\emph{Solution.} J = single-sideband, suppressed carrier; 3 = a single
+analog channel containing quantized or digital information... (for
+voice, simply a single analog channel); E = telephony. \texttt{J3E} is
+the standard designator for an SSB voice signal --- exactly what most
+amateur SSB voice operation uses.
+\end{examplebox}
+
+\begin{examtip}
+You do not need to memorize every possible emission designator
+combination, but recognizing the common ones --- \texttt{A1A} (CW,
+on-off keyed Morse), \texttt{J3E} (SSB voice), \texttt{F3E} (FM voice),
+\texttt{F1B}/\texttt{J2B} (common digital mode designators) --- appears
+frequently on exams worldwide, since this designator system is one of
+the genuinely universal, non-country-specific pieces of amateur radio
+terminology.
+\end{examtip}
+
+\section{Simplex and Duplex Operation}
+
+\begin{itemize}
+\item \textbf{Simplex}: both stations transmit and receive on the same
+frequency, taking turns (one station transmits while the other
+listens, then they swap) --- the default mode for most HF and casual
+VHF/UHF contacts.
+\item \textbf{Half-duplex}: communication can occur in both directions,
+but not simultaneously; a push-to-talk (PTT) transceiver used with
+separate transmit and receive frequencies (as on many VHF/UHF
+repeaters) is technically half-duplex from the human operator's
+perspective, even though the underlying repeater itself transmits and
+receives simultaneously on different frequencies.
+\item \textbf{Full duplex}: both directions of communication happen
+simultaneously, each on its own frequency, with both parties able to
+transmit and receive at the same time (as in a telephone call) --- less
+common in amateur voice operation but used in some satellite and
+repeater-linking contexts, and by the repeater itself even when users
+experience it as half-duplex.
+\end{itemize}
+
+\section{Repeater Operation}
+
+A \textbf{repeater} receives a signal on one frequency (the
+\textbf{input}) and simultaneously retransmits it, usually with higher
+power and from an elevated, well-sited antenna, on a different
+frequency (the \textbf{output}), extending the effective range of
+low-power mobile and handheld stations well beyond normal line-of-sight
+limits. The frequency difference between input and output is the
+\textbf{offset} (a fixed, band-dependent value in most regions,
+occasionally requiring a specific value that differs by country or
+region). Many repeaters use a sub-audible tone or digital code
+(\textbf{CTCSS} or \textbf{DCS}) transmitted alongside the voice signal
+to selectively open the repeater only for users sending the correct
+tone/code, reducing accidental keying from unrelated signals on the
+input frequency.
+
+\section{Standard Operating Conventions}
+
+\begin{itemize}
+\item \textbf{Calling frequency / calling channel}: a widely recognized
+frequency used to establish initial contact before moving to a working
+frequency, common in VHF/UHF simplex and in some HF sub-bands.
+\item \textbf{CQ call}: a general call inviting any station to respond
+(``CQ, CQ, CQ, this is \dots''), as opposed to calling a specific
+station directly.
+\item \textbf{Break-in / QSK}: full break-in CW operation, where the
+transmitter momentarily mutes between individual Morse elements so the
+operator can hear (and, if needed, immediately interrupt) the other
+station even while their own signal is going out.
+\item \textbf{Roger, over, out}: procedural words indicating,
+respectively, that a transmission was received and understood, that the
+operator is finished transmitting and awaiting a reply, and that the
+contact (or that operator's part of it) is complete and no reply is
+expected.
+\end{itemize}
+
+\begin{examtip}
+Standard procedural words and Q-codes (Chapter~\ref{ch:phonetics-codes})
+exist precisely because they are unambiguous across languages and
+accents, unlike improvised phrasing --- using them correctly is both
+good practice and frequently tested on exams.
+\end{examtip}
+
+\section{Interference and Good Spectrum Citizenship}
+
+Because spectrum is shared, every operator has a responsibility to
+minimize unnecessary interference: listening before transmitting
+(especially before calling CQ or joining a frequency already in use),
+using no more power than needed for reliable communication, keeping
+transmitted bandwidth as narrow as the mode reasonably requires
+(Chapter~\ref{ch:non-sine}), and promptly addressing any equipment
+problem (spurious emissions, excessive splatter, an unstable signal)
+brought to their attention by other operators.
+
+\begin{quickreview}
+\item Emission designators (e.g., J3E, F3E, A1A) internationally
+describe bandwidth, modulation, and information type in a standardized,
+country-independent code.
+\item Simplex (shared frequency, taking turns), half-duplex (both
+directions possible, not simultaneous from the operator's side), and
+full duplex (simultaneous both ways) describe communication timing
+structure.
+\item Repeaters extend range by receiving on one frequency and
+retransmitting on another (the offset), often gated by CTCSS/DCS tones.
+\item Standard procedural conventions (CQ, roger/over/out, break-in)
+exist to keep communication unambiguous across languages and
+conditions.
+\item Minimizing interference through good operating habits is a
+universal amateur responsibility, independent of any specific national
+rule.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Identify the modulation type, and information type, encoded in
+the emission designator \texttt{F3E}.
+\item Explain the difference between half-duplex and full-duplex
+operation, using a repeater as an example.
+\item Explain the purpose of CTCSS tone squelch on a repeater.
+\item Explain why listening before transmitting (particularly before
+calling CQ) is considered good operating practice.
+\item Explain why standardized procedural words like ``roger'' and
+``over'' are preferred over improvised phrasing during radio contacts.
+\end{practiceproblems}

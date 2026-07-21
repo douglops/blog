@@ -1,0 +1,155 @@
+\chapter{Digital Modes and Modern Radio}
+\label{ch:digital-modes}
+
+Amateur radio has always adopted new technology quickly, and the past
+two decades have brought a wave of digital modes and software-defined
+techniques that meaningfully extend what a modest station can achieve.
+This chapter surveys the modern digital operating landscape, building on
+the modulation (Chapter~\ref{ch:modulation}) and error-control
+(Chapter~\ref{ch:error-control}) foundations already covered.
+
+\section{Why Digital Modes}
+
+Compared to analog voice, digital modes can be engineered for
+specific, quantifiable goals: minimum bandwidth for a given data rate,
+maximum robustness to noise and fading at a given signal level, or
+maximum throughput for file/data transfer. Because a digital signal's
+information content is a defined, known set of discrete states, its
+processing gain (Chapter~\ref{ch:error-control}) can be pushed far
+beyond what human hearing achieves decoding analog voice or even CW by
+ear, letting well-designed digital modes complete contacts at signal
+levels where a voice or CW signal would be completely inaudible.
+
+\section{Keyboard-to-Keyboard Text Modes}
+
+\begin{itemize}
+\item \textbf{RTTY (radioteletype)}: one of the oldest amateur digital
+modes, using frequency-shift keying (Chapter~\ref{ch:modulation})
+between two audio tones to send Baudot-coded text, historically
+implemented with electromechanical teleprinters and now almost
+universally via a computer sound card.
+\item \textbf{PSK31}: a narrowband phase-shift-keyed mode designed
+specifically for real-time keyboard-to-keyboard conversation, using a
+variable-length coding scheme (shorter codes for more common letters)
+that keeps typical typing speeds within an extremely narrow bandwidth
+(around 31\,Hz, hence the name) --- allowing many simultaneous
+PSK31 conversations within the bandwidth a single SSB voice signal
+would occupy.
+\end{itemize}
+
+\section{Weak-Signal and Low-Rate Modes}
+
+A newer generation of modes, largely built around combining strong
+forward error correction (Chapter~\ref{ch:error-control}) with narrow
+bandwidth and computer-controlled precise timing, trades data rate for
+extreme sensitivity:
+
+\begin{itemize}
+\item \textbf{FT8} and related modes (part of the WSJT-X/MSHV software
+family): structured, computer-synchronized exchanges (typically 15
+seconds per transmission, tightly time-aligned to UTC) carrying a
+minimal, highly compressed message set (callsigns, grid locators,
+signal reports) using strong FEC coding, able to complete a logged
+contact with signals well below the audible noise floor. The
+constrained message format is a deliberate trade-off: extreme
+sensitivity and speed of exchange, at the cost of the free-form
+conversation possible on voice, CW, or PSK31.
+\item \textbf{WSPR (Weak Signal Propagation Reporter)}: a very
+low-rate, beacon-style mode designed not for two-way conversation but
+for automatically probing and mapping propagation conditions, with
+receiving stations automatically reporting decoded signals (including
+estimated signal strength) to a shared online database.
+\item \textbf{JT65 and related legacy modes}: earlier members of the
+same weak-signal design family as FT8, historically important for
+enabling reliable Earth-Moon-Earth (moonbounce) and other
+extreme-path contacts that were previously impractical with analog
+modes.
+\end{itemize}
+
+\section{Digital Voice}
+
+Digital voice modes encode speech as compressed digital data (using a
+\textbf{vocoder}) and transmit it much as any other digital data stream,
+typically over FM. Several competing amateur digital voice systems
+exist (differing in vocoder technology, network architecture, and
+whether they are open or proprietary standards), generally offering
+improved noise immunity and, where linked over the internet, wide-area
+or global connectivity between repeaters and hotspots --- extending
+local VHF/UHF coverage far beyond a single repeater's radio footprint,
+though at the cost of a hard failure mode (digital signals tend to
+either decode cleanly or not at all, rather than degrading gracefully
+like analog FM near the noise floor).
+
+\section{Packet Radio and Data Networking}
+
+\textbf{Packet radio}, built on the amateur \textbf{AX.25} protocol
+(itself derived from a wired data-networking standard, adapted for
+radio), packages data into discrete, individually addressed and
+checksummed packets (Chapter~\ref{ch:error-control}), enabling
+store-and-forward messaging, position/status broadcasting (as used by
+\textbf{APRS}, the Automatic Packet Reporting System, which
+continuously broadcasts station location, weather, and status data over
+a shared network of digipeaters and internet gateways), and
+email-like messaging over radio-only paths (as used by systems such as
+Winlink, particularly valuable for emergency and remote/maritime
+communication where internet access is unavailable).
+
+\section{Software-Defined Radio in Practice}
+
+Building on the SDR receiver concepts introduced in
+Chapter~\ref{ch:receivers}, modern amateur transceivers increasingly
+implement transmit signal generation the same way: digital signal
+processing generates the desired waveform (SSB, FM, digital mode audio,
+or a fully digital signal) which is then converted to analog and
+upconverted to the operating frequency, rather than being built up
+through a chain of discrete analog mixer and filter stages. This
+architecture makes it practical for a single piece of hardware to
+support an enormous and continually growing range of modes purely
+through software updates, and has made computer-controlled digital
+modes far more accessible than in the era of dedicated
+hardware modems for each individual mode.
+
+\section{Choosing a Mode}
+
+\begin{keyidea}
+No single mode is universally ``best''; the right choice depends on the
+goal. Voice (SSB/FM) suits real-time conversation and is the most
+accessible to newcomers. CW remains highly effective in poor conditions
+with minimal bandwidth and equipment. Weak-signal digital modes (FT8
+and similar) excel at making contacts under marginal propagation but
+support only minimal, structured exchanges. Packet-based data modes
+(APRS, Winlink) suit position reporting and message delivery rather
+than conversation at all. A well-rounded operator learns enough about
+each family to select the right tool for a given goal and set of band
+conditions.
+\end{keyidea}
+
+\begin{quickreview}
+\item Digital modes trade among bandwidth, data rate, and sensitivity
+in ways that can be engineered far more precisely than analog voice or
+manual CW.
+\item RTTY and PSK31 support real-time keyboard-to-keyboard text
+conversation with modest bandwidth.
+\item FT8, WSPR, and related weak-signal modes use strong FEC, narrow
+bandwidth, and precise timing to decode signals below the audible noise
+floor, at the cost of a constrained message format.
+\item Digital voice modes offer noise-immune audio and, when linked,
+wide-area connectivity, with a more abrupt (rather than gradual)
+failure mode than analog FM.
+\item Packet radio (AX.25), APRS, and Winlink extend amateur radio into
+automated data networking, position reporting, and message delivery.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Explain why FT8 can complete a contact when a voice signal at the
+same power and antenna would be inaudible.
+\item Explain the practical trade-off between FT8's extreme sensitivity
+and its very limited message format.
+\item Explain the purpose of APRS, and name one practical use beyond
+simple vehicle tracking.
+\item Explain why digital voice modes are described as having a more
+``abrupt'' failure mode than analog FM as signal strength decreases.
+\item Given a goal of making a contact under very poor HF propagation
+conditions with a modest antenna, which mode family from this chapter
+would you choose, and why?
+\end{practiceproblems}

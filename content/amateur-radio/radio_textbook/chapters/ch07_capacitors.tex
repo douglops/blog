@@ -1,0 +1,202 @@
+\chapter{Capacitors and Capacitive Reactance}
+\label{ch:capacitors}
+
+\section{The Capacitor}
+
+A \textbf{capacitor} stores energy in an electric field between two
+conductive plates separated by an insulating \textbf{dielectric}. Its
+defining property is \textbf{capacitance} $C$, measured in
+\textbf{farads (F)}:
+\[
+\boxed{C = \frac{Q}{U}}
+\]
+where $Q$ is the charge stored (coulombs) and $U$ is the voltage across
+the plates. One farad is a very large unit; practical capacitors are
+usually specified in microfarads ($\mu$F), nanofarads (nF), or
+picofarads (pF).
+
+For a simple parallel-plate capacitor with plate area $A$, separation
+$d$, and a dielectric of permittivity $\varepsilon = \varepsilon_r
+\varepsilon_0$,
+\[
+C = \frac{\varepsilon_r \varepsilon_0 A}{d}
+\]
+where $\varepsilon_0 = 8.854\times10^{-12}\,\text{F/m}$ is the
+permittivity of free space and $\varepsilon_r$ is the dielectric's
+\textbf{relative permittivity} (air $\approx 1$, ceramic 5--10{,}000
+depending on formulation, mica $\approx 5$--7). This equation explains
+capacitor construction directly: more plate area or a thinner, higher-permittivity
+dielectric gives more capacitance in the same physical volume, which is
+why high-value capacitors use thin rolled or multilayer construction.
+
+\section{Charging and Discharging: the Capacitor's Defining Behavior}
+
+A capacitor opposes \emph{changes} in voltage across it, just as an
+inductor (Chapter~\ref{ch:inductors}) opposes changes in current. The
+current into a capacitor is proportional to how fast its voltage is
+changing:
+\[
+i(t) = C\,\frac{dU}{dt}.
+\]
+Two consequences follow directly, and both are exam favorites:
+\begin{itemize}
+\item A capacitor blocks DC in steady state: once fully charged
+($dU/dt = 0$), no current flows.
+\item A capacitor initially looks like a short circuit to a sudden
+voltage step (large $dU/dt$ means large initial current), then charges
+toward the applied voltage.
+\end{itemize}
+The time-domain charge/discharge behavior (the \textbf{RC time
+constant}) is developed fully in Chapter~\ref{ch:rc-rl}.
+
+\section{Energy Stored in a Capacitor}
+
+The energy stored in a charged capacitor is
+\[
+W = \frac{1}{2}CU^2 = \frac{1}{2}QU = \frac{Q^2}{2C}.
+\]
+This stored energy is why capacitors are used for power-supply filtering
+(smoothing ripple by supplying current between rectifier pulses),
+timing circuits, and as the energy-storage element in an LC tank circuit
+(Chapter~\ref{ch:rlc-resonance}).
+
+\section{Capacitors in Series and Parallel}
+
+Unlike resistors, capacitor combination rules are ``reversed'':
+
+\begin{keyidea}
+\textbf{Parallel capacitors add directly} (more plate area, effectively):
+\[
+C_{\text{total}} = C_1 + C_2 + C_3 + \cdots
+\]
+\textbf{Series capacitors combine by the reciprocal sum} (effectively a
+thicker dielectric gap):
+\[
+\frac{1}{C_{\text{total}}} = \frac{1}{C_1} + \frac{1}{C_2} + \frac{1}{C_3} + \cdots
+\]
+For exactly two capacitors in series, $C_{\text{total}} = \dfrac{C_1
+C_2}{C_1+C_2}$ (product over sum, same shortcut form as parallel
+resistors).
+\end{keyidea}
+
+\begin{examplebox}[Series capacitors]
+Find the total capacitance of a 100\,pF and a 220\,pF capacitor in
+series.
+
+\emph{Solution.}
+\[
+C_{\text{total}} = \frac{100 \times 220}{100+220} = \frac{22000}{320} \approx 68.8\,\text{pF}.
+\]
+As with parallel resistors, the series combination is always smaller than
+the smallest individual value.
+\end{examplebox}
+
+\section{Capacitive Reactance}
+\label{sec:xc}
+
+When an AC voltage is applied to a capacitor, the current leads the
+voltage: current is largest exactly when voltage is changing fastest
+(at the zero-crossing) and zero when voltage is at its peak (momentarily
+not changing). This $90\degree$ phase relationship, combined with the
+frequency-dependent \emph{magnitude} of opposition to current flow, is
+called \textbf{capacitive reactance}, $X_C$, measured in ohms:
+\[
+\boxed{X_C = \frac{1}{2\pi f C} = \frac{1}{\omega C}}
+\]
+
+\begin{keyidea}[Reactance vs.\ resistance]
+Reactance, like resistance, is measured in ohms and limits current for a
+given voltage. Unlike resistance, reactance depends on frequency and does
+not dissipate energy as heat --- it stores and returns energy each cycle.
+Capacitive reactance \emph{decreases} as frequency increases (a
+capacitor looks increasingly like a short circuit at high frequency) and
+\emph{increases} without bound as frequency approaches zero (a capacitor
+looks like an open circuit at DC, consistent with Section~\ref{ch:capacitors}
+above).
+\end{keyidea}
+
+\begin{examplebox}[Calculating reactance]
+Find the reactance of a 100\,pF capacitor at 14.2\,MHz.
+
+\emph{Solution.}
+\[
+X_C = \frac{1}{2\pi f C} = \frac{1}{2\pi \times 14.2\times10^{6} \times 100\times10^{-12}} \approx 112\,\Omega.
+\]
+\end{examplebox}
+
+Because current leads voltage by exactly $90\degree$ in an ideal
+capacitor, the impedance of a capacitor is written as a purely imaginary
+number in the phasor (complex) notation introduced in
+Chapter~\ref{ch:ac-theory}:
+\[
+Z_C = -jX_C = \frac{1}{j\omega C}.
+\]
+This notation becomes essential once capacitors and resistors are
+combined (Chapter~\ref{ch:rc-rl}) or combined with inductors
+(Chapter~\ref{ch:rlc-resonance}), since it lets both magnitude and
+phase be tracked with ordinary complex-number arithmetic.
+
+\section{Capacitor Types and Practical Considerations}
+
+\begin{itemize}
+\item \textbf{Ceramic}: small, cheap, low to moderate values (pF to
+low $\mu$F), widely used for RF bypass and coupling; some formulations
+(especially high-K types) have capacitance that varies with applied
+voltage and temperature.
+\item \textbf{Film} (polyester, polypropylene): good stability and low
+loss, common in filters and audio circuits.
+\item \textbf{Electrolytic}: large capacitance (µF to mF) in a small
+volume, but \textbf{polarized} --- must be connected with correct
+polarity or they can fail catastrophically --- and generally unsuitable
+for RF due to significant internal series resistance/inductance at high
+frequency.
+\item \textbf{Tantalum}: also polarized, more stable than aluminum
+electrolytics but historically less tolerant of voltage transients.
+\item \textbf{Variable (trimmer/tuning)}: mechanically adjustable
+capacitance, used for tuning and neutralization.
+\end{itemize}
+
+\begin{safetynote}[Electrolytic capacitor polarity and residual charge]
+Reverse-connecting a polarized capacitor, or exceeding its voltage
+rating, can cause it to vent or explode. Large electrolytic and film
+capacitors in power supplies can also retain a dangerous stored charge
+long after power is removed; always verify a capacitor is discharged
+(with an appropriate bleeder resistor or a meter check) before handling.
+\end{safetynote}
+
+\section{Real Capacitors: ESR and Tolerance}
+
+A real capacitor has a small \textbf{equivalent series resistance (ESR)}
+and series inductance, both of which become significant at high
+frequencies and ultimately give every capacitor a \textbf{self-resonant
+frequency} above which it behaves inductively rather than capacitively.
+Capacitor tolerance is typically wider than resistor tolerance (often
+$\pm10\%$ or worse for ceramic types), a factor to keep in mind when
+designing or troubleshooting frequency-sensitive circuits such as filters
+and oscillators.
+
+\begin{quickreview}
+\item $C = Q/U$; parallel-plate capacitance $C = \varepsilon_r
+\varepsilon_0 A/d$.
+\item $i = C\,dU/dt$: capacitors block DC and initially pass sudden
+voltage steps as if shorted.
+\item Energy stored: $W = \tfrac12 CU^2$.
+\item Parallel capacitors add; series capacitors combine by reciprocal
+sum (opposite of resistors).
+\item $X_C = 1/(2\pi f C)$: reactance falls as frequency rises; current
+leads voltage by $90\degree$; $Z_C = -jX_C$.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Find the capacitance of a capacitor storing 5\,$\mu$C at 12\,V.
+\item Two capacitors, 47\,nF and 100\,nF, are in parallel. Find the total
+capacitance.
+\item Find the reactance of a 220\,pF capacitor at 3.5\,MHz and at
+28\,MHz. Comment on how reactance changes with frequency.
+\item A 1000\,$\mu$F electrolytic capacitor is charged to 25\,V. Find the
+stored energy, and explain why this capacitor should be treated as a
+potential shock hazard even after the power supply is switched off.
+\item Explain, using the $i = C\,dU/dt$ relationship, why a capacitor
+appears as a short circuit to a very fast voltage transient (such as a
+static discharge) even though it blocks steady DC.
+\end{practiceproblems}

@@ -1,0 +1,12 @@
+base_url = "https://douglops.github.io/blog"
+title = "Douglops notes"
+description = "Tales from the neverending sea of diffs"
+
+compile_sass = true
+build_search_index = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+
+[extra]
+author = "Douglas Oliveira"

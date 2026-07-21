@@ -1,0 +1,203 @@
+\chapter{Receiver Architectures}
+\label{ch:receivers}
+
+A radio receiver's job is to select one wanted signal from among the
+enormous number of other signals and noise present at its antenna,
+convert it to a usable form, and produce audio (or digital data) with
+adequate signal-to-noise ratio and freedom from interference. This
+chapter surveys the major receiver architectures used from the earliest
+days of radio to the present.
+
+\section{Key Receiver Performance Concepts}
+
+\begin{itemize}
+\item \textbf{Sensitivity}: the weakest signal a receiver can usefully
+detect, limited ultimately by internally generated noise (thermal noise
+in resistive elements and semiconductor devices), quantified by the
+receiver's \textbf{noise figure} (how much noisier the receiver is than
+an ideal noiseless one, in dB).
+\item \textbf{Selectivity}: the receiver's ability to reject signals on
+frequencies close to the wanted one, set largely by its filter
+bandwidth and shape (Chapter~\ref{ch:rlc-resonance}).
+\item \textbf{Dynamic range}: the span, in dB, between the weakest
+signal the receiver can detect and the strongest signal it can handle
+without unacceptable distortion (\textbf{overload} or
+\textbf{intermodulation distortion}, where two or more strong nearby
+signals mix together inside a nonlinear stage to create spurious
+``phantom'' signals).
+\item \textbf{Image rejection}: the ability to reject an unwanted
+frequency that a mixing stage would otherwise convert to the same output
+frequency as the wanted signal (Section~\ref{sec:superhet} below).
+\end{itemize}
+
+\section{Tuned Radio Frequency (TRF) Receivers}
+
+\bookfig[0.55]{receptor_trf.png}{Block diagram of a tuned radio
+frequency (TRF) receiver.}
+
+The earliest practical receiver architecture amplifies the incoming
+signal directly at its original (radio) frequency through one or more
+stages of RF amplification, each individually tuned to the wanted
+frequency, before demodulating it. TRF receivers are conceptually
+simple but have a fundamental weakness: keeping several separate tuned
+stages aligned to exactly the same frequency as the operator tunes
+across the band is mechanically difficult, and selectivity (which
+depends on $Q$, Chapter~\ref{ch:rlc-resonance}) is hard to make
+uniformly good across a wide tuning range, since a fixed-$Q$ circuit's
+absolute bandwidth changes with frequency.
+
+\section{Direct Conversion Receivers}
+
+\bookfig[0.55]{receptor_convdirecta.png}{Block diagram of a direct
+conversion receiver.}
+
+A \textbf{direct conversion} receiver mixes the incoming RF signal
+directly with a local oscillator (LO) set to (nearly) the same
+frequency as the wanted signal, producing an output directly at audio
+frequency (the mixing process is developed fully in
+Chapter~\ref{ch:modulation}). This is simpler than a superheterodyne
+design (fewer stages, no IF filter needed) and is popular in simple and
+homebrew equipment, but suffers from being susceptible to
+\textbf{audio-frequency image response} (signals above and below the LO
+frequency both fold into the same audio output, requiring phasing
+techniques to separate sidebands) and generally offers less overall
+selectivity than a well-designed superheterodyne.
+
+\section{The Superheterodyne Receiver}
+\label{sec:superhet}
+
+\bookfig[0.6]{receptor_superhet.png}{Block diagram of a superheterodyne
+receiver.}
+
+The \textbf{superheterodyne} (``superhet''), developed by Edwin
+Armstrong and still the dominant architecture (now often implemented
+digitally rather than with discrete analog stages), solves the TRF
+alignment problem by converting every incoming signal to a fixed
+\textbf{intermediate frequency (IF)}, regardless of the tuned frequency,
+using a mixer and a tunable local oscillator:
+\[
+\boxed{f_{\text{IF}} = |f_{\text{signal}} - f_{\text{LO}}|}
+\]
+Because the IF is fixed, the bulk of the receiver's gain and
+selectivity can be built once, at a single frequency, using
+well-optimized fixed-tuned filters (often crystal or ceramic filters)
+--- giving consistently good, easily reproducible selectivity across the
+entire tuning range, the key advantage over a TRF design.
+
+\subsection{The Image Frequency Problem}
+
+Because the mixer output depends only on the \emph{difference} between
+signal and LO frequency, \emph{two} input frequencies produce the same
+IF output: the wanted signal at $f_{\text{LO}} + f_{\text{IF}}$ (or
+$f_{\text{LO}} - f_{\text{IF}}$) and an unwanted \textbf{image
+frequency} on the opposite side of the LO, offset by exactly
+$2f_{\text{IF}}$ from the wanted signal:
+\[
+f_{\text{image}} = f_{\text{signal}} \pm 2f_{\text{IF}}.
+\]
+
+\begin{examplebox}[Finding an image frequency]
+A receiver tuned to 14.200\,MHz uses a 9.000\,MHz IF and high-side
+injection ($f_{\text{LO}} = f_{\text{signal}} + f_{\text{IF}} =
+23.200\,\text{MHz}$). Find the image frequency.
+
+\emph{Solution.}
+\[
+f_{\text{image}} = f_{\text{LO}} + f_{\text{IF}} = 23.200 + 9.000 = 32.200\,\text{MHz}.
+\]
+(Equivalently, $f_{\text{signal}} + 2f_{\text{IF}} = 14.200 + 18.000 =
+32.200\,\text{MHz}$.) A signal at 32.200\,MHz, if not rejected before the
+mixer, would appear at the same 9.000\,MHz IF as the wanted 14.200\,MHz
+signal.
+\end{examplebox}
+
+\begin{keyidea}[Fighting the image]
+Image rejection is provided by front-end filtering \emph{before} the
+mixer. A \emph{higher} IF pushes the image frequency further away from
+the wanted signal (easier to filter with a simple front-end filter), but
+makes it harder to build a narrow, high-selectivity IF filter at that
+higher frequency (Chapter~\ref{ch:rlc-resonance}: absolute bandwidth for
+a given $Q$ grows with frequency). This trade-off is why many
+modern receivers use a high first IF for good image rejection, followed
+by conversion to a lower second IF for good adjacent-channel
+selectivity --- a \textbf{dual (or multiple) conversion} superheterodyne.
+\end{keyidea}
+
+\section{The Superregenerative Receiver}
+
+\bookfig[0.5]{receptor_superreg.png}{A simplified superregenerative
+detector.}
+
+A \textbf{superregenerative} receiver deliberately drives a single RF
+amplifier stage into and out of oscillation at a rapid (typically
+ultrasonic) rate, exploiting the huge effective gain available right at
+the threshold of oscillation to achieve remarkable sensitivity from a
+very small number of components. It trades selectivity and
+linearity for extreme simplicity and low cost, and remains common in
+inexpensive, short-range devices (some remote controls and simple
+telemetry receivers) despite being essentially obsolete for
+general-purpose amateur communication receivers.
+
+\section{Software-Defined Radio (SDR)}
+
+A \textbf{software-defined radio} performs some or all of the
+traditional analog stages --- filtering, mixing, demodulation --- in
+digital signal processing after an analog-to-digital converter (ADC)
+samples the incoming RF (or an early IF) directly. Modern amateur SDR
+receivers commonly use a \textbf{direct sampling} or
+\textbf{quadrature-sampling-detector (QSD)} front end feeding a
+general-purpose or dedicated digital signal processor, implementing all
+subsequent filtering, mixing, AGC, and demodulation as software
+algorithms rather than discrete analog circuit stages. This gives
+extraordinary flexibility (mode, bandwidth, and filter shape can be
+changed instantly in software) and, in modern designs, performance that
+matches or exceeds the best conventional analog superheterodynes, at the
+cost of requiring fast, high-dynamic-range ADCs and significant digital
+processing power. SDR concepts underlie most currently manufactured
+amateur transceivers, whether marketed as ``SDR'' or built with a more
+conventional-looking analog front panel.
+
+\section{Automatic Gain Control (AGC)}
+
+Because received signal strength can vary over many orders of magnitude
+(weak DX signals to strong local stations), nearly all practical
+receivers include \textbf{automatic gain control}: a feedback loop that
+senses the receiver's output level and automatically reduces gain for
+strong signals (and restores it for weak ones), keeping the audio output
+level roughly constant and protecting later stages from overload. AGC
+response speed (fast vs.\ slow ``attack'' and ``release'' times) is
+usually adjustable and matters for how comfortably different modes ---
+CW, SSB voice, or the sudden noise bursts common on HF --- sound to the
+operator.
+
+\begin{quickreview}
+\item Receiver quality is described by sensitivity (noise figure),
+selectivity, dynamic range, and image rejection.
+\item TRF receivers amplify directly at RF; hard to align across a wide
+tuning range.
+\item Direct conversion mixes straight to audio; simple, but prone to
+image response unless phasing techniques are used.
+\item Superheterodyne receivers convert every signal to a fixed IF for
+consistent selectivity; the trade-off is the image frequency,
+$f_{\text{image}} = f_{\text{signal}} \pm 2f_{\text{IF}}$.
+\item SDR performs filtering/demodulation digitally after early
+analog-to-digital conversion, offering great flexibility and, in modern
+designs, top-tier performance.
+\item AGC automatically adjusts receiver gain to keep output level
+manageable across widely varying signal strengths.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item A superhet uses a 455\,kHz IF to receive 7.150\,MHz with high-side
+injection. Find the LO frequency and the image frequency.
+\item Explain why a higher IF improves image rejection but can worsen
+adjacent-channel selectivity for a fixed filter $Q$.
+\item Explain, conceptually, why a direct conversion receiver needs a
+phasing technique to reject one sideband, while a superheterodyne
+typically does not for the same purpose.
+\item A receiver's noise floor is $-130\,\text{dBm}$ and the strongest
+signal it can handle without unacceptable distortion is $-10\,\text{dBm}$.
+Find its dynamic range in dB.
+\item Explain, in your own words, one practical advantage SDR receivers
+have over fixed analog-filter superheterodynes.
+\end{practiceproblems}

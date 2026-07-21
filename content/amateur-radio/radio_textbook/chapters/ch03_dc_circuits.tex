@@ -1,0 +1,273 @@
+\chapter{DC Circuits and the Resistor Color Code}
+\label{ch:dc-circuits}
+
+\section{Series Circuits}
+
+Components are in \textbf{series} when they are connected end-to-end so
+that the same current flows through each of them in turn, with no
+alternate path.
+
+\begin{center}
+\begin{circuitikz}[scale=1]
+\draw (0,0) to[battery1, l=$U$] (0,2)
+      to[R, l=$R_1$] (2.5,2)
+      to[R, l=$R_2$] (5,2)
+      to[R, l=$R_3$] (5,0)
+      -- (0,0);
+\end{circuitikz}
+\end{center}
+
+\begin{keyidea}[Series circuit rules]
+\begin{itemize}
+\item Current is the \emph{same} through every component: $I_1 = I_2 = I_3 = I$.
+\item Voltages \emph{add} to equal the source voltage:
+$U = U_1 + U_2 + U_3$.
+\item Resistances \emph{add}: $R_{\text{total}} = R_1 + R_2 + R_3 + \cdots$
+\end{itemize}
+\end{keyidea}
+
+Because the same current flows through every series resistor, and
+$U_n = IR_n$ for each one, the voltage across any single resistor in a
+series chain is a fraction of the source voltage proportional to that
+resistor's share of the total resistance --- the \textbf{voltage divider}
+rule:
+\[
+U_n = U \times \frac{R_n}{R_{\text{total}}}.
+\]
+
+\begin{examplebox}[Voltage divider]
+A 12\,V source drives a series circuit of $R_1 = 1\,\text{k}\Omega$ and
+$R_2 = 3\,\text{k}\Omega$. Find the voltage across $R_2$.
+
+\emph{Solution.} $R_{\text{total}} = 4\,\text{k}\Omega$, so
+\[
+U_2 = 12\,\text{V} \times \frac{3\,\text{k}\Omega}{4\,\text{k}\Omega} = 9\,\text{V}.
+\]
+\end{examplebox}
+
+\section{Parallel Circuits}
+
+Components are in \textbf{parallel} when they share the same pair of
+nodes, so the same voltage appears across each of them.
+
+\begin{center}
+\begin{circuitikz}[scale=1]
+\draw (0,0) to[battery1, l=$U$] (0,2.5) -- (1,2.5);
+\draw (1,2.5) to[R, l=$R_1$] (1,0) -- (0,0);
+\draw (1,2.5) -- (2.5,2.5) to[R, l=$R_2$] (2.5,0) -- (1,0);
+\draw (2.5,2.5) -- (4,2.5) to[R, l=$R_3$] (4,0) -- (2.5,0);
+\end{circuitikz}
+\end{center}
+
+\begin{keyidea}[Parallel circuit rules]
+\begin{itemize}
+\item Voltage is the \emph{same} across every branch: $U_1 = U_2 = U_3 = U$.
+\item Currents \emph{add} to equal the total supplied current:
+$I = I_1 + I_2 + I_3$.
+\item Conductances add, so resistances combine by the reciprocal rule:
+\[
+\frac{1}{R_{\text{total}}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \cdots
+\]
+\end{itemize}
+\end{keyidea}
+
+For exactly two resistors in parallel, this simplifies to the frequently
+used \textbf{product-over-sum} shortcut:
+\[
+R_{\text{total}} = \frac{R_1 R_2}{R_1 + R_2}.
+\]
+A useful sanity check: the parallel combination of any set of resistors is
+always \emph{smaller} than the smallest individual resistor, because
+adding a parallel path always gives current an easier route.
+
+\begin{examplebox}[Parallel resistance]
+Find the total resistance of a 100\,$\Omega$ and a 150\,$\Omega$ resistor
+in parallel.
+
+\emph{Solution.}
+\[
+R_{\text{total}} = \frac{100 \times 150}{100 + 150} = \frac{15000}{250} = 60\,\Omega.
+\]
+Notice this is less than 100\,$\Omega$, the smaller of the two, as expected.
+\end{examplebox}
+
+Currents split between parallel branches in inverse proportion to
+resistance (the \textbf{current divider} rule); for two resistors,
+\[
+I_1 = I_{\text{total}} \times \frac{R_2}{R_1+R_2}, \qquad
+I_2 = I_{\text{total}} \times \frac{R_1}{R_1+R_2}.
+\]
+
+\section{Series--Parallel Combinations}
+
+Real circuits usually combine both arrangements. The systematic method is
+to redraw the circuit in stages: identify a sub-group of resistors that
+are purely in series or purely in parallel, collapse that sub-group into
+a single equivalent resistor, and repeat until only one resistor remains.
+Work from the ``furthest'' part of the circuit from the source inward.
+
+\begin{examplebox}[Series--parallel reduction]
+$R_1 = 2\,\text{k}\Omega$ is in series with the parallel combination of
+$R_2 = 4\,\text{k}\Omega$ and $R_3 = 4\,\text{k}\Omega$, all driven by a
+10\,V source. Find the total current drawn from the source.
+
+\emph{Solution.} First collapse the parallel pair:
+$R_{23} = (4\times4)/(4+4) = 2\,\text{k}\Omega$. This is now in series
+with $R_1$: $R_{\text{total}} = 2 + 2 = 4\,\text{k}\Omega$. Then
+$I = U/R_{\text{total}} = 10\,\text{V}/4\,\text{k}\Omega = 2.5\,\text{mA}$.
+\end{examplebox}
+
+\section{Kirchhoff's Laws}
+
+The series and parallel rules above are special cases of two more general
+laws, published by Gustav Kirchhoff in 1845, which apply to \emph{any}
+circuit topology, no matter how tangled.
+
+\begin{keyidea}[Kirchhoff's Current Law (KCL)]
+The sum of currents entering a node equals the sum of currents leaving it
+--- charge cannot accumulate at a node in steady state:
+\[
+\sum I_{\text{in}} = \sum I_{\text{out}}.
+\]
+\end{keyidea}
+
+\begin{keyidea}[Kirchhoff's Voltage Law (KVL)]
+The sum of voltage rises and drops around any closed loop is zero ---
+energy gained from sources in a loop equals energy dissipated by
+components in that loop:
+\[
+\sum U_{\text{loop}} = 0.
+\]
+\end{keyidea}
+
+KCL and KVL are the foundation of general circuit analysis techniques
+(mesh and nodal analysis) taught in full electrical-engineering courses;
+for amateur radio purposes, it is enough to recognize that the series and
+parallel rules of this chapter are direct consequences of these two laws,
+and to be able to apply KVL/KCL qualitatively --- for example, to
+recognize that the voltage across a shorted component must be zero, or
+that current from a source must ultimately return to that source.
+
+\section{Superposition and Thévenin Equivalents (Brief Introduction)}
+
+Two further techniques appear in more advanced treatments and occasionally
+in advanced-class exams:
+
+\begin{itemize}
+\item \textbf{Superposition}: in a linear circuit with multiple sources,
+the response (current or voltage) at any point equals the sum of the
+responses caused by each source acting alone, with all other independent
+voltage sources replaced by short circuits and all other independent
+current sources replaced by open circuits.
+\item \textbf{Thévenin's theorem}: any two-terminal network of linear
+sources and resistors can be replaced, from the point of view of an
+external load, by a single equivalent voltage source $U_{\text{Th}}$ in
+series with a single equivalent resistance $R_{\text{Th}}$. This is
+extremely useful for analyzing how a source (such as a transmitter's
+final amplifier) will drive different loads, and reappears in
+Chapter~\ref{ch:transmission-lines} when discussing impedance matching.
+\end{itemize}
+
+\section{The Resistor Color Code}
+\label{sec:color-code}
+
+Small fixed resistors are usually too small to print numeric values on,
+so their value and tolerance are encoded as a sequence of colored bands.
+The most common scheme uses four bands: two significant digits, a
+multiplier, and a tolerance.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Color & Digit & Multiplier & Tolerance \\
+\midrule
+\cellcolor{black!85}\textcolor{white}{Black} & 0 & $\times 10^{0}$ & --- \\
+\cellcolor{brown!70!black}\textcolor{white}{Brown} & 1 & $\times 10^{1}$ & $\pm 1\%$ \\
+\cellcolor{red}Red & 2 & $\times 10^{2}$ & $\pm 2\%$ \\
+\cellcolor{orange}Orange & 3 & $\times 10^{3}$ & --- \\
+\cellcolor{yellow}Yellow & 4 & $\times 10^{4}$ & --- \\
+\cellcolor{green!70!black}\textcolor{white}{Green} & 5 & $\times 10^{5}$ & $\pm 0.5\%$ \\
+\cellcolor{blue}\textcolor{white}{Blue} & 6 & $\times 10^{6}$ & $\pm 0.25\%$ \\
+\cellcolor{violet}\textcolor{white}{Violet} & 7 & $\times 10^{7}$ & $\pm 0.1\%$ \\
+\cellcolor{gray!60}Grey & 8 & $\times 10^{8}$ & --- \\
+White & 9 & $\times 10^{9}$ & --- \\
+\cellcolor{yellow!70!orange}Gold & --- & $\times 10^{-1}$ & $\pm 5\%$ \\
+\cellcolor{gray!30}Silver & --- & $\times 10^{-2}$ & $\pm 10\%$ \\
+None & --- & --- & $\pm 20\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For a \textbf{4-band resistor}, read bands 1--2 as significant digits,
+band 3 as the power-of-ten multiplier, and band 4 as tolerance:
+\[
+\text{Value} = (\text{digit}_1 \, \text{digit}_2) \times 10^{\text{multiplier}} \,\Omega.
+\]
+A \textbf{5-band resistor} (more common for precision, $\pm1\%$ or
+better, resistors) uses three significant digits before the multiplier
+band.
+
+\begin{examplebox}[Reading the color code]
+A resistor shows the bands Brown, Black, Red, Gold. Find its value and
+tolerance.
+
+\emph{Solution.} Brown = 1, Black = 0, so the significant digits are
+``10.'' Red is the multiplier, $\times10^2 = \times100$. So
+$R = 10 \times 100 = 1000\,\Omega = 1\,\text{k}\Omega$. Gold indicates
+$\pm5\%$ tolerance, so the resistor's true value lies between 950\,$\Omega$
+and 1050\,$\Omega$.
+\end{examplebox}
+
+\begin{examtip}
+A popular mnemonic for the digit sequence 0--9 (Black, Brown, Red,
+Orange, Yellow, Green, Blue, Violet, Grey, White) is: \emph{``B}ad
+\emph{B}oys \emph{R}ob \emph{O}ur \emph{Y}oung \emph{G}irls \emph{B}ut
+\emph{V}iolet \emph{G}ives \emph{W}illingly.'' Use whichever mnemonic
+sticks; what matters on an exam is speed and accuracy, not elegance.
+\end{examtip}
+
+\section{Preferred Values (E-series)}
+
+Resistors (and capacitors) are not manufactured at every possible value;
+they follow standardized \textbf{preferred value} series (E6, E12, E24,
+E96, \dots) where the number indicates how many values are spaced
+per decade. The E12 series, for instance, uses twelve values per decade
+spaced so that the maximum error between any achievable value and a
+desired value, given the series tolerance, stays small:
+\[
+1.0,\ 1.2,\ 1.5,\ 1.8,\ 2.2,\ 2.7,\ 3.3,\ 3.9,\ 4.7,\ 5.6,\ 6.8,\ 8.2 \ (\times 10^{n}).
+\]
+This is why component catalogs list ``4.7\,k$\Omega$'' and
+``5.6\,k$\Omega$'' resistors but not ``5.0\,k$\Omega$'' --- the nearest
+E12 values are used instead, and circuit designs are built around
+whatever the nearest standard value achieves.
+
+\begin{quickreview}
+\item Series: same current, voltages add, resistances add.
+\item Parallel: same voltage, currents add, resistances combine by
+reciprocal sum (or product-over-sum for two resistors).
+\item Kirchhoff's Current Law and Voltage Law are the general principles
+underlying the series/parallel shortcuts.
+\item Resistor color bands encode two or three significant digits, a
+multiplier, and a tolerance.
+\item Component values follow standardized E-series preferred value
+tables, not arbitrary round numbers.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Three resistors, 100\,$\Omega$, 220\,$\Omega$, and 330\,$\Omega$,
+are in series across a 9\,V battery. Find the total resistance, the
+current, and the voltage across the 220\,$\Omega$ resistor.
+\item Find the equivalent resistance of 470\,$\Omega$, 470\,$\Omega$, and
+1\,k$\Omega$ in parallel.
+\item A resistor's bands read Yellow, Violet, Orange, Gold. Find its
+value and tolerance range.
+\item Explain, using KCL, why the total current entering a series--parallel
+network must equal the current leaving it, even though internal branch
+currents differ.
+\item Two 100\,$\Omega$ resistors and one 220\,$\Omega$ resistor are
+connected so that the 220\,$\Omega$ is in series with the parallel
+combination of the two 100\,$\Omega$ units, across a 15\,V source. Find
+the total current.
+\end{practiceproblems}

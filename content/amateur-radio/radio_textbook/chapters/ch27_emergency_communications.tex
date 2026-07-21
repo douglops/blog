@@ -1,0 +1,182 @@
+\chapter{Emergency Communications and Safety}
+\label{ch:emergency-comms}
+
+One of amateur radio's most valued roles, recognized by the ITU
+Radio Regulations and by disaster-response organizations worldwide, is
+serving as an independent, resilient communications resource when
+normal infrastructure fails. This closing chapter covers the operating
+and safety knowledge specific to that role, along with a summary of the
+electrical and RF safety principles referenced throughout the book.
+
+\section{Why Amateur Radio Matters in Emergencies}
+
+Commercial communication systems --- cellular networks, internet
+service, even commercial broadcast --- depend on infrastructure (power,
+switching centers, network links) that can fail during earthquakes,
+hurricanes, wildfires, floods, and other large-scale disasters, often
+precisely when communication is needed most. Amateur radio stations,
+particularly battery- or generator-powered portable and mobile
+stations, can remain operational independent of commercial
+infrastructure, and the amateur service's worldwide network of trained,
+licensed, self-equipped operators represents a substantial standing
+capability that many national and local emergency management
+organizations formally incorporate into their planning.
+
+\section{Priority for Emergency Communications}
+
+\begin{keyidea}
+The ITU Radio Regulations recognize that normal band-planning and
+operating conventions may reasonably be set aside during a genuine
+emergency: a station in distress, or relaying safety-of-life traffic,
+generally takes priority over routine communications, and many national
+regulators grant amateurs specific latitude (for example, to operate
+outside normal amateur allocations, or with otherwise non-compliant
+equipment, in a genuine life-safety emergency) precisely because saving
+life takes priority over routine spectrum discipline. The exact scope
+of this latitude is defined by national law and should be understood
+\emph{before} an emergency, not improvised during one.
+\end{keyidea}
+
+\section{Distress and Priority Calling}
+
+\begin{itemize}
+\item \textbf{Mayday} (from the French \emph{m'aidez}, ``help me''):
+the internationally recognized voice distress call, used only for a
+genuine grave and imminent threat to life or a vessel/aircraft, repeated
+three times to open a distress transmission and avoid confusion with
+similar-sounding routine traffic.
+\item \textbf{SOS}: the equivalent distress signal in Morse code
+(\texttt{... --- ...}, sent as a single continuous string without
+inter-letter spacing), historically the maritime radiotelegraph
+distress call and still recognized internationally.
+\item \textbf{Pan-pan}: an urgency call, one level below a full
+distress call --- used for a situation that is serious and requires
+assistance but does not yet pose an immediate threat to life.
+\end{itemize}
+
+\begin{safetynote}
+Distress and urgency calls (Mayday, SOS, Pan-pan) are reserved
+exclusively for genuine emergencies. Misuse --- even as a joke or test
+without clearly identifying it as a drill --- is taken extremely
+seriously by regulators worldwide and can trigger a real emergency
+response, waste critical resources, and carries serious legal
+consequences in virtually every jurisdiction.
+\end{safetynote}
+
+\section{Emergency Communications Organizations and Nets}
+
+Many countries have formal or informal amateur emergency communications
+organizations (structured around IARU member societies or independent
+of them) that train volunteer operators, maintain rosters, and liaise
+with local government and disaster-response agencies; specific
+organization names and structures vary by country. A common
+operational tool across virtually all of these organizations is the
+\textbf{net}: a structured, moderated on-air session with a designated
+\textbf{net control station (NCS)} managing who transmits when, used
+both for routine training/practice and for actual incident response,
+where its structure prevents the chaos of many stations trying to
+communicate urgent information simultaneously.
+
+\section{Traffic Handling}
+
+Formal \textbf{message (traffic) handling} --- relaying a structured
+message accurately from an origin station, potentially through one or
+more intermediate relay stations, to a final destination --- is a
+distinct operating skill from casual conversation, built around
+standardized message formats and strict accuracy (reading back critical
+details, spelling names and numbers phonetically) precisely because an
+error introduced during relay can have real consequences in a
+genuine emergency message.
+
+\section{Preparing a Station for Emergency Readiness}
+
+\begin{itemize}
+\item \textbf{Independent power}: batteries, solar, or generator
+capability sufficient to operate for the expected duration of a
+communications-infrastructure outage, sized using the amp-hour and
+runtime concepts of Chapter~\ref{ch:power-sources}.
+\item \textbf{Portable, field-deployable antennas}: capability to erect
+an effective antenna away from a station's normal fixed installation,
+should that installation be damaged or inaccessible.
+\item \textbf{Multi-band, multi-mode capability}: the ability to fall
+back to whatever band and mode (voice, CW, digital) actually propagates
+under the specific conditions present during an event, rather than
+depending on a single favored combination.
+\item \textbf{Practiced procedure}: familiarity with local net
+structure, message formats, and any specific emergency-communications
+role an operator has trained for, built through regular participation
+in practice nets and drills \emph{before} a real event.
+\end{itemize}
+
+\section{General Electrical and RF Safety Review}
+
+This closing section consolidates safety principles introduced
+throughout the book:
+
+\begin{safetynote}[Electrical safety]
+Mains voltage and high-voltage supplies (found in some transmitter
+final amplifier stages) can be lethal. Always verify power is removed
+and capacitors are discharged (Chapter~\ref{ch:capacitors}) before
+working inside equipment; use proper grounding and, where required,
+ground-fault protection; never work on energized equipment alone.
+\end{safetynote}
+
+\begin{safetynote}[RF exposure]
+RF energy at sufficient power density can cause tissue heating; most
+national regulators define maximum permissible exposure limits and, at
+higher power levels, may require an RF exposure evaluation of a
+specific antenna installation. Maintain appropriate separation from
+antennas while transmitting at significant power, be aware that
+handheld and mobile antennas are typically operated very close to the
+body, and consult your national regulator's specific RF exposure
+requirements and calculation methods.
+\end{safetynote}
+
+\begin{safetynote}[Antenna and tower safety]
+Antenna installation work, particularly at height or near power lines,
+carries serious fall and electrocution risk. Maintain safe clearance
+from all power lines (a falling or wind-blown antenna or mast contacting
+a power line is a leading cause of serious amateur radio accidents and
+fatalities worldwide), use proper fall-protection equipment when
+working at height, and never work alone on tower or mast installations.
+\end{safetynote}
+
+\begin{safetynote}[Lightning and grounding]
+A station's antenna system should include appropriate lightning
+protection and grounding, and antenna feedlines should be disconnected
+and, ideally, grounded, during electrical storms. Station and antenna
+grounding also reduces RF interference and stray voltage issues even
+outside of storm conditions.
+\end{safetynote}
+
+\begin{quickreview}
+\item Amateur radio's independence from commercial infrastructure makes
+it a valued emergency communications resource worldwide, formally
+recognized by the ITU and incorporated into many national/local
+emergency plans.
+\item Mayday/SOS (distress) and Pan-pan (urgency) are internationally
+recognized priority calls reserved strictly for genuine emergencies.
+\item Nets, with a net control station, provide the structure needed to
+manage many stations during incident response; formal traffic handling
+demands strict accuracy.
+\item Emergency readiness combines independent power, portable
+antennas, multi-mode capability, and practiced procedure developed
+before an actual event.
+\item Electrical, RF exposure, tower/antenna, and lightning/grounding
+safety are cross-cutting concerns that apply to every chapter's
+technical content in real-world practice.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Explain the difference between a Mayday call and a Pan-pan call,
+and give an example situation appropriate to each.
+\item Explain why amateur radio is often specifically valued during
+large-scale natural disasters, in terms of infrastructure independence.
+\item Explain the role of a net control station during an emergency
+net, and why unstructured simultaneous transmission would be
+problematic.
+\item List three components of a well-prepared emergency-ready amateur
+station, and briefly justify each.
+\item Explain why antenna and mast installation work near power lines
+is considered one of the more serious safety risks in amateur radio.
+\end{practiceproblems}

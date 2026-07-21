@@ -1,0 +1,156 @@
+\chapter{Transformers}
+\label{ch:transformers}
+
+\section{Mutual Inductance and Transformer Action}
+
+A \textbf{transformer} consists of two (or more) coils --- a
+\textbf{primary} and a \textbf{secondary} --- wound so that they share a
+common magnetic flux, usually by winding both around the same core. A
+changing current in the primary produces a changing flux (Faraday's law,
+Chapter~\ref{ch:fields}); that changing flux links the secondary winding
+and induces an EMF there. No direct electrical (galvanic) connection is
+required between primary and secondary --- energy is transferred
+entirely through the shared magnetic field, which is why transformers
+are the standard way to provide \textbf{galvanic isolation}, in addition
+to voltage or impedance transformation.
+
+\section{The Ideal Transformer Equations}
+
+For an ideal transformer (no losses, all flux shared between windings),
+the ratio of secondary to primary voltage equals the ratio of secondary
+to primary turns, the \textbf{turns ratio}:
+\[
+\boxed{\frac{U_2}{U_1} = \frac{N_2}{N_1} = n}
+\]
+Conservation of power ($U_1 I_1 = U_2 I_2$ for an ideal, lossless
+transformer) then requires current to transform in the \emph{inverse}
+ratio:
+\[
+\frac{I_2}{I_1} = \frac{N_1}{N_2} = \frac{1}{n}.
+\]
+A \textbf{step-up} transformer ($N_2 > N_1$) raises voltage and lowers
+current; a \textbf{step-down} transformer ($N_2 < N_1$) does the
+opposite. Neither creates or destroys energy --- power in equals power
+out for an ideal transformer.
+
+\begin{examplebox}[Turns ratio]
+A transformer has 1000 turns on the primary and 50 turns on the
+secondary, with 230\,V RMS applied to the primary. Find the secondary
+voltage, and the secondary current if the load draws 2\,A on the primary
+side.
+
+\emph{Solution.} Turns ratio $n = 50/1000 = 0.05$, so
+$U_2 = 230 \times 0.05 = 11.5\,\text{V}$. Current transforms inversely:
+$I_2 = I_1/n = 2/0.05 = 40\,\text{A}$.
+\end{examplebox}
+
+\section{Impedance Transformation}
+
+Because a transformer changes the voltage-to-current ratio, it also
+changes the \emph{impedance} seen looking into the primary for a given
+load impedance $Z_2$ on the secondary:
+\[
+\boxed{Z_1 = n^2 Z_2}
+\]
+This impedance-transforming property is exploited constantly in RF
+work: audio output transformers match a low-impedance speaker to a
+higher-impedance amplifier stage, and RF transformers (including
+\textbf{ferrite-core broadband transformers} wound with twisted or
+bifilar wire) match a transmitter's output impedance to an antenna
+system, or match one stage's impedance to the next, without the
+narrowband limitation of an LC matching network.
+
+\begin{examplebox}[Impedance matching]
+Find the turns ratio needed to match a 50\,$\Omega$ source to an
+800\,$\Omega$ load.
+
+\emph{Solution.} Require $Z_1 = n^2 Z_2 \Rightarrow n = \sqrt{Z_1/Z_2} =
+\sqrt{50/800} = \sqrt{1/16} = 0.25 = 1{:}4$. A turns ratio of 1:4
+(primary:secondary) steps the 800\,$\Omega$ load down to an apparent
+50\,$\Omega$ at the primary.
+\end{examplebox}
+
+\section{Real Transformers: Losses and Efficiency}
+
+Real transformers depart from the ideal model in several ways:
+
+\begin{itemize}
+\item \textbf{Copper losses}: $I^2R$ heating in the winding resistance,
+worse at high current (heavy secondary loading).
+\item \textbf{Core losses}: hysteresis loss (energy needed to repeatedly
+reverse the core material's magnetic domains) and eddy-current loss
+(circulating currents induced within the core itself), both of which
+increase with frequency --- one reason mains-frequency (50/60\,Hz) power
+transformer cores cannot simply be reused, unmodified, at radio
+frequencies.
+\item \textbf{Leakage inductance}: flux produced by one winding that
+does \emph{not} link the other winding, behaving as an unwanted series
+inductance.
+\item \textbf{Winding capacitance}: parasitic capacitance between turns
+and between windings, which becomes significant at high frequency.
+\end{itemize}
+
+Efficiency is defined the same way as for any energy-conversion device:
+\[
+\eta = \frac{P_{\text{out}}}{P_{\text{in}}} \times 100\%.
+\]
+Well-designed power transformers commonly exceed 95\% efficiency at
+rated load; efficiency generally drops at light load (core losses become
+a larger fraction of a small output) and at heavy overload (copper
+losses dominate and the core may begin to saturate).
+
+\section{Autotransformers}
+
+An \textbf{autotransformer} uses a single tapped winding rather than
+electrically separate primary and secondary windings. It is smaller,
+cheaper, and more efficient than an equivalent two-winding transformer
+for a given power rating, but sacrifices galvanic isolation between
+input and output --- an important safety distinction from a conventional
+isolation transformer. Variable autotransformers (e.g., the classic
+``Variac''-type device) are commonly used on the test bench to control AC
+line voltage.
+
+\section{RF Transformers and Baluns}
+
+At radio frequencies, transformers are frequently wound on ferrite
+toroid or binocular cores using twisted-pair or bifilar windings to
+achieve tight coupling (high efficiency) over a wide bandwidth. A
+particularly important RF application is the \textbf{balun}
+(``balanced-to-unbalanced'' transformer), used to connect an unbalanced
+coaxial feedline to a balanced antenna element such as a dipole
+(Chapter~\ref{ch:antennas}) without upsetting the antenna's current
+balance --- a common source of feedline radiation and RF-in-the-shack
+problems if omitted or poorly chosen. A related device, the \textbf{unun}
+(``unbalanced-to-unbalanced''), transforms impedance between two
+unbalanced points, commonly used to match a random-wire or end-fed
+antenna to a 50\,$\Omega$ coaxial feedline.
+
+\begin{quickreview}
+\item Transformer action relies on mutual inductance: a changing primary
+current induces an EMF in a magnetically coupled secondary.
+\item $U_2/U_1 = N_2/N_1 = n$; current transforms inversely, $I_2/I_1 =
+1/n$; ideal power in equals power out.
+\item Impedance transforms as $Z_1 = n^2 Z_2$ --- the basis of
+transformer impedance matching.
+\item Real transformers have copper loss, core loss (hysteresis and eddy
+current), leakage inductance, and winding capacitance, all limiting
+efficiency and bandwidth.
+\item RF baluns and ununs are specialized transformers for connecting
+balanced/unbalanced feedlines and antennas without disturbing current
+balance.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item A transformer steps 120\,V down to 12\,V. If the primary turns
+count is 600, find the secondary turns count.
+\item Find the primary current if the secondary of the above transformer
+delivers 3\,A to a load (assume ideal, lossless transformer).
+\item Find the turns ratio needed to match a 50\,$\Omega$ transmitter
+output to a 200\,$\Omega$ antenna feedpoint impedance.
+\item A transformer delivers 90\,W output while consuming 100\,W input.
+Find its efficiency, and name two loss mechanisms that could account for
+the difference.
+\item Explain why a balun is typically used where a coaxial feedline
+connects to a dipole antenna, in terms of balanced vs.\ unbalanced
+currents.
+\end{practiceproblems}

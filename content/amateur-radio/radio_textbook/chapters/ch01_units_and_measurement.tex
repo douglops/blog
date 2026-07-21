@@ -1,0 +1,203 @@
+\chapter{Units and Measurement}
+\label{ch:units}
+
+Radio engineering spans an enormous numerical range: a weak-signal
+moonbounce contact may involve powers of $10^{-21}\,\text{W}$ at the
+receiver input, while a broadcast transmitter may radiate $10^{6}\,\text{W}$.
+Working comfortably across eighteen or more orders of magnitude requires a
+disciplined system of units and prefixes. This chapter establishes that
+system before any circuit theory is introduced.
+
+\section{The International System of Units (SI)}
+
+Nearly all quantities used in electronics and radio are expressed in the
+\textbf{International System of Units (SI)}. SI defines seven base units,
+of which four are used constantly in this book:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Quantity & Unit & Symbol \\
+\midrule
+Length & metre & m \\
+Mass & kilogram & kg \\
+Time & second & s \\
+Electric current & ampere & A \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every other electrical quantity used in this book --- voltage, resistance,
+capacitance, inductance, power, frequency --- is a \emph{derived} unit,
+built from these base units. For example, the volt is defined so that one
+ampere flowing through one ohm of resistance produces a potential
+difference of one volt; the ohm itself is defined in terms of volts and
+amperes. You do not need to memorize these base-unit derivations, but
+understanding that all electrical units are ultimately tied to the same
+consistent system explains why formulas in this book always balance: if
+you put SI units in, you get SI units out, with no hidden conversion
+factors.
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Quantity & Unit & Symbol & In base SI units \\
+\midrule
+Frequency & hertz & Hz & $\text{s}^{-1}$ \\
+Force & newton & N & $\text{kg}\cdot\text{m}\cdot\text{s}^{-2}$ \\
+Energy & joule & J & $\text{N}\cdot\text{m}$ \\
+Power & watt & W & $\text{J}/\text{s}$ \\
+Charge & coulomb & C & $\text{A}\cdot\text{s}$ \\
+Potential difference & volt & V & $\text{J}/\text{C}$ \\
+Resistance & ohm & $\Omega$ & $\text{V}/\text{A}$ \\
+Capacitance & farad & F & $\text{C}/\text{V}$ \\
+Inductance & henry & H & $\text{V}\cdot\text{s}/\text{A}$ \\
+Magnetic flux & weber & Wb & $\text{V}\cdot\text{s}$ \\
+Magnetic flux density & tesla & T & $\text{Wb}/\text{m}^2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{SI Prefixes}
+\label{sec:si-prefixes}
+
+Rather than writing very large or very small numbers with long strings of
+zeros, SI defines a standard set of prefixes, each representing a power of
+ten. A radio amateur must be completely fluent with the prefixes from
+pico to giga; they appear on every data sheet, every dial, and in most
+exam numerical questions.
+
+\begin{center}
+\begin{tabular}{@{}lllr@{}}
+\toprule
+Prefix & Symbol & Factor & Example \\
+\midrule
+tera & T & $10^{12}$ & 1\,THz (far above amateur bands) \\
+giga & G & $10^{9}$ & 2.4\,GHz (Wi-Fi/amateur microwave) \\
+mega & M & $10^{6}$ & 14.2\,MHz (a 20\,m band frequency) \\
+kilo & k & $10^{3}$ & 3.5\,k$\Omega$ resistor \\
+--- & --- & $10^{0}$ & base unit (V, A, $\Omega$, Hz, F, H, W) \\
+milli & m & $10^{-3}$ & 100\,mA current \\
+micro & $\mu$ & $10^{-6}$ & 100\,$\mu$F capacitor \\
+nano & n & $10^{-9}$ & 10\,nH inductor \\
+pico & p & $10^{-12}$ & 22\,pF trimmer capacitor \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{keyidea}[Prefix arithmetic]
+To convert between prefixes, multiply or divide by the ratio of their
+powers of ten. For example, $2\,\text{mA} = 2\times10^{-3}\,\text{A} =
+2000\,\mu\text{A}$. When in doubt, always convert back to the base unit
+(no prefix) before doing arithmetic, then convert the answer to a
+convenient prefix at the end.
+\end{keyidea}
+
+\begin{examplebox}[Converting units]
+A capacitor is labeled 4700\,pF. Express this value in microfarads and in
+farads.
+
+\emph{Solution.} $1\,\text{pF} = 10^{-12}\,\text{F}$ and
+$1\,\mu\text{F} = 10^{-6}\,\text{F}$, so
+$1\,\text{pF} = 10^{-6}\,\mu\text{F}$. Therefore
+\[
+4700\,\text{pF} = 4700 \times 10^{-6}\,\mu\text{F} = 4.7\times10^{-3}\,\mu\text{F} = 0.0047\,\mu\text{F},
+\]
+and in base units, $4700\,\text{pF} = 4.7\times10^{-9}\,\text{F} = 4.7\,\text{nF}$.
+\end{examplebox}
+
+\section{Scientific and Engineering Notation}
+
+\textbf{Scientific notation} writes a number as $a \times 10^{n}$ with
+$1 \le a < 10$. \textbf{Engineering notation} is a variant that restricts
+$n$ to multiples of 3, so the exponent always lines up with an SI prefix
+--- this is the form used on virtually all electronic calculators and test
+equipment. For example, $47{,}000\,\Omega$ is $4.7\times10^{4}\,\Omega$ in
+scientific notation but $47\times10^{3}\,\Omega = 47\,\text{k}\Omega$ in
+engineering notation. Learn to think in engineering notation; it maps
+directly onto the prefix table above.
+
+\section{Significant Figures and Measurement Uncertainty}
+
+No physical measurement is perfectly exact. A digital multimeter reading
+of ``14.235\,MHz'' implies a different precision than ``14.2\,MHz,'' even
+though both could describe the same signal. The number of \textbf{significant
+figures} in a stated value indicates how precisely it is known:
+
+\begin{itemize}
+\item All non-zero digits are significant.
+\item Zeros between non-zero digits are significant (1002 has four).
+\item Leading zeros are never significant (0.0042 has two).
+\item Trailing zeros after a decimal point are significant (3.50 has three).
+\end{itemize}
+
+When multiplying or dividing measured quantities, the result should be
+rounded to the same number of significant figures as the least precise
+input. This matters on exams that give component values ``as measured''
+rather than as nominal (ideal) values, and it matters in the workshop when
+deciding how much precision a calculation actually deserves.
+
+\section{Logarithms: The Mathematics Behind the Decibel}
+
+Radio engineers constantly compare quantities that range over many orders
+of magnitude --- transmitter power versus receiver sensitivity, for
+example. The tool for compressing such ratios into manageable numbers is
+the \textbf{logarithm}, formally introduced here because it underlies the
+decibel system developed in Chapter~\ref{ch:decibels}.
+
+For a base-10 logarithm,
+\[
+y = \log_{10}(x) \iff 10^{y} = x .
+\]
+Three properties make logarithms indispensable for power and gain
+calculations:
+\[
+\log(ab) = \log a + \log b, \qquad
+\log\!\left(\frac{a}{b}\right) = \log a - \log b, \qquad
+\log(a^n) = n\log a .
+\]
+The first property is the reason decibels \emph{add} when gains and losses
+are cascaded through a system (an amplifier followed by a length of lossy
+cable, for instance) instead of needing to be multiplied. This single fact
+is exploited throughout Chapters~\ref{ch:decibels}, \ref{ch:receivers},
+and \ref{ch:transmission-lines}.
+
+\section{Angles: Degrees and Radians}
+
+AC circuit analysis (Chapter~\ref{ch:ac-theory} onward) uses \emph{phase
+angles} extensively. Two units are used for angles: the familiar
+\textbf{degree}, where a full circle is $360\degree$, and the
+\textbf{radian}, where a full circle is $2\pi$ radians. Radians are the
+natural unit inside trigonometric functions used in calculus-based
+derivations (such as $v(t) = V_{\text{pk}}\sin(\omega t)$), while degrees
+are more common in everyday circuit descriptions (``the current lags the
+voltage by $30\degree$''). Conversion is direct:
+\[
+\theta_{\text{rad}} = \theta_{\text{deg}} \times \frac{\pi}{180}, \qquad
+\theta_{\text{deg}} = \theta_{\text{rad}} \times \frac{180}{\pi}.
+\]
+
+\begin{quickreview}
+\item SI base units relevant to electronics: metre, kilogram, second,
+ampere; all other electrical units (volt, ohm, farad, henry, watt, \dots)
+are derived from these.
+\item Memorize the prefix ladder from pico ($10^{-12}$) to giga
+($10^{9}$); convert to base units before doing arithmetic.
+\item Engineering notation keeps exponents as multiples of 3, matching SI
+prefixes directly.
+\item Logarithms turn multiplication into addition --- the mathematical
+basis of the decibel.
+\item $360\degree = 2\pi$ radians; both units appear throughout AC theory.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Convert 0.000015\,A into milliamperes and into microamperes.
+\item A resistor is marked 2.2\,k$\Omega$. Express this value in ohms and
+in scientific notation.
+\item Convert $47\degree$ to radians, keeping three significant figures.
+\item Using the properties of logarithms, simplify $\log(1000) - \log(10)$
+without a calculator.
+\item A frequency counter displays 7.0300\,MHz. How many significant
+figures does this reading have, and what does that imply about the
+counter's precision?
+\end{practiceproblems}

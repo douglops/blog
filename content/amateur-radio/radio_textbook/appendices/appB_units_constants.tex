@@ -1,0 +1,133 @@
+\chapter{Units, Prefixes, and Physical Constants}
+\label{app:units}
+
+\section*{SI Prefixes}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}llr@{}}
+\toprule
+Prefix & Symbol & Factor \\
+\midrule
+tera & T & $10^{12}$ \\
+giga & G & $10^{9}$ \\
+mega & M & $10^{6}$ \\
+kilo & k & $10^{3}$ \\
+--- & --- & $10^{0}$ \\
+milli & m & $10^{-3}$ \\
+micro & $\mu$ & $10^{-6}$ \\
+nano & n & $10^{-9}$ \\
+pico & p & $10^{-12}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Electrical Units}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Quantity & Symbol & Unit & Unit symbol \\
+\midrule
+Charge & $Q$ & coulomb & C \\
+Current & $I$ & ampere & A \\
+Voltage & $U$ & volt & V \\
+Resistance & $R$ & ohm & $\Omega$ \\
+Conductance & $G$ & siemens & S \\
+Capacitance & $C$ & farad & F \\
+Inductance & $L$ & henry & H \\
+Power & $P$ & watt & W \\
+Energy & $W$ & joule & J \\
+Frequency & $f$ & hertz & Hz \\
+Magnetic flux & $\Phi$ & weber & Wb \\
+Flux density & $B$ & tesla & T \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Physical Constants}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}llc@{}}
+\toprule
+Constant & Symbol & Value \\
+\midrule
+Speed of light (vacuum) & $c$ & $2.998\times10^{8}\,\text{m/s}$ \\
+Elementary charge & $e$ & $1.602\times10^{-19}\,\text{C}$ \\
+Permeability of free space & $\mu_0$ & $4\pi\times10^{-7}\,\text{H/m}$ \\
+Permittivity of free space & $\varepsilon_0$ & $8.854\times10^{-12}\,\text{F/m}$ \\
+Impedance of free space & $Z_0$ & $\approx 377\,\Omega$ \\
+Boltzmann constant & $k$ & $1.381\times10^{-23}\,\text{J/K}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Common Unit Conversions}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Conversion & Relation \\
+\midrule
+Wavelength/frequency & $\lambda(\text{m}) = 300 / f(\text{MHz})$ \\
+Degrees to radians & $\theta_{\text{rad}} = \theta_{\text{deg}}\times\pi/180$ \\
+Power ratio to dB & $dB = 10\log_{10}(P_2/P_1)$ \\
+Watt-hours to joules & $1\,\text{Wh} = 3600\,\text{J}$ \\
+Inches to metres & $1\,\text{in} = 0.0254\,\text{m}$ \\
+Feet to metres & $1\,\text{ft} = 0.3048\,\text{m}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Resistor Color Code Quick Reference}
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lc c@{}}
+\toprule
+Color & Digit & Multiplier \\
+\midrule
+\cellcolor{black!85}\textcolor{white}{Black} & 0 & $\times10^0$ \\
+\cellcolor{brown!70!black}\textcolor{white}{Brown} & 1 & $\times10^1$ \\
+\cellcolor{red}Red & 2 & $\times10^2$ \\
+\cellcolor{orange}Orange & 3 & $\times10^3$ \\
+\cellcolor{yellow}Yellow & 4 & $\times10^4$ \\
+\cellcolor{green!70!black}\textcolor{white}{Green} & 5 & $\times10^5$ \\
+\cellcolor{blue}\textcolor{white}{Blue} & 6 & $\times10^6$ \\
+\cellcolor{violet}\textcolor{white}{Violet} & 7 & $\times10^7$ \\
+\cellcolor{gray!60}Grey & 8 & $\times10^8$ \\
+White & 9 & $\times10^9$ \\
+\cellcolor{yellow!70!orange}Gold & --- & $\times10^{-1}$ ($\pm5\%$) \\
+\cellcolor{gray!30}Silver & --- & $\times10^{-2}$ ($\pm10\%$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Amateur HF Band Wavelength/Frequency Correspondence}
+\noindent The traditional metre-band names used throughout the amateur
+service are derived from approximate free-space wavelength,
+$\lambda \approx 300/f_{\text{MHz}}$, and are consistent across ITU
+Regions even though exact band edges can differ regionally
+(Chapter~\ref{ch:regulatory-bodies}):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Band name & Approximate frequency range \\
+\midrule
+160\,m & 1.8--2.0\,MHz \\
+80\,m & 3.5--4.0\,MHz \\
+40\,m & 7.0--7.3\,MHz \\
+20\,m & 14.0--14.35\,MHz \\
+17\,m & 18.068--18.168\,MHz \\
+15\,m & 21.0--21.45\,MHz \\
+12\,m & 24.89--24.99\,MHz \\
+10\,m & 28.0--29.7\,MHz \\
+6\,m & 50--54\,MHz (Region 2/3; narrower/absent in parts of Region 1) \\
+2\,m & 144--148\,MHz (varies by Region/country) \\
+70\,cm & 420--450\,MHz (varies by Region/country) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent\textit{Always confirm exact current band edges and any
+sub-band restrictions with your own national regulator --- these figures
+are approximate and change over time and by jurisdiction.}

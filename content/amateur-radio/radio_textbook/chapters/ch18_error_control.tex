@@ -1,0 +1,185 @@
+\chapter{Error Detection and Correction: CRC and FEC}
+\label{ch:error-control}
+
+Every digital signal traveling over a radio link is exposed to noise,
+fading, and interference that can flip received bits. This chapter
+covers the two complementary families of techniques used to deal with
+that reality: detecting that an error occurred, and, where possible,
+correcting it without needing a retransmission.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm,
+  box/.style={draw,rounded corners,minimum width=3.2cm,minimum height=8mm,align=center,font=\small},
+  hdr/.style={font=\bfseries},
+]
+\node[hdr] (txhdr) {Transmitter};
+\node[box,below=of txhdr,fill=white] (tx1) {Original data};
+\node[box,below=of tx1,fill=red!12] (tx2) {Apply FEC};
+\node[box,below=of tx2,fill=green!12] (tx3) {Calculate CRC};
+
+\node[hdr,right=4.4cm of txhdr] (rxhdr) {Receiver};
+\node[box,below=of rxhdr,fill=green!12] (rx1) {Verify CRC};
+\node[box,below=of rx1,fill=red!12] (rx2) {Correct with FEC};
+\node[box,below=of rx2,fill=white] (rx3) {Received data};
+
+\draw[-{Latex}] (tx1) -- (tx2);
+\draw[-{Latex}] (tx2) -- (tx3);
+\draw[-{Latex}] (rx1) -- (rx2);
+\draw[-{Latex}] (rx2) -- (rx3);
+\draw[-{Latex},dashed] (txhdr.east) -- node[above,font=\footnotesize]{radio channel} (rxhdr.west);
+\end{tikzpicture}
+\caption{Error detection (CRC) vs.\ forward error correction (FEC) in a
+digital transmission chain.}
+\end{figure}
+
+\section{The Basic Problem}
+
+A block of $k$ information bits, transmitted over a noisy channel, may
+arrive with one or more bits flipped. Without any additional structure,
+the receiver has no way to know this happened --- an altered but
+still-valid-looking bit pattern is simply accepted as correct. Error
+control techniques add carefully structured \textbf{redundant} bits to
+the transmitted data specifically so the receiver can recognize (and, in
+some schemes, correct) errors.
+
+\section{Cyclic Redundancy Check (CRC)}
+
+A \textbf{cyclic redundancy check} is an error-\emph{detection} (not
+correction) scheme. The transmitter treats the data block as a large
+binary number, divides it (using a special binary polynomial division,
+modulo 2) by a fixed \textbf{generator polynomial}, and appends the
+remainder --- the \textbf{CRC checksum} --- to the transmitted data. The
+receiver performs the same division on the received data (including the
+appended checksum) and checks whether the remainder is zero: if not, at
+least one bit was altered in transit, and the receiver knows to discard
+the block or request retransmission.
+
+\begin{keyidea}
+CRC is extremely effective at \emph{detecting} that an error occurred
+(essentially guaranteed to catch any single-bit or short burst error,
+and to catch the vast majority of longer or multiple-bit error
+patterns, depending on the generator polynomial's length), but on its
+own gives no way to determine \emph{which} bit was wrong, and therefore
+no way to fix it. CRC-protected protocols typically respond to a failed
+check by requesting a retransmission (an \textbf{automatic repeat
+request}, ARQ) rather than attempting a repair.
+\end{keyidea}
+
+CRC is used throughout amateur digital communications: packet radio
+(AX.25) frames include a CRC (technically an FCS, frame check sequence)
+to catch corrupted packets; many file transfer and digital mode
+protocols use CRC in a similar role.
+
+\section{Forward Error Correction (FEC)}
+
+\textbf{Forward error correction} takes a different, more ambitious
+approach: it adds redundancy structured so that the receiver can
+\emph{correct} at least some error patterns without needing any
+retransmission at all --- valuable on links (satellite, weak-signal HF,
+one-way beacon or telemetry transmissions) where requesting a repeat is
+slow, expensive, or simply impossible.
+
+\subsection{A Simple Example: The Repetition Code}
+
+The simplest possible FEC scheme repeats each bit multiple times (e.g.,
+three times: $0 \to 000$, $1 \to 111$) and uses \textbf{majority voting}
+at the receiver to decide the original bit, correcting any single-bit
+error within each group of three at the cost of tripling the
+transmitted data. This illustrates the fundamental FEC trade-off in its
+simplest form: \textbf{more redundancy buys more error-correcting
+capability, at the direct cost of reduced information throughput for a
+given channel bandwidth}.
+
+\subsection{Practical FEC Codes}
+
+Real FEC systems use far more efficient (less redundant, for the same
+correcting power) mathematical structures than simple repetition:
+
+\begin{itemize}
+\item \textbf{Block codes} (Hamming, Reed--Solomon, BCH): operate on
+fixed-size blocks of data, adding a calculated set of parity/check
+symbols; Reed--Solomon codes are particularly good at correcting
+\textbf{burst errors} (many consecutive bits corrupted together, typical
+of fading and impulse noise) and are used in satellite telemetry and
+digital broadcast standards.
+\item \textbf{Convolutional codes}: encode a continuous stream of data
+using a sliding-window structure, decoded with algorithms such as the
+\textbf{Viterbi algorithm}; well suited to the continuously varying
+noise conditions typical of a real radio channel, and long used in
+satellite and deep-space communication.
+\item \textbf{Low-density parity-check (LDPC) codes} and modern
+\textbf{turbo codes}: iteratively decoded codes that approach the
+theoretical (Shannon) limit of channel capacity very closely; used in
+recent weak-signal amateur digital modes and modern satellite/deep-space
+links.
+\end{itemize}
+
+\begin{keyidea}[Why weak-signal digital modes decode below the noise floor]
+Modern weak-signal amateur digital modes (Chapter~\ref{ch:digital-modes})
+combine strong FEC coding with narrow bandwidth and long averaging
+(integration) times to reliably decode signals that are, by ear,
+completely inaudible in the noise --- often 10--20\,dB below the noise
+floor. The FEC code does not create information out of nothing; rather,
+it lets the decoder use redundancy spread across the whole transmitted
+block to statistically reconstruct the most likely original message
+even when individual symbols are severely corrupted by noise.
+\end{keyidea}
+
+\section{Combining CRC and FEC}
+
+Many real protocols use both techniques together: FEC coding to correct
+the errors it can, followed by a CRC check on the FEC-decoded output to
+catch (and flag or reject) any errors that were too severe for the FEC
+to fix. This layered approach --- correct what you can, detect what you
+cannot correct so bad data is never silently accepted as good --- is the
+standard architecture for robust digital data links, including many
+amateur satellite and digital-mode protocols.
+
+\section{Automatic Repeat Request (ARQ)}
+
+Where a return channel exists, error \emph{detection} (CRC) can be
+combined with automatic retransmission: the receiver acknowledges
+correctly received blocks and requests retransmission of blocks that
+fail their CRC check. \textbf{ARQ} protocols (used in amateur packet
+radio, Winlink, and many other bidirectional digital modes) trade
+throughput and latency (a corrupted block must be resent, taking extra
+time) for a very high assurance of eventually delivering error-free
+data, in contrast to pure FEC, which trades bandwidth for correcting
+errors without any retransmission delay but cannot guarantee a
+perfect result on a very poor link.
+
+\begin{quickreview}
+\item CRC detects (but does not correct) errors by comparing a
+transmitted and recomputed checksum; failed checks typically trigger a
+retransmission request (ARQ).
+\item FEC adds structured redundancy that lets the receiver correct
+certain error patterns without retransmission, at the cost of reduced
+raw throughput.
+\item Block codes (Reed--Solomon, Hamming), convolutional codes, and
+modern LDPC/turbo codes are the main practical FEC families, each suited
+to different error patterns (burst vs.\ random) and decoding complexity
+budgets.
+\item Strong FEC plus narrow bandwidth and long integration time lets
+modern digital modes decode signals well below the audible noise floor.
+\item CRC and FEC are frequently combined: FEC corrects what it can,
+CRC flags what remains uncorrected.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Explain the key functional difference between error
+\emph{detection} and error \emph{correction}.
+\item A simple triple-repetition FEC code receives the group ``101''
+for a transmitted single bit. Using majority voting, what was the
+original bit most likely to have been, and can you be certain?
+\item Explain why Reed--Solomon-style codes are particularly well suited
+to correcting burst errors caused by fading, compared to a code
+optimized only for isolated single-bit errors.
+\item Explain why a protocol might use both FEC and CRC together rather
+than relying on FEC alone.
+\item Explain, at a conceptual level (no equations required), how
+combining strong FEC with a very narrow receive bandwidth and long
+averaging time allows some digital modes to decode signals inaudible to
+the human ear.
+\end{practiceproblems}

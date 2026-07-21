@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{{ config.description }}">
+  <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+  {% if config.generate_feeds %}
+  <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path="atom.xml") }}">
+  {% endif %}
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-title" href="{{ config.base_url }}">{{ config.title }}</a>
+    <nav>
+      <a href="{{ config.base_url }}">Posts</a>
+      <a href="{{ get_url(path="atom.xml") }}">RSS</a>
+      <a href="http://github.com/douglops">Github</a>
+      <a href="http://splatterbox.us/">WBCQ</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock content %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
+  </footer>
+</body>
+</html>

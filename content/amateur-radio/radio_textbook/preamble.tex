@@ -1,0 +1,151 @@
+% ==========================================================================
+% preamble.tex -- shared packages, macros, and styling for the whole book
+% ==========================================================================
+
+% ---- Page geometry -------------------------------------------------------
+\usepackage[paperwidth=7in,paperheight=9.25in,
+            top=0.85in,bottom=0.85in,inner=0.9in,outer=0.7in]{geometry}
+
+% ---- Fonts / encoding ------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{microtype}
+
+% ---- Math ------------------------------------------------------------------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{gensymb}     % \degree, \ohm
+
+% ---- Units (siunitx is not available in this TeX install; lightweight
+%      substitute macros are defined below in "Custom macros") ------------
+
+% ---- Graphics / color -------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{xcolor}
+\graphicspath{{img/}{../img/}}
+
+% ---- Circuits & plots --------------------------------------------------
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathmorphing,decorations.markings,shapes.geometric,patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{groupplots}
+
+% ---- Tables --------------------------------------------------------------
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% ---- Lists, boxes, layout -------------------------------------------------
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage{float}
+
+% ---- References / links ---------------------------------------------------
+\usepackage[colorlinks=true,linkcolor=rlinkcolor,citecolor=rlinkcolor,
+            urlcolor=rurlcolor,bookmarksdepth=3,bookmarksopen=true]{hyperref}
+\usepackage{cleveref}
+
+% ==========================================================================
+% Palette
+% ==========================================================================
+\definecolor{rblue}{HTML}{1B3A6B}
+\definecolor{rorange}{HTML}{D9731E}
+\definecolor{rlinkcolor}{HTML}{1B3A6B}
+\definecolor{rurlcolor}{HTML}{8A4B0F}
+\definecolor{rgraybg}{HTML}{F4F5F7}
+\definecolor{ramber}{HTML}{FFF3D6}
+\definecolor{ramberline}{HTML}{D9A320}
+\definecolor{rgreenbg}{HTML}{E7F3EA}
+\definecolor{rgreenline}{HTML}{2E7D46}
+
+% ==========================================================================
+% Chapter / section styling
+% ==========================================================================
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{rblue}}
+  {\Large\chaptertitlename~\thechapter}
+  {8pt}
+  {\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{28pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{rblue}}{\thesection}{8pt}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{rblue!80}}{\thesubsection}{8pt}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+% Custom macros
+% ==========================================================================
+
+% -- simple unit macro (siunitx substitute) --------------------------------
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+\newcommand{\ohmsym}{\ensuremath{\Omega}}
+\newcommand{\Wb}{\ensuremath{\mathrm{Wb}}}
+
+% -- boxed callouts ----------------------------------------------------------
+\newtcolorbox{keyidea}[1][]{
+  colback=rgraybg, colframe=rblue, boxrule=0.6pt, arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Key Idea}\ifx&#1&\else: #1\fi}, fonttitle=\bfseries\color{white},
+  colbacktitle=rblue, coltitle=white
+}
+
+\newtcolorbox{examplebox}[1][]{
+  colback=rgreenbg, colframe=rgreenline, boxrule=0.6pt, arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Worked Example}\ifx&#1&\else: #1\fi}, fonttitle=\bfseries\color{white},
+  colbacktitle=rgreenline, coltitle=white
+}
+
+\newtcolorbox{examtip}[1][]{
+  colback=ramber, colframe=ramberline, boxrule=0.6pt, arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Exam Tip}\ifx&#1&\else: #1\fi}, fonttitle=\bfseries\color{black},
+  colbacktitle=ramberline, coltitle=black
+}
+
+\newtcolorbox{safetynote}[1][]{
+  colback=red!5, colframe=red!55!black, boxrule=0.6pt, arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Safety}\ifx&#1&\else: #1\fi}, fonttitle=\bfseries\color{white},
+  colbacktitle=red!55!black, coltitle=white
+}
+
+% -- chapter-end quick review list ------------------------------------------
+\newenvironment{quickreview}
+  {\bigskip\noindent\textbf{\large\color{rblue}Chapter Review}\par\smallskip
+   \begin{itemize}[leftmargin=*]}
+  {\end{itemize}}
+
+\newenvironment{practiceproblems}
+  {\bigskip\noindent\textbf{\large\color{rblue}Practice Problems}\par\smallskip
+   \begin{enumerate}[leftmargin=*]}
+  {\end{enumerate}}
+
+% figure helper
+\newcommand{\bookfig}[3][0.62]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1\linewidth]{#2}
+    \caption{#3}
+  \end{figure}
+}

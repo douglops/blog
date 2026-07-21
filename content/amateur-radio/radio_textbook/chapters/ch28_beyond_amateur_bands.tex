@@ -1,0 +1,268 @@
+\chapter{Beyond the Amateur Bands: Aviation, Maritime, and Military Radio}
+\label{ch:beyond-amateur}
+
+The radio spectrum an amateur studies for exams is one neighborhood in
+a much larger city. Cheap, wideband software-defined radio hardware ---
+a USB dongle costing little more than a cable, paired with free
+decoding software --- has made it trivial for anyone with a computer to
+\emph{listen} across aviation, maritime, and other services that once
+required specialized, expensive receivers. This chapter is a
+broadening excursion outside the amateur allocations: it will not be on
+your license exam, but it uses exactly the same physics (modulation,
+propagation, antennas) developed everywhere else in this book, and it
+is one of the most popular on-ramps into the hobby for newcomers
+arriving via SDR rather than via a first callsign.
+
+\section{A Note on Legality Before You Start}
+
+\begin{safetynote}[Receiving is not the same everywhere]
+Whether it is legal to \emph{receive} (listen to) transmissions outside
+the amateur bands --- and whether it is legal to \emph{disclose} the
+content of what you hear --- varies enormously by country, and
+sometimes by the specific service involved. Many countries permit
+receive-only monitoring of aviation and maritime traffic freely; others
+restrict it; several restrict listening to cellular telephone traffic
+specifically even where other monitoring is permitted; a smaller number
+restrict radio scanning broadly. \textbf{Transmitting} on any frequency
+outside your license privileges is illegal essentially everywhere and
+is not discussed in this chapter. Before monitoring any service
+described here, confirm the specific rules in your own country. This
+chapter describes what these signals \emph{are} and how they work,
+purely as radio science and engineering education --- it is not
+guidance on where such monitoring is or is not legally permitted.
+\end{safetynote}
+
+\section{The SDR Monitoring Ecosystem}
+
+The same direct-sampling and quadrature-sampling architectures
+described in Chapter~\ref{ch:receivers} underpin an entire hobby
+ecosystem built around inexpensive wideband receivers (commonly
+covering roughly 24\,MHz to 1.7\,GHz or wider on the least expensive
+devices, extended further with upconverters or purpose-built HF-capable
+units) feeding open-source decoding software. Because these receivers
+present raw digitized RF to a host computer rather than a single fixed
+demodulator, one piece of hardware can be retargeted from one service to
+another purely by changing software --- the same receiver that tracks
+aircraft one moment can decode marine safety broadcasts the next.
+Antenna choice matters considerably: a simple dipole cut for one amateur
+band performs poorly far outside that band, so serious multi-service
+monitoring typically uses a wideband discone, log-periodic, or
+service-specific antenna (an airband-optimized vertical, for instance)
+rather than a repurposed amateur antenna.
+
+\section{Aviation}
+
+\subsection{VHF Air-Band Voice}
+
+Civil aviation voice communication (air traffic control, pilot
+position reports) uses AM voice --- notably \emph{not} FM ---
+in the roughly 118--137\,MHz band, internationally, with 25\,kHz or (in
+some regions) narrower 8.33\,kHz channel spacing. AM was retained for
+aviation long after FM became dominant elsewhere in VHF land mobile use
+for a specific safety reason: when two aircraft transmit AM signals on
+the same channel simultaneously, both are typically still at least
+partially intelligible (a heterodyne tone is heard, but speech often
+remains readable); simultaneous FM transmissions on the same channel
+instead tend to produce the FM capture effect (Chapter~\ref{ch:modulation}),
+where only the stronger signal is heard and the weaker one is
+suppressed entirely --- far more dangerous if the suppressed
+transmission was a safety-critical call.
+
+\subsection{ACARS and VDL}
+
+\textbf{ACARS} (Aircraft Communications Addressing and Reporting
+System) is a digital datalink that airliners use to exchange short,
+structured messages with airline operations centers --- position
+reports, weather requests, maintenance data, gate information --- largely
+automatically, without a pilot manually keying a microphone. Classic
+ACARS uses a relatively simple 2400-baud audio-frequency-shift-keyed
+signal on VHF frequencies around 131\,MHz, decodable with widely
+available free software directly from an SDR's audio output; a modern
+successor, \textbf{VDL Mode~2}, uses a more spectrally efficient
+D8PSK-modulated signal carrying substantially more traffic and is now
+the dominant form on the primary international ACARS frequency.
+Decoded ACARS traffic is largely operational/administrative rather than
+safety-of-life air traffic control communication, but it offers a vivid,
+approachable illustration of a real-world FSK/PSK digital data link
+(Chapter~\ref{ch:modulation}) running continuously overhead.
+
+\subsection{Mode S, ADS-B, and Aircraft Tracking}
+
+Modern aircraft transponders reply to ground radar interrogation, and
+increasingly broadcast unprompted, on \textbf{1090\,MHz} using a
+pulse-position-modulated format. \textbf{ADS-B} (Automatic Dependent
+Surveillance--Broadcast) extends this into a self-announced digital
+message containing an aircraft's GPS-derived position, altitude,
+velocity, and identity, transmitted roughly once per second without
+requiring any ground interrogation. Because 1090\,MHz ADS-B messages are
+unencrypted and specifically designed for wide reception, decoding them
+with an inexpensive SDR dongle and free software is one of the most
+popular and beginner-friendly SDR projects, commonly used to build
+real-time aircraft tracking maps and to contribute data to
+crowd-sourced flight-tracking networks.
+
+\subsection{HF Aviation}
+
+Over oceans and remote regions beyond VHF line-of-sight range,
+aviation falls back to HF skywave propagation
+(Chapter~\ref{ch:propagation}), using dedicated internationally
+coordinated frequencies for long-range air traffic control voice and,
+increasingly, the digital \textbf{HFDL} (HF Data Link) datalink ---
+functionally an HF-band counterpart to VHF ACARS/VDL, using multiple
+simplex ground-station frequencies with the aircraft selecting whichever
+currently propagates best. \textbf{SELCAL} (selective calling) tones
+allow a ground station to silently alert a specific aircraft's flight
+deck on an otherwise-monitored HF voice channel without requiring
+continuous crew listening.
+
+\section{Maritime}
+
+\subsection{VHF Marine Band and Digital Selective Calling}
+
+Maritime VHF (approximately 156--174\,MHz, internationally standardized
+into numbered channels) carries ship-to-ship and ship-to-shore voice
+traffic, with specific channels reserved by international agreement for
+distress, safety, and calling purposes. \textbf{Digital Selective
+Calling (DSC)}, a burst digital signal on a dedicated calling channel,
+allows a vessel to transmit an automated, GPS-tagged distress alert
+--- identifying the vessel and its position --- at the press of a single
+guarded button, then directs other stations to a working voice channel,
+substantially speeding up distress response compared to voice alerting
+alone.
+
+\subsection{NAVTEX}
+
+\textbf{NAVTEX} broadcasts maritime safety information --- navigational
+warnings, weather forecasts and warnings, search-and-rescue
+notices --- as narrow-band direct-printing (digital text) transmissions
+on standardized frequencies (internationally, principally 518\,kHz),
+automatically received and printed or displayed by dedicated shipboard
+receivers without requiring an operator to be actively listening,
+extending the same store-and-forward safety philosophy amateur emergency
+nets rely on (Chapter~\ref{ch:emergency-comms}) into routine commercial
+and leisure maritime operation.
+
+\subsection{AIS: Automatic Identification System}
+
+\textbf{AIS} is the maritime counterpart to aviation's ADS-B: vessels
+above a certain size (and many smaller ones voluntarily) broadcast
+position, course, speed, and identity using a GMSK-modulated digital
+signal on two dedicated VHF channels (161.975 and 162.025\,MHz),
+enabling both collision avoidance between nearby vessels and
+shore-based or satellite-based global vessel tracking. Like ADS-B, AIS
+is unencrypted by design and is a popular, approachable SDR decoding
+project.
+
+\subsection{The GMDSS Framework}
+
+These maritime systems --- VHF DSC, NAVTEX, and additional HF/satellite
+components not detailed here --- fit within the international
+\textbf{Global Maritime Distress and Safety System (GMDSS)}, a
+layered, largely automated framework designed so that a vessel in
+distress has multiple independent, largely automatic paths to alert
+rescue authorities even if a radio operator cannot personally send a
+manual distress call --- a philosophy directly comparable to the
+redundancy and priority-of-life-safety-traffic principles discussed for
+amateur emergency communications in Chapter~\ref{ch:emergency-comms}.
+
+\section{Military and Government Radio}
+
+Military and government radio use spans the same physics as every
+other service in this book, generally with three practical differences
+from civil use: greater use of encryption and specialized waveforms
+(which SDR monitoring cannot and should not attempt to defeat), greater
+use of frequency-hopping and other anti-jam/anti-intercept techniques,
+and, for what remains observable, a strong tradition of extremely
+disciplined, standardized procedure.
+
+\subsection{HF Global Communications}
+
+Long-range military HF communication, like civil aviation and maritime
+HF, relies on ionospheric skywave propagation
+(Chapter~\ref{ch:propagation}). Some military HF networks (for example,
+the United States Air Force's High Frequency Global Communications
+System, historically monitored under callsigns beginning ``Skyking'' for
+certain emergency-action traffic) use plain, highly standardized voice
+procedure specifically so that the format itself, not secrecy of the
+channel, provides authentication --- an interesting contrast to the
+assumption that ``military'' automatically means ``encrypted.''
+
+\subsection{Numbers Stations}
+
+\textbf{Numbers stations} --- shortwave broadcasts reading strings of
+spoken digits, letters, or coded phrases, often preceded by a
+distinctive interval signal or melody --- have been observed on HF for
+decades and are widely believed (though rarely officially acknowledged
+by any government) to transmit one-time-pad-encrypted messages to field
+intelligence operatives, since a correctly used one-time pad is
+theoretically unbreakable regardless of how many people listen to the
+broadcast. Whatever their true purpose, numbers stations are a
+freely and legally receivable, genuinely strange corner of the HF
+spectrum, and a favorite target for SDR hobbyists purely as a listening
+curiosity.
+
+\subsection{Trunked and Digital Land Mobile Radio}
+
+Public safety and some military land-mobile users increasingly use
+\textbf{trunked radio} systems (where a pool of frequencies is shared
+dynamically among many talkgroups under computer control, rather than
+each group having a permanently dedicated channel) built on digital
+standards such as P25 or DMR (Chapter~\ref{ch:digital-modes} covers the
+general digital voice/vocoder concepts these systems share with amateur
+digital voice). Many such systems are receivable in the clear with
+appropriate SDR software; increasingly many others are encrypted, which
+SDR software can identify (the traffic is present and structured) without
+being able to decode the actual content.
+
+\section{Why This Matters Even If You Never Transmit Here}
+
+\begin{keyidea}
+Every signal in this chapter is built from the same building blocks
+covered earlier in this book: a carrier, a modulation scheme
+(Chapter~\ref{ch:modulation}), a propagation path
+(Chapter~\ref{ch:propagation}), and, for the digital ones, an error-control
+scheme (Chapter~\ref{ch:error-control}). Listening to AM aviation voice
+next to FM amateur repeater traffic, or watching an ADS-B decoder plot
+aircraft in real time next to an APRS map (Chapter~\ref{ch:digital-modes}),
+is one of the fastest ways to make those chapters feel like real,
+observable physics rather than abstract formulas --- which is exactly
+why this material, though absent from any license exam, belongs in a
+book about understanding radio deeply rather than just passing a test.
+\end{keyidea}
+
+\begin{quickreview}
+\item Legality of receive-only monitoring, and of disclosing what is
+received, varies by country and by service --- verify local rules before
+monitoring; transmitting outside your license privileges is illegal
+essentially everywhere.
+\item Cheap wideband SDR hardware plus free software lets one receiver
+retarget across aviation, maritime, and other services entirely in
+software.
+\item Aviation uses AM voice (deliberately, for graceful co-channel
+degradation), ACARS/VDL digital datalink, and unencrypted 1090\,MHz
+ADS-B position broadcasts; HF extends aviation communication beyond
+VHF range with HFDL and SELCAL.
+\item Maritime uses VHF voice with DSC digital distress alerting,
+NAVTEX safety broadcasts, and AIS vessel tracking, all coordinated
+under the GMDSS framework.
+\item Military/government use spans the same physics with more
+encryption, frequency-hopping, and standardized procedure; numbers
+stations and observable-but-encrypted trunked systems are notable SDR
+curiosities.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Explain why civil aviation retained AM voice rather than
+switching to FM, in terms of co-channel interference behavior.
+\item Explain the functional difference between classic ACARS and
+VDL~Mode~2, referencing the modulation concepts of
+Chapter~\ref{ch:modulation}.
+\item Explain why ADS-B and AIS are described as ``unencrypted by
+design,'' and why that design choice makes sense given their safety
+purpose.
+\item Explain the role of DSC in maritime distress alerting, and how it
+differs from a traditional spoken Mayday call.
+\item Before monitoring any service in this chapter, what should you
+personally verify first, and why does this book decline to state a
+single universal answer?
+\end{practiceproblems}

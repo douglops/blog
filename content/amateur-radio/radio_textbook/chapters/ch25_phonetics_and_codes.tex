@@ -1,0 +1,207 @@
+\chapter{The Phonetic Alphabet, Morse Code, and the Q-Code}
+\label{ch:phonetics-codes}
+
+Three shared international conventions let amateurs of any nationality
+communicate unambiguously, often across significant language barriers:
+a standard way to spell letters aloud, a standard code for sending
+text as sound, and a standard shorthand for common operating phrases.
+All three are examined constantly by licensing exams worldwide, because
+all three are genuinely universal.
+
+\section{The Phonetic Alphabet}
+
+Individual letters (especially in callsigns) are easily confused when
+spoken plainly, particularly over a noisy or weak radio link, or between
+speakers of different native languages. The \textbf{NATO phonetic
+alphabet} (formally the International Radiotelephony Spelling Alphabet)
+assigns each letter a distinct, unambiguous keyword chosen so that no
+two words sound alike even under poor conditions.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}cl@{\hspace{2.2em}}cl@{\hspace{2.2em}}cl@{}}
+\toprule
+Ltr & Word & Ltr & Word & Ltr & Word \\
+\midrule
+A & Alfa     & J & Juliett   & S & Sierra \\
+B & Bravo    & K & Kilo      & T & Tango \\
+C & Charlie  & L & Lima      & U & Uniform \\
+D & Delta    & M & Mike      & V & Victor \\
+E & Echo     & N & November  & W & Whiskey \\
+F & Foxtrot  & O & Oscar     & X & X-ray \\
+G & Golf     & P & Papa      & Y & Yankee \\
+H & Hotel    & Q & Quebec    & Z & Zulu \\
+I & India    & R & Romeo     &   & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+Note the standardized spellings \emph{Alfa} (not ``Alpha'') and
+\emph{Juliett} (with a double T) --- deliberately chosen so the words
+are pronounced consistently by speakers of many different languages,
+none of whom necessarily share English spelling conventions. Exams
+occasionally test this exact spelling detail.
+\end{examtip}
+
+Numbers are spoken as their normal names in most amateur usage
+(``one,'' ``two,'' \dots, ``nine,'' ``zero''), though some formal
+aviation/maritime contexts use modified pronunciations (``niner'' for
+9) to avoid confusion with similar-sounding words; check your local
+convention if operating in a formal net or emergency-communications
+context.
+
+\section{Morse Code (CW)}
+
+\textbf{Morse code}, still widely used on amateur HF bands under the
+name \textbf{CW} (continuous wave, referring to the on-off keyed
+carrier used to send it, Chapter~\ref{ch:modulation}), represents each
+letter, digit, and punctuation mark as a sequence of short
+(\textbf{dits}) and long (\textbf{dahs}) elements, conventionally in a
+3:1 duration ratio, with defined spacing between elements, letters, and
+words.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}cc@{\hspace{1.5em}}cc@{\hspace{1.5em}}cc@{}}
+\toprule
+Ltr & Code & Ltr & Code & Ltr & Code \\
+\midrule
+A & .$-$ & J & .$---$ & S & ... \\
+B & $-$... & K & $-$.$-$ & T & $-$ \\
+C & $-$.$-$. & L & .$-$.. & U & ..$-$ \\
+D & $-$.. & M & $--$ & V & ...$-$ \\
+E & . & N & $-$. & W & .$--$ \\
+F & ..$-$. & O & $---$ & X & $-$..$-$ \\
+G & $--$. & P & .$--$. & Y & $-$.$--$ \\
+H & .... & Q & $--$.$-$ & Z & $--$.. \\
+I & .. & R & .$-$. & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Numerals follow a regular pattern: 1 is \texttt{.----}, 2 is
+\texttt{..---}, counting down one dit at a time to 5 (\texttt{.....}),
+then counting up one dah at a time to 0 (\texttt{-----}).
+
+\begin{keyidea}[Timing, not just symbols]
+Morse code proficiency is fundamentally about \emph{timing} recognition
+--- a skilled operator hears whole letter and word \emph{sounds} (the
+rhythm of ``dah-dit-dah-dit'' as ``C,'' not four separately counted
+elements) rather than consciously decoding dits and dahs one at a time.
+Standard spacing is one unit between elements of the same letter, three
+units between letters, and seven units between words, all scaled by the
+sending speed (measured in words per minute, WPM).
+\end{keyidea}
+
+\section{CW Operating Abbreviations}
+
+To speed up telegraphy communication, standardized abbreviations
+(many predating amateur radio, originating in commercial and military
+telegraphy) shorten common words and phrases. A representative sample
+of the most frequently used:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}l Y l Y@{}}
+\toprule
+Abbr. & Meaning & Abbr. & Meaning \\
+\midrule
+AGN & Again & OM & Old man (fellow amateur) \\
+BTU & Back to you & PSE & Please \\
+CUL & See you later & RIG & Radio equipment \\
+FB & Fine business (good/great) & RST & Signal report (R/S/Tone) \\
+GA & Go ahead / Good afternoon & TNX/TKS & Thanks \\
+GE & Good evening & UR & Your / You're \\
+GM & Good morning & WX & Weather \\
+HI & Laughter (``hi hi'') & 73 & Best regards \\
+HR & Here & 88 & Love and kisses (sparingly) \\
+HW & How (copy)? & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{The Q-Code}
+
+The \textbf{Q-code}, standardized by the ITU, is a set of
+three-letter groups (always beginning with Q) originally developed for
+commercial Morse telegraphy to compress common phrases into a fixed,
+language-independent shorthand. Each Q-code can function either as a
+question or a statement depending on context (with or without a
+question mark), and, while designed for CW, many have carried over into
+everyday voice operating slang worldwide.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lp{9.5cm}@{}}
+\toprule
+Code & Meaning \\
+\midrule
+QRG & What is my exact frequency? / Your exact frequency is \dots \\
+QRL & Is this frequency in use? / This frequency is in use, please
+do not interfere. \\
+QRM & Are you being interfered with? / I am being interfered with
+(man-made interference). \\
+QRN & Are you troubled by static? / I am troubled by static
+(natural/atmospheric noise). \\
+QRO & Shall I increase power? / Increase power. \\
+QRP & Shall I decrease power? / Decrease power (also used as a noun:
+``QRP operating,'' meaning low-power operation). \\
+QRT & Shall I stop transmitting? / Stop transmitting. \\
+QRV & Are you ready? / I am ready. \\
+QRX & When will you call again? / I will call you again at \dots \\
+QRZ & Who is calling me? \\
+QSB & Is my signal fading? / Your signal is fading. \\
+QSL & Can you acknowledge receipt? / I acknowledge receipt (also
+used as a noun: a ``QSL card'' confirms a contact). \\
+QSO & Can you communicate with \dots directly? / I can communicate
+with \dots (also used as a noun: ``a QSO'' means a contact/conversation). \\
+QSY & Shall I change frequency? / Change frequency to \dots \\
+QTH & What is your location? / My location is \dots \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+QTH, QSL, QRP, QSO, and QRM/QRN are used so pervasively --- even in
+casual English-language voice conversation among amateurs worldwide ---
+that they function almost as ordinary vocabulary within the hobby. Learn
+these five thoroughly even before memorizing the rest of the list.
+\end{examtip}
+
+\section{The RST Signal Report}
+
+Signal reports are conventionally given using the \textbf{RST} system:
+\textbf{R}eadability (1--5, from unreadable to perfectly readable),
+\textbf{S}trength (1--9, from faint to extremely strong), and
+\textbf{T}one (1--9, CW only, describing the purity/quality of the
+received tone; commonly omitted or given as ``9'' for voice modes,
+where it does not apply in the same way). A report of ``59'' (voice) or
+``599'' (CW) --- perfectly readable, very strong, perfectly pure tone
+--- represents an excellent signal.
+
+\begin{quickreview}
+\item The NATO phonetic alphabet (Alfa, Bravo, Charlie, \dots) gives
+unambiguous letter spelling across languages and conditions.
+\item Morse code represents letters as dit/dah patterns in fixed
+timing ratios; proficiency means recognizing rhythm, not counting
+symbols.
+\item Standardized CW abbreviations (FB, GA, TNX, 73, \dots) speed up
+telegraphy and remain common in general amateur slang.
+\item The Q-code (QTH, QSL, QRM, QSY, \dots) is an ITU-standardized,
+language-independent operating shorthand usable on both CW and voice.
+\item RST reports (Readability/Strength/Tone) give a standardized way
+to describe received signal quality.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Spell your own callsign (or a hypothetical one) using the NATO
+phonetic alphabet.
+\item Write the Morse code for the letters composing ``CQ.''
+\item Explain the meaning of QRZ, QSY, and QRT.
+\item A CW operator sends ``UR RST 599 HR, TNX FER CALL, 73.''
+Translate this into plain English.
+\item Explain why a language-independent code system like the Q-code is
+particularly valuable in amateur radio, compared to using plain
+national-language phrases.
+\end{practiceproblems}

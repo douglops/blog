@@ -1,0 +1,183 @@
+\chapter{Inductors and Inductive Reactance}
+\label{ch:inductors}
+
+\section{The Inductor}
+
+An \textbf{inductor} stores energy in a magnetic field, typically by
+winding a conductor into a coil. Its defining property is
+\textbf{inductance} $L$, measured in \textbf{henries (H)}, defined by
+how much EMF it develops in response to a changing current (a direct
+application of Faraday's law, Chapter~\ref{ch:fields}):
+\[
+\boxed{u(t) = L\,\frac{di}{dt}}
+\]
+One henry is the inductance that produces one volt of induced EMF when
+current changes at one ampere per second. Practical RF inductors range
+from a few nanohenries (a short wire lead) to hundreds of microhenries
+or more (loading coils, RF chokes).
+
+For a simple air-core solenoid of $N$ turns, length $\ell$, and
+cross-sectional area $A$ (valid when $\ell$ is much greater than the
+coil's diameter),
+\[
+L = \frac{\mu_0 N^2 A}{\ell}.
+\]
+Inductance grows with the \emph{square} of the number of turns --- doubling
+the turns quadruples the inductance for the same core geometry, which is
+why small changes in winding count have a large effect when
+hand-winding RF coils. Wrapping the coil around a high-permeability
+magnetic core (ferrite or powdered iron, permeability $\mu = \mu_r
+\mu_0$) multiplies the inductance by roughly $\mu_r$ for the same
+winding, letting a physically small core-wound coil achieve inductance
+that would otherwise require many more turns of air-core wire.
+
+\section{Opposition to Changing Current}
+
+Just as a capacitor opposes changes in voltage, an inductor opposes
+changes in current, by Lenz's law (Chapter~\ref{ch:fields}): any attempt
+to change the current through an inductor induces a back-EMF that
+resists the change. Two consequences follow, mirroring the capacitor
+behavior of the previous chapter:
+
+\begin{itemize}
+\item An inductor looks like a short circuit to steady DC (once current
+is constant, $di/dt = 0$, so no voltage drop develops).
+\item An inductor initially looks like an open circuit to a sudden
+current step (opposing the abrupt change), then allows current to build
+up gradually.
+\end{itemize}
+
+\begin{safetynote}[Inductive kick]
+Suddenly interrupting current through an inductor (switching off a relay
+coil, unplugging an energized transformer primary) forces $di/dt$ to be
+very large for an instant, which can produce a large, damaging voltage
+spike (``inductive kick'') and a visible spark at the switch contacts.
+Flyback diodes and snubber networks are used across relay coils and
+switching inductors specifically to control this spike.
+\end{safetynote}
+
+\section{Energy Stored in an Inductor}
+
+The energy stored in an inductor carrying current $I$ is
+\[
+W = \frac{1}{2}LI^2.
+\]
+
+\section{Inductors in Series and Parallel}
+
+Inductors, unlike capacitors, combine the same way resistors do (both
+describe direct opposition, whether resistive or reactive, without a
+reciprocal geometric relationship):
+
+\bookfig[0.55]{inductors_series.png}{Inductors in series.}
+
+\begin{keyidea}
+\textbf{Series inductors add} (assuming no mutual coupling between them):
+\[
+L_{\text{total}} = L_1 + L_2 + L_3 + \cdots
+\]
+\textbf{Parallel inductors combine by reciprocal sum}:
+\[
+\frac{1}{L_{\text{total}}} = \frac{1}{L_1} + \frac{1}{L_2} + \frac{1}{L_3} + \cdots
+\]
+\end{keyidea}
+
+\bookfig[0.55]{inductors_parallel.png}{Inductors in parallel.}
+
+If two coils are wound close enough together that the magnetic field of
+one links with the other (\textbf{mutual inductance}, $M$), the series
+total becomes $L_{\text{total}} = L_1 + L_2 \pm 2M$, with the sign
+depending on whether the windings aid or oppose each other. This
+mutual-coupling effect is, in fact, the operating principle of the
+transformer (Chapter~\ref{ch:transformers}).
+
+\section{Inductive Reactance}
+\label{sec:xl}
+
+Under AC excitation, an inductor's opposition to current is
+frequency-dependent, exactly as for a capacitor but with the opposite
+frequency trend and the opposite phase relationship. Voltage \emph{leads}
+current by $90\degree$ in an ideal inductor (the mirror image of the
+capacitor case). The magnitude of this opposition is the
+\textbf{inductive reactance}, $X_L$, in ohms:
+\[
+\boxed{X_L = 2\pi f L = \omega L}
+\]
+
+\begin{keyidea}
+Inductive reactance \emph{increases} with frequency (an inductor looks
+increasingly like an open circuit at high frequency) and falls to zero
+as frequency approaches DC (an inductor looks like a plain wire, i.e.\ a
+short circuit, at DC) --- the exact opposite frequency behavior of a
+capacitor's $X_C$.
+\end{keyidea}
+
+\begin{examplebox}[Calculating reactance]
+Find the reactance of a 10\,$\mu$H inductor at 14.2\,MHz.
+
+\emph{Solution.}
+\[
+X_L = 2\pi f L = 2\pi \times 14.2\times10^{6} \times 10\times10^{-6} \approx 892\,\Omega.
+\]
+\end{examplebox}
+
+In phasor notation, the inductor's impedance is
+\[
+Z_L = jX_L = j\omega L,
+\]
+a purely imaginary number with the opposite sign convention to the
+capacitor's $Z_C = -jX_C$ --- the origin of the cancellation that occurs
+at resonance, developed fully in Chapter~\ref{ch:rlc-resonance}.
+
+\section{Practical Inductor Considerations}
+
+\begin{itemize}
+\item \textbf{Air-core coils}: no core losses, highly linear, but need
+more turns (and more physical size) for a given inductance than a
+core-loaded equivalent; common in high-power or high-Q RF applications
+where core saturation or core loss would be problematic.
+\item \textbf{Ferrite/powdered-iron core coils}: much higher inductance
+per turn, widely used for RF chokes, transformers, and baluns, but
+subject to \textbf{core saturation} (inductance collapses if the core's
+magnetic flux density exceeds a material-specific limit) and core losses
+that increase with frequency.
+\item \textbf{Toroidal cores}: a closed magnetic loop (donut shape) that
+confines nearly all of the magnetic field within the core, minimizing
+stray coupling to nearby components --- the standard choice for compact,
+well-shielded RF inductors, chokes, and transformers.
+\end{itemize}
+
+Real inductors also have parasitic series resistance (wire resistance,
+increased at RF by the \textbf{skin effect}, where high-frequency current
+crowds toward the conductor's surface) and parasitic parallel
+capacitance between windings, which together define the coil's quality
+factor $Q$ (Chapter~\ref{ch:rlc-resonance}) and its self-resonant
+frequency, above which the coil behaves capacitively rather than
+inductively.
+
+\begin{quickreview}
+\item $u = L\,di/dt$; $L = \mu_0 N^2 A/\ell$ for an air-core solenoid ---
+inductance scales with the square of turns.
+\item Inductors oppose current change: short circuit at DC, open circuit
+to a sudden current step; energy stored $W = \tfrac12 LI^2$.
+\item Series inductors add; parallel inductors combine by reciprocal sum.
+\item $X_L = 2\pi f L$: reactance rises with frequency; voltage leads
+current by $90\degree$; $Z_L = j\omega L$.
+\item Magnetic cores boost inductance per turn but introduce saturation
+and core-loss limits; toroids confine the field for compact, low-stray
+designs.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Find the reactance of a 4.7\,$\mu$H inductor at 7.1\,MHz and at
+21.2\,MHz.
+\item Two inductors, 15\,$\mu$H and 33\,$\mu$H, are connected in series
+with negligible mutual coupling. Find the total inductance.
+\item Find the energy stored in a 100\,$\mu$H inductor carrying 2\,A.
+\item Explain why interrupting current through a relay coil abruptly can
+produce a damaging voltage spike, and name a common protective
+component used to prevent it.
+\item A coil is wound on a ferrite toroid instead of air. Explain
+qualitatively why fewer turns are needed to reach the same inductance,
+and name one drawback of the ferrite-core approach at high power.
+\end{practiceproblems}

@@ -1,0 +1,178 @@
+\chapter{Modulation}
+\label{ch:modulation}
+
+A steady, unmodulated sine wave --- a \textbf{carrier} --- conveys no
+information beyond its own presence. \textbf{Modulation} is the process
+of varying some property of a carrier (its amplitude, frequency, or
+phase) in a way that encodes information, so it can be recovered at a
+receiver by the inverse process, \textbf{demodulation}.
+
+\section{Why Modulate at All?}
+
+Two practical facts force the use of modulation rather than transmitting
+audio (or data) directly: efficient radiation requires an antenna
+comparable in size to a wavelength (Chapter~\ref{ch:antennas}), and audio
+frequencies (tens of Hz to a few kHz) would need impossibly large
+antennas; and multiple simultaneous users need to occupy different parts
+of the spectrum without interfering, which is only possible if each
+signal is shifted to its own radio-frequency ``slot.''
+
+\section{Amplitude Modulation (AM)}
+
+In \textbf{amplitude modulation}, the carrier's amplitude is varied in
+proportion to the modulating (information) signal, while its frequency
+stays fixed:
+\[
+v(t) = \left[V_c + V_m\sin(\omega_m t)\right]\sin(\omega_c t)
+\]
+The ratio $m = V_m/V_c$ is the \textbf{modulation index} (or
+percentage, $\times100\%$); $m=1$ (100\%) is the maximum before the
+envelope is driven to zero and distortion (\textbf{overmodulation})
+begins.
+
+Expanding the AM equation trigonometrically reveals that AM actually
+produces \emph{three} components: the original carrier, plus two new
+frequencies --- an \textbf{upper sideband (USB)} at $f_c+f_m$ and a
+\textbf{lower sideband (LSB)} at $f_c-f_m$:
+\[
+v(t) = V_c\sin(\omega_c t) + \frac{mV_c}{2}\cos\!\left[(\omega_c-\omega_m)t\right] - \frac{mV_c}{2}\cos\!\left[(\omega_c+\omega_m)t\right].
+\]
+
+\begin{keyidea}[AM occupies twice the information bandwidth]
+Both sidebands carry the \emph{same} information (each is a complete,
+redundant copy), and the carrier itself carries no information at all
+--- yet standard AM transmits both sidebands plus the carrier, using
+roughly twice the bandwidth actually needed and wasting most of the
+transmitted power in the informationless carrier. This inefficiency is
+the direct motivation for single-sideband transmission, below.
+\end{keyidea}
+
+\section{Single-Sideband (SSB)}
+
+\textbf{Single-sideband} modulation removes the carrier (using a
+\textbf{balanced modulator}) and one of the two redundant sidebands
+(using a sharp filter or a phasing technique), transmitting only USB or
+LSB. This roughly halves the occupied bandwidth compared to full AM and
+concentrates all transmitted power into the one sideband that actually
+carries information, making SSB dramatically more efficient than AM for
+a given transmitter power --- the reason SSB (not AM) is the dominant
+analog voice mode on amateur HF bands today. The receiver must supply
+its own locally generated carrier (a \textbf{beat frequency oscillator},
+BFO, or product detector reference) to recover audio, and any error in
+that reconstructed carrier's frequency shifts the recovered audio pitch
+--- the reason SSB signals sound garbled when a receiver is mistuned even
+slightly.
+
+\begin{examtip}
+By long-standing convention, most amateur voice operation uses lower
+sideband (LSB) below 10\,MHz and upper sideband (USB) at 10\,MHz and
+above. This is a convention, not a law of physics --- either sideband
+can technically carry a voice signal --- but following it is essential
+for interoperability with other stations.
+\end{examtip}
+
+\section{Frequency Modulation (FM)}
+
+In \textbf{frequency modulation}, the carrier's \emph{frequency} is
+varied in proportion to the modulating signal, while amplitude stays
+constant:
+\[
+v(t) = V_c\sin\!\left[\omega_c t + \beta\sin(\omega_m t)\right]
+\]
+where $\beta$ is the \textbf{modulation index}, related to
+\textbf{deviation} $\Delta f$ (the peak frequency shift from the carrier)
+by $\beta = \Delta f / f_m$. Because the information rides on frequency
+rather than amplitude, FM is largely immune to amplitude-varying noise
+and interference (most natural and man-made electrical noise is
+amplitude noise) --- the \textbf{FM capture effect} and superior
+noise-rejection are why FM is preferred for local VHF/UHF voice
+repeater and simplex operation, at the cost of requiring more bandwidth
+than AM or SSB for a given audio quality (\textbf{Carson's rule}
+estimates occupied bandwidth as $B \approx 2(\Delta f + f_m)$).
+
+\section{Phase Modulation (PM)}
+
+\textbf{Phase modulation} varies the carrier's instantaneous phase in
+proportion to the modulating signal. PM and FM are closely related ---
+mathematically, FM is what results from phase-modulating a carrier with
+the \emph{integral} of the audio signal, and PM is what results from
+frequency-modulating a carrier with the \emph{derivative} of the audio
+signal --- and in practice many ``FM'' transmitters actually generate
+their signal using phase modulation of a crystal-referenced oscillator,
+which is easier to keep frequency-stable than direct FM of a
+free-running oscillator.
+
+\section{Digital Modulation Concepts}
+
+Digital modes (developed further in Chapter~\ref{ch:digital-modes})
+apply the same three basic parameters --- amplitude, frequency, phase ---
+to a carrier, but switch between a finite set of discrete states rather
+than varying continuously:
+
+\begin{itemize}
+\item \textbf{On-off keying (OOK)}: the simplest digital amplitude
+modulation, the carrier is simply switched on and off --- the basis of
+traditional CW (Morse code) transmission.
+\item \textbf{Frequency-shift keying (FSK)}: the carrier is switched
+between two (or more) discrete frequencies representing binary states
+--- used by RTTY and many amateur digital modes.
+\item \textbf{Phase-shift keying (PSK)}: the carrier's phase is switched
+between discrete states (e.g., $0\degree$ and $180\degree$ for binary
+PSK) --- used by PSK31 and as a building block within more complex
+modes.
+\item \textbf{Quadrature amplitude modulation (QAM)}: combines discrete
+amplitude \emph{and} phase states to encode multiple bits per symbol,
+packing more data into the same bandwidth at the cost of requiring
+higher signal-to-noise ratio to distinguish the closely spaced states
+--- used in modern high-data-rate digital modes.
+\end{itemize}
+
+\section{Demodulation}
+
+Recovering the original information requires the inverse operation:
+
+\begin{itemize}
+\item \textbf{Envelope/diode detection}: rectifying and low-pass
+filtering an AM signal recovers its envelope (the original audio) ---
+extremely simple, the basis of the classic ``crystal set.''
+\item \textbf{Product detection}: mixing the received signal with a
+locally generated reference at (or near) the carrier frequency, then
+low-pass filtering, recovers audio from SSB and CW signals; this is the
+receive-side counterpart of the balanced modulator used to generate SSB.
+\item \textbf{FM discrimination}: circuits (classically, a
+frequency-to-voltage converter such as a ratio detector or quadrature
+detector; in modern receivers, often a digital phase-locked loop or DSP
+algorithm) that convert instantaneous frequency deviation directly into
+an output voltage proportional to the original modulating signal.
+\end{itemize}
+
+\begin{quickreview}
+\item Modulation shifts information onto a radio-frequency carrier,
+enabling practical antenna sizes and shared spectrum use.
+\item AM varies amplitude, producing a carrier plus two redundant
+sidebands; SSB removes the carrier and one sideband for much higher
+power/bandwidth efficiency.
+\item FM varies frequency (deviation $\Delta f$, index $\beta =
+\Delta f/f_m$); it trades bandwidth for strong noise immunity via the
+capture effect.
+\item PM varies phase and is closely mathematically related to FM.
+\item Digital modes apply amplitude/frequency/phase switching between
+discrete states (OOK, FSK, PSK, QAM); demodulation reverses the original
+modulation process.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item An AM signal has $V_c = 10\,\text{V}$ and $V_m = 4\,\text{V}$.
+Find the modulation index and percentage.
+\item Explain why SSB uses roughly half the bandwidth of full-carrier
+double-sideband AM for the same audio content.
+\item An FM signal has a peak deviation of 5\,kHz and a maximum audio
+frequency of 3\,kHz. Estimate its occupied bandwidth using Carson's
+rule.
+\item Explain, conceptually, why a mistuned SSB receiver produces
+garbled, ``Donald Duck''-like audio rather than just a change in pitch
+alone.
+\item Name the digital modulation scheme used by classic on/off-keyed
+Morse code, and explain why it is considered the simplest possible
+digital modulation.
+\end{practiceproblems}

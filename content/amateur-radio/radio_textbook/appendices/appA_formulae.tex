@@ -1,0 +1,149 @@
+\chapter{Formula Reference}
+\label{app:formulae}
+
+This appendix collects every major formula developed in the book,
+organized by topic and cross-referenced to the chapter where it is
+derived and explained. Use it for rapid review and problem-solving ---
+but remember that recognizing \emph{when} and \emph{why} to apply a
+formula matters as much as recalling it.
+
+\section*{Units and Basic Math (Chapter~\ref{ch:units})}
+\begin{align*}
+f_{\text{Hz}} &= \frac{1}{T_{\text{s}}} &&\text{frequency--period} \\
+\log(ab) &= \log a + \log b, \quad \log(a/b) = \log a - \log b, \quad \log(a^n) = n\log a \\
+\theta_{\text{rad}} &= \theta_{\text{deg}}\times\frac{\pi}{180}
+\end{align*}
+
+\section*{Electricity Fundamentals (Chapter~\ref{ch:electricity})}
+\begin{align*}
+I &= \frac{Q}{t} & U &= \frac{W}{Q} \\
+U &= IR &&\text{(Ohm's law)} \\
+R &= \rho\frac{\ell}{A} \\
+P &= UI = I^2R = \frac{U^2}{R} \\
+W &= Pt
+\end{align*}
+
+\section*{DC Circuits (Chapter~\ref{ch:dc-circuits})}
+\begin{align*}
+\text{Series: } R_{\text{total}} &= R_1+R_2+\cdots & U_n &= U\frac{R_n}{R_{\text{total}}} \\
+\text{Parallel: } \frac{1}{R_{\text{total}}} &= \frac{1}{R_1}+\frac{1}{R_2}+\cdots &
+R_{\text{total}} &= \frac{R_1R_2}{R_1+R_2}\ (\text{two resistors}) \\
+I_1 &= I_{\text{total}}\frac{R_2}{R_1+R_2} &&\text{(current divider, two branches)}
+\end{align*}
+
+\section*{Fields (Chapter~\ref{ch:fields})}
+\begin{align*}
+E &= \frac{F}{q} = \frac{U}{d} & B &= \frac{\mu_0 I}{2\pi r} \\
+\Phi &= BA & \mathcal{E} &= -N\frac{d\Phi}{dt}\quad\text{(Faraday's law)} \\
+c &= f\lambda = \frac{1}{\sqrt{\mu_0\varepsilon_0}} \approx 2.998\times10^8\,\text{m/s}
+\end{align*}
+
+\section*{AC Theory (Chapter~\ref{ch:ac-theory})}
+\begin{align*}
+v(t) &= V_{\text{pk}}\sin(\omega t+\phi), \quad \omega = 2\pi f \\
+V_{\text{pp}} &= 2V_{\text{pk}} & V_{\text{rms}} &= \frac{V_{\text{pk}}}{\sqrt2} \approx 0.707V_{\text{pk}} \\
+V_{\text{avg}} &= \frac{2V_{\text{pk}}}{\pi}
+\end{align*}
+
+\section*{Capacitors (Chapter~\ref{ch:capacitors})}
+\begin{align*}
+C &= \frac{Q}{U} & C &= \frac{\varepsilon_r\varepsilon_0 A}{d} \\
+i &= C\frac{dU}{dt} & W &= \frac12CU^2 \\
+\text{Parallel: } C_{\text{total}} &= C_1+C_2+\cdots &
+\text{Series: } \frac{1}{C_{\text{total}}} &= \frac{1}{C_1}+\frac{1}{C_2}+\cdots \\
+X_C &= \frac{1}{2\pi fC} & Z_C &= -jX_C
+\end{align*}
+
+\section*{Inductors (Chapter~\ref{ch:inductors})}
+\begin{align*}
+u &= L\frac{di}{dt} & L &= \frac{\mu_0N^2A}{\ell} \\
+W &= \frac12LI^2 \\
+\text{Series: } L_{\text{total}} &= L_1+L_2+\cdots &
+\text{Parallel: } \frac{1}{L_{\text{total}}} &= \frac{1}{L_1}+\frac{1}{L_2}+\cdots \\
+X_L &= 2\pi fL & Z_L &= jX_L
+\end{align*}
+
+\section*{RC/RL Transients and AC Impedance (Chapter~\ref{ch:rc-rl})}
+\begin{align*}
+U_C(t) &= U_0(1-e^{-t/\tau}), \quad \tau = RC &&\text{(RC charging)} \\
+U_C(t) &= U_0 e^{-t/\tau} &&\text{(RC discharge)} \\
+i(t) &= \frac{U_0}{R}(1-e^{-t/\tau}), \quad \tau = \frac{L}{R} &&\text{(RL current buildup)} \\
+Z &= R\mp jX, \quad |Z| = \sqrt{R^2+X^2}, \quad \theta = \arctan\!\left(\frac{X}{R}\right) \\
+f_c &= \frac{1}{2\pi RC}\ (\text{RC}) \qquad f_c = \frac{R}{2\pi L}\ (\text{RL})
+\end{align*}
+
+\section*{RLC Resonance and Q (Chapter~\ref{ch:rlc-resonance})}
+\begin{align*}
+f_0 &= \frac{1}{2\pi\sqrt{LC}} \\
+Q &= \frac{X_L}{R} = \frac{X_C}{R} = \frac{1}{R}\sqrt{\frac{L}{C}}\ (\text{series}) \qquad
+Q = \frac{R}{X_L} = R\sqrt{\frac{C}{L}}\ (\text{parallel}) \\
+B &= \frac{f_0}{Q}
+\end{align*}
+
+\section*{Transformers (Chapter~\ref{ch:transformers})}
+\begin{align*}
+\frac{U_2}{U_1} &= \frac{N_2}{N_1} = n & \frac{I_2}{I_1} &= \frac{1}{n} \\
+Z_1 &= n^2Z_2 & \eta &= \frac{P_{\text{out}}}{P_{\text{in}}}\times100\%
+\end{align*}
+
+\section*{Power Sources (Chapter~\ref{ch:power-sources})}
+\begin{align*}
+U_{\text{terminal}} &= \text{EMF} - IR_{\text{int}} \\
+t &\approx \frac{\text{Capacity (Ah)}}{I_{\text{load}}} & W_h &= \text{Ah}\times U_{\text{nominal}}
+\end{align*}
+
+\section*{Transistors (Chapter~\ref{ch:semiconductors})}
+\begin{align*}
+I_C &= \beta I_B & I_E &= I_B+I_C
+\end{align*}
+
+\section*{Op-Amps (Chapter~\ref{ch:opamps})}
+\begin{align*}
+A_v &= -\frac{R_f}{R_1}\ \text{(inverting)} \qquad A_v = 1+\frac{R_f}{R_1}\ \text{(non-inverting)}
+\end{align*}
+
+\section*{Decibels (Chapter~\ref{ch:decibels})}
+\begin{align*}
+dB &= 10\log_{10}\!\left(\frac{P_2}{P_1}\right) & dB &= 20\log_{10}\!\left(\frac{U_2}{U_1}\right) \\
+P(\text{dBm}) &= 10\log_{10}\!\left(\frac{P(\text{mW})}{1\,\text{mW}}\right) & \text{dBi} &= \text{dBd}+2.15 \\
+\text{SNR (dB)} &= 10\log_{10}\!\left(\frac{P_{\text{signal}}}{P_{\text{noise}}}\right)
+\end{align*}
+
+\section*{Receivers (Chapter~\ref{ch:receivers})}
+\begin{align*}
+f_{\text{IF}} &= |f_{\text{signal}}-f_{\text{LO}}| & f_{\text{image}} &= f_{\text{signal}}\pm2f_{\text{IF}}
+\end{align*}
+
+\section*{Modulation (Chapter~\ref{ch:modulation})}
+\begin{align*}
+m &= \frac{V_m}{V_c}\ \text{(AM modulation index)} \\
+\beta &= \frac{\Delta f}{f_m}\ \text{(FM modulation index)} \qquad B \approx 2(\Delta f+f_m)\ \text{(Carson's rule)}
+\end{align*}
+
+\section*{Transmission Lines and SWR (Chapter~\ref{ch:transmission-lines})}
+\begin{align*}
+Z_0 &= \sqrt{\frac{L'}{C'}} & \Gamma &= \frac{Z_L-Z_0}{Z_L+Z_0} \\
+\text{SWR} &= \frac{1+|\Gamma|}{1-|\Gamma|} & \frac{P_{\text{reflected}}}{P_{\text{forward}}} &= |\Gamma|^2 \\
+Z_{\text{in}} &= \frac{Z_0^2}{Z_L}\ \text{(quarter-wave transformer)}
+\end{align*}
+
+\section*{Antennas (Chapter~\ref{ch:antennas})}
+\begin{align*}
+\ell_{\text{dipole,m}} &\approx \frac{143}{f_{\text{MHz}}} \qquad \ell_{\text{dipole,ft}} \approx \frac{468}{f_{\text{MHz}}} \\
+\eta &= \frac{R_{\text{rad}}}{R_{\text{rad}}+R_{\text{loss}}}\times100\%
+\end{align*}
+
+\section*{Propagation (Chapter~\ref{ch:propagation})}
+\begin{align*}
+d_{\text{km}} &\approx 4.12\sqrt{h_{\text{m}}}\ \text{(radio horizon, per antenna)} \\
+\text{MUF} &= f_c\sec(\theta)\ \text{(secant law)}
+\end{align*}
+
+\section*{Physical Constants Used Throughout}
+\begin{align*}
+c &= 2.998\times10^{8}\,\text{m/s} &&\text{speed of light} \\
+e &= 1.602\times10^{-19}\,\text{C} &&\text{elementary charge} \\
+\mu_0 &= 4\pi\times10^{-7}\,\text{H/m} &&\text{permeability of free space} \\
+\varepsilon_0 &= 8.854\times10^{-12}\,\text{F/m} &&\text{permittivity of free space} \\
+Z_0\ (\text{free space}) &\approx 377\,\Omega &&\text{impedance of free space}
+\end{align*}

@@ -1,0 +1,186 @@
+\chapter{Semiconductors, Diodes, and Transistors}
+\label{ch:semiconductors}
+
+\section{Doping and the p-n Junction}
+
+Pure (\textbf{intrinsic}) silicon is a poor conductor. Deliberately
+introducing trace impurities (\textbf{doping}) transforms its
+conductivity in a controllable way: adding an element with one more
+valence electron than silicon (phosphorus, arsenic) creates
+\textbf{n-type} material with an excess of free electrons; adding an
+element with one fewer valence electron (boron) creates \textbf{p-type}
+material with an excess of ``holes'' (missing-electron sites that behave
+as mobile positive charge carriers).
+
+Where p-type and n-type materials meet, a \textbf{p-n junction} forms.
+Electrons and holes diffuse across the junction and recombine near the
+boundary, leaving a thin \textbf{depletion region} depleted of free
+carriers and building a small internal electric field that opposes
+further diffusion. This junction is the foundation of essentially every
+semiconductor device in electronics.
+
+\section{The Diode}
+
+A \textbf{diode} is a single p-n junction packaged with two terminals,
+the \textbf{anode} (p-side) and \textbf{cathode} (n-side). It conducts
+current easily in one direction (\textbf{forward bias}, anode positive
+relative to cathode) once the applied voltage exceeds a threshold ---
+about 0.6--0.7\,V for silicon, 0.2--0.3\,V for germanium, and roughly
+1.8--3.3\,V (varying by color/wavelength) for light-emitting diodes ---
+and blocks current almost completely in the opposite direction
+(\textbf{reverse bias}), up to a maximum reverse voltage rating beyond
+which it breaks down.
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) to[battery1,l=$U$] (0,2) to[D,l=diode] (3,2) to[R,l=$R$] (3,0) -- (0,0);
+\end{circuitikz}
+\end{center}
+
+\subsection{Diode Types and RF/Amateur Applications}
+
+\begin{itemize}
+\item \textbf{Rectifier diodes}: convert AC to pulsating DC in power
+supplies (Chapter~\ref{ch:power-sources}).
+\item \textbf{Zener diodes}: designed to operate safely in reverse
+breakdown at a well-defined voltage, used as simple voltage references
+or shunt regulators.
+\item \textbf{Varactor (varicap) diodes}: reverse-biased junction
+capacitance varies with applied voltage, used for electronic tuning in
+VFOs and PLL synthesizers.
+\item \textbf{Schottky diodes}: metal-semiconductor junction with a
+lower forward voltage drop and much faster switching than a standard
+silicon junction diode, widely used in RF detectors and mixers.
+\item \textbf{PIN diodes}: behave as a variable resistor at RF when
+forward-biased with varying DC current, used as RF switches and
+attenuators (e.g., for T/R switching).
+\item \textbf{Light-emitting diodes (LEDs)}: emit light when forward
+biased, used for indicators and, in laser diode form, for optical
+communication experiments.
+\end{itemize}
+
+\section{Bipolar Junction Transistors (BJTs)}
+
+A \textbf{bipolar junction transistor} adds a second junction, forming
+either an \textbf{NPN} or \textbf{PNP} sandwich of doped regions ---
+\textbf{emitter}, \textbf{base}, and \textbf{collector}. A BJT is a
+\textbf{current-controlled current source}: a small current flowing into
+the base controls a much larger current flowing from collector to
+emitter (NPN), with the ratio between them called \textbf{current gain},
+$\beta$ (or $h_{FE}$):
+\[
+\boxed{I_C = \beta I_B}, \qquad I_E = I_B + I_C.
+\]
+Typical small-signal transistors have $\beta$ in the range of roughly
+50--300. This current-controlled amplification is the basic mechanism
+behind BJT amplifier and switching circuits.
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) node[npn](Q1){}
+  (Q1.base) node[left]{B}
+  (Q1.collector) node[above]{C}
+  (Q1.emitter) node[below]{E};
+\end{circuitikz}
+\end{center}
+
+\subsection{Common Amplifier Configurations}
+
+\begin{itemize}
+\item \textbf{Common-emitter}: input at base, output at collector,
+emitter grounded (often through a small resistor). High voltage and
+current gain, inverts the signal ($180\degree$ phase shift), moderate
+input/output impedance --- the most common general-purpose amplifier
+configuration.
+\item \textbf{Common-base}: input at emitter, output at collector, base
+grounded (at AC). Low input impedance, high output impedance, no phase
+inversion, good high-frequency performance --- often used in RF
+amplifier and mixer stages.
+\item \textbf{Common-collector} (\textbf{emitter follower}): input at
+base, output at emitter, collector grounded (at AC). Voltage gain near
+unity, but high current gain and impedance transformation (high input
+impedance, low output impedance) --- widely used as a buffer stage.
+\end{itemize}
+
+\section{Field-Effect Transistors (FETs)}
+
+A \textbf{field-effect transistor} is a \textbf{voltage-controlled
+current source}: a voltage applied to the \textbf{gate} controls current
+flowing between \textbf{drain} and \textbf{source}, with (ideally) no
+gate current at all --- giving FETs an extremely high input impedance,
+in contrast to the current-driven BJT.
+
+\begin{itemize}
+\item \textbf{JFET} (junction FET): gate forms a reverse-biased junction
+with the channel; normally ``on,'' with gate voltage used to pinch the
+channel off.
+\item \textbf{MOSFET} (metal-oxide-semiconductor FET): gate is insulated
+from the channel by a thin oxide layer, giving even higher input
+impedance than a JFET; available in \textbf{enhancement mode} (normally
+off, turned on by gate voltage --- the dominant type in digital logic
+and switching power supplies) and \textbf{depletion mode} (normally on).
+\end{itemize}
+
+MOSFETs, particularly power MOSFETs, are widely used in RF power
+amplifiers and switching applications for amateur equipment because of
+their high input impedance, ease of biasing, and good high-frequency
+switching behavior.
+
+\begin{safetynote}[Static sensitivity]
+MOSFET gates are separated from the channel by an extremely thin
+insulating layer that can be punctured by static discharge well below
+the voltage a person can even feel. Handle MOSFETs and other
+static-sensitive devices using proper ESD precautions (grounded
+workstation, anti-static packaging) until they are soldered into a
+circuit.
+\end{safetynote}
+
+\section{The Transistor as a Switch}
+
+Beyond linear amplification, both BJTs and FETs are used as electronic
+\textbf{switches}: driven fully ``on'' (\textbf{saturation} for a BJT,
+low on-resistance for a MOSFET) or fully ``off'' (\textbf{cutoff}), a
+transistor can control power to a load (a relay, a keying line, a
+transmitter's PTT circuit) with a small control signal, forming the
+building block of digital logic gates and switch-mode power circuits.
+
+\section{Integrated Circuits}
+
+An \textbf{integrated circuit (IC)} fabricates many transistors (from a
+handful to billions), along with diodes, resistors, and sometimes small
+capacitors, on a single piece of semiconductor material. This allows
+complex functions --- operational amplifiers (Chapter~\ref{ch:opamps}),
+digital logic, microcontrollers, RF mixers, phase-locked loop
+synthesizers, and entire radio transceivers --- to be built far more
+compactly, reliably, and cheaply than from discrete components, and
+underlies essentially all modern amateur radio equipment design.
+
+\begin{quickreview}
+\item Doping creates n-type (excess electrons) and p-type (excess holes)
+semiconductor material; a p-n junction is the basic building block.
+\item Diodes conduct in one direction above a forward-voltage threshold
+and block in reverse, up to a breakdown limit; many specialized diode
+types (Zener, varactor, Schottky, PIN, LED) exploit particular junction
+behaviors.
+\item BJTs are current-controlled ($I_C = \beta I_B$); FETs are
+voltage-controlled with very high input impedance.
+\item Common-emitter, common-base, and common-collector configurations
+trade off gain, impedance, and phase behavior differently.
+\item Transistors are used both as linear amplifiers and as switches;
+ICs integrate many transistors and other components on one chip.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item A BJT has $\beta = 100$ and $I_B = 50\,\mu\text{A}$. Find $I_C$ and
+$I_E$.
+\item Explain why a MOSFET's gate current is essentially zero in normal
+operation, in terms of its construction.
+\item Name one diode type suited to (a) voltage regulation, (b)
+electronic tuning, (c) fast RF detection, and briefly justify each
+choice.
+\item Explain why an emitter-follower stage, despite having voltage gain
+near 1, is still a useful amplifier configuration.
+\item A technician reports a MOSFET failed immediately upon handling
+before installation, with no circuit fault found. Suggest a likely
+cause and a preventive measure.
+\end{practiceproblems}

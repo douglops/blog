@@ -1,0 +1,216 @@
+\chapter{Radio Wave Propagation}
+\label{ch:propagation}
+
+How a radio signal gets from a transmitting antenna to a receiving
+antenna, hundreds or thousands of kilometres away, depends on frequency,
+time of day, season, solar activity, and geography. This chapter surveys
+the main propagation mechanisms an amateur exploits across the HF, VHF,
+UHF, and microwave amateur bands.
+
+\section{The Ground Wave}
+
+At lower frequencies (roughly below a few MHz), a vertically polarized
+wave can travel along the Earth's curved surface for a considerable
+distance as a \textbf{ground wave} (or \textbf{surface wave}), guided
+partly by the interaction between the wave and the conductive ground.
+Ground-wave range is limited by ground conductivity (seawater performs
+far better than dry rocky or sandy soil) and increases at lower
+frequency; it is a minor factor for most HF amateur bands but is the
+dominant propagation mode for AM broadcast and some maritime/beacon
+services at lower frequencies.
+
+\section{Line-of-Sight and the Radio Horizon}
+
+At VHF, UHF, and microwave frequencies, propagation is normally
+\textbf{line-of-sight}: the direct wave travels essentially in a
+straight line, blocked by the curvature of the Earth and by terrain
+obstructions. Because the atmosphere's refractive index normally
+decreases slightly with height, radio waves bend (\textbf{refract})
+gently downward, extending the effective \textbf{radio horizon} somewhat
+beyond the optical horizon --- a commonly used approximation for the
+radio horizon distance (in kilometres, with antenna height $h$ in
+metres) is
+\[
+d_{\text{km}} \approx 4.12\sqrt{h_{\text{m}}}
+\]
+applied to each end of the path and summed, which is why raising a
+VHF/UHF antenna (or operating from a hilltop) so directly and
+dramatically increases usable range.
+
+\subsection{Tropospheric Effects}
+
+Under certain weather conditions, temperature and humidity gradients in
+the lower atmosphere (\textbf{troposphere}) create layers where the
+refractive index changes more sharply than usual, bending
+(\textbf{tropospheric ducting} or simple \textbf{tropo enhancement}) VHF
+and UHF signals well beyond the normal radio horizon --- sometimes
+hundreds of kilometres --- along stable high-pressure weather boundaries
+or temperature inversions. \textbf{Tropospheric scatter}, a weaker but
+more consistently available mechanism, allows some signal energy to
+scatter forward off small-scale turbulence in the troposphere even
+without a defined duct.
+
+\section{The Ionosphere and Skywave Propagation}
+
+The \textbf{ionosphere} is a region of the upper atmosphere
+(approximately 60--1000\,km altitude) where solar ultraviolet and X-ray
+radiation ionizes atmospheric gases, creating layers of free electrons
+capable of refracting (and, at a steep enough angle or low enough
+frequency, fully reflecting) radio waves back toward Earth. This
+\textbf{skywave} propagation is what makes long-distance (``DX'') HF
+communication possible without a chain of relay stations, by bouncing a
+signal off the ionosphere and back down to a distant receiver --
+potentially over several successive ``hops.''
+
+\subsection{Ionospheric Layers}
+
+\begin{itemize}
+\item \textbf{D layer} (${\sim}60$--90\,km): forms only in daylight;
+does not refract HF signals back to Earth but does \emph{absorb} them,
+particularly at lower HF frequencies --- the main reason low HF bands
+(80\,m, 40\,m) are noticeably ``quieter'' but shorter-range for DX
+during the day and open up dramatically for longer-distance
+propagation after D-layer ionization decays at night.
+\item \textbf{E layer} (${\sim}90$--150\,km): present mainly in
+daylight, refracts lower/mid HF frequencies and supports the anomalous,
+short-lived \textbf{sporadic-E} propagation discussed below.
+\item \textbf{F layer} (splitting into \textbf{F1} and \textbf{F2} in
+daylight, recombining into a single F layer at night, roughly
+150--500\,km): the primary layer responsible for long-distance HF
+skywave propagation, with the F2 layer's height and ionization density
+--- strongly dependent on solar activity --- setting the
+\textbf{maximum usable frequency (MUF)} for a given path on a given day.
+\end{itemize}
+
+\subsection{Critical Frequency and MUF}
+
+For a signal transmitted straight up, the highest frequency the
+ionosphere will still reflect back down is the \textbf{critical
+frequency}, $f_c$. For a signal transmitted at an oblique angle
+(the normal case for a real communication path), a higher frequency
+can still be refracted back to Earth --- the \textbf{maximum usable
+frequency} for that specific path, related to the critical frequency and
+the wave's incidence angle $\theta$ (measured from vertical) by the
+\textbf{secant law}:
+\[
+\boxed{\text{MUF} = f_c \sec(\theta)}
+\]
+Operating above the MUF for a given path, the signal passes through the
+ionosphere into space rather than being returned to Earth. Because lower
+launch angles (more oblique, larger $\theta$) permit a higher MUF, DX
+contacts over very long paths are often possible at frequencies that
+would not support shorter, steeper-angle paths at the same time.
+
+\begin{keyidea}[LUF, MUF, and the usable window]
+Below a \textbf{lowest usable frequency (LUF)}, D-layer absorption (and
+increasing atmospheric/man-made noise at lower frequencies) makes a
+signal too weak to be useful even if the ionosphere would otherwise
+support the path; above the MUF, the signal is not returned to Earth at
+all. Real-world HF operation lives in the changing window between these
+two limits, which is why band selection ``for the conditions'' is such
+a core operating skill --- and why real-time MUF/LUF prediction tools
+and propagation beacons are widely used by serious HF operators.
+\end{keyidea}
+
+\section{The Solar Cycle and Space Weather}
+
+Ionization of the F2 layer depends strongly on solar ultraviolet
+output, which varies on an approximately \textbf{11-year solar cycle} of
+rising and falling sunspot activity. Higher sunspot numbers generally
+mean a denser, higher F2 layer and a correspondingly higher MUF,
+supporting DX propagation on higher HF bands (15\,m, 12\,m, 10\,m) that
+may be largely closed during solar minimum. Solar flares and coronal
+mass ejections can also cause sudden, disruptive space-weather events:
+
+\begin{itemize}
+\item A \textbf{sudden ionospheric disturbance (SID)}, triggered by a
+solar flare's X-ray flux, causes a rapid increase in D-layer ionization
+and a corresponding \textbf{HF radio blackout} on the sunlit side of
+Earth, lasting from minutes to a few hours.
+\item A \textbf{geomagnetic storm}, triggered by a coronal mass
+ejection reaching Earth's magnetosphere, disturbs the ionosphere over a
+longer period (a day or more), variably degrading HF propagation while
+sometimes \emph{enhancing} high-latitude VHF/UHF propagation via aurora.
+\end{itemize}
+
+\section{Sporadic-E}
+
+\textbf{Sporadic-E} propagation results from dense, patchy, short-lived
+clouds of ionization in the E layer (mechanism not fully understood, but
+statistically linked to season --- most common in late spring/early
+summer in each hemisphere --- and to wind shear in the upper
+atmosphere). It can support surprisingly strong single- or
+multi-hop propagation on the upper HF bands and, notably, on the lower
+VHF bands (6\,m and, less commonly, 2\,m) that are normally limited to
+line-of-sight --- producing some of the most exciting unpredictable
+VHF DX openings available to an amateur.
+
+\section{Meteor Scatter and Auroral Propagation}
+
+\begin{itemize}
+\item \textbf{Meteor scatter}: the brief ionized trail left by a meteor
+burning up in the upper atmosphere can reflect VHF signals for a
+fraction of a second to a few seconds, long enough (especially with
+digital modes designed for very short contacts) to complete brief
+contacts over 1000--2000\,km paths, enhanced during annual meteor
+showers.
+\item \textbf{Auroral propagation}: during geomagnetic disturbances,
+VHF/UHF signals can scatter off ionization associated with the aurora,
+typically producing a characteristic rasping, Doppler-smeared signal
+quality, mainly usable for paths oriented toward the auroral region at
+higher latitudes.
+\end{itemize}
+
+\section{Greyline Propagation}
+
+The \textbf{greyline} (or \textbf{terminator}) is the band of twilight
+circling the Earth between day and night. Along the greyline, the D
+layer on the sunset/sunrise side has largely decayed (reducing
+absorption) while the F layer, which decays more slowly after sunset,
+remains sufficiently ionized to support propagation --- a favorable
+combination that experienced HF operators specifically exploit for
+long-path and unusual DX openings around their local sunrise and
+sunset.
+
+\section{Multipath, Fading, and Doppler Effects}
+
+A received signal often arrives via more than one path simultaneously
+(different ionospheric hops, ground wave plus skywave, or multiple
+ionospheric layers at once), each with a slightly different path length
+and therefore a different arrival phase. The combination of these
+paths, constantly shifting as the ionosphere changes, produces
+\textbf{fading} --- and, over sufficiently different path lengths,
+measurable time-domain echo or \textbf{Doppler}-related frequency
+smearing, both of particular relevance to digital mode performance
+(Chapter~\ref{ch:digital-modes}) and to precise frequency measurement.
+
+\begin{quickreview}
+\item Ground wave (low HF/MF, vertical polarization) and line-of-sight
+plus tropospheric effects (VHF/UHF/microwave) dominate at those
+frequency extremes; skywave dominates general-purpose HF DX.
+\item Ionospheric D, E, and F layers absorb (D) or refract (E, F)
+HF signals; the F2 layer sets the MUF for long-distance skywave paths,
+MUF $= f_c\sec\theta$.
+\item The solar cycle and space-weather events (SIDs, geomagnetic
+storms) drive large day-to-day and year-to-year variation in HF
+propagation.
+\item Sporadic-E, meteor scatter, and auroral propagation are
+anomalous mechanisms that can open otherwise line-of-sight-limited
+VHF bands over much longer paths.
+\item Greyline propagation exploits the favorable D-layer/F-layer
+balance found along the day/night terminator.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Estimate the radio horizon distance for a VHF station with a
+30\,m antenna height, communicating with a station whose antenna is
+10\,m high (sum both contributions).
+\item A path has a critical frequency of 4\,MHz and an incidence angle
+of $70\degree$ from vertical. Estimate the MUF for this path.
+\item Explain why the 80\,m and 40\,m amateur bands are typically much
+better for long-distance contacts at night than during the day.
+\item Explain, qualitatively, why higher sunspot activity tends to
+improve propagation on the higher HF bands (e.g., 10\,m) specifically.
+\item Explain why meteor scatter contacts are typically brief and rely
+on specialized digital modes rather than sustained voice conversation.
+\end{practiceproblems}

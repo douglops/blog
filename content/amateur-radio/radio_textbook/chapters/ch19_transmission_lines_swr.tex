@@ -1,0 +1,196 @@
+\chapter{Transmission Lines and Standing Wave Ratio}
+\label{ch:transmission-lines}
+
+A \textbf{transmission line} (coaxial cable, open-wire ladder line,
+twisted pair) carries RF energy from a transmitter to an antenna, or
+from an antenna to a receiver, with as little loss and distortion as
+possible. Unlike the DC and low-frequency AC circuits of earlier
+chapters, a transmission line's physical length is often a significant
+fraction of the signal's wavelength, and its behavior must be analyzed
+as a distributed, wave-carrying system rather than a simple two-terminal
+lumped circuit.
+
+\section{Characteristic Impedance}
+
+Every transmission line has a \textbf{characteristic impedance} $Z_0$,
+determined entirely by its physical geometry (conductor spacing,
+diameter, dielectric) and, for an ideal lossless line, independent of
+its length or the frequency of the signal on it:
+\[
+Z_0 = \sqrt{\frac{L'}{C'}}
+\]
+where $L'$ and $C'$ are the line's inductance and capacitance \emph{per
+unit length}. Common amateur coaxial cable is manufactured to standard
+values of 50\,$\Omega$ (the overwhelming standard for amateur HF/VHF/UHF
+work) or 75\,$\Omega$ (common in broadcast and video applications);
+open-wire ladder line is typically 300--600\,$\Omega$.
+
+\begin{keyidea}
+$Z_0$ is \emph{not} something you measure with an ohmmeter across a
+disconnected line's ends (a long line will simply read as an open or
+short circuit depending on its length relative to a wavelength) --- it
+describes the impedance a wave experiences while traveling \emph{along}
+the line, and only becomes directly relevant once the line is driving a
+load and carrying a traveling wave.
+\end{keyidea}
+
+\section{Matched vs.\ Mismatched Loads}
+
+When a transmission line is terminated in a load whose impedance exactly
+equals $Z_0$, all of the power traveling down the line is absorbed by
+the load; no energy is reflected. This is a \textbf{matched} condition.
+If the load impedance $Z_L$ differs from $Z_0$, some of the incident
+power is reflected back toward the source, creating a second wave
+traveling in the opposite direction. The interference between the
+forward (incident) and reflected waves creates a \textbf{standing
+wave} pattern of voltage and current along the line.
+
+\section{Reflection Coefficient and SWR}
+
+The fraction of voltage reflected is the \textbf{reflection
+coefficient}, $\Gamma$ (Greek capital gamma), a complex number in
+general but often quoted by magnitude:
+\[
+\boxed{\Gamma = \frac{Z_L - Z_0}{Z_L + Z_0}}
+\]
+$\Gamma = 0$ for a perfectly matched load; $|\Gamma| = 1$ for a
+completely reactive/open/short load (total reflection, no power
+absorbed).
+
+The \textbf{standing wave ratio (SWR)}, the ratio of the standing wave
+pattern's maximum voltage to its minimum voltage along the line, is
+related directly to $|\Gamma|$:
+\[
+\boxed{\text{SWR} = \frac{V_{\max}}{V_{\min}} = \frac{1+|\Gamma|}{1-|\Gamma|}}
+\]
+SWR is always $\geq 1$, with 1{:}1 representing a perfect match. Because
+it depends only on $|\Gamma|$, SWR (unlike $\Gamma$ itself) carries no
+information about the \emph{phase} of the mismatch --- only its
+severity.
+
+\begin{examplebox}[SWR from a load mismatch]
+A 50\,$\Omega$ line is terminated in a 75\,$\Omega$ resistive load.
+Find $\Gamma$ and the SWR.
+
+\emph{Solution.}
+\[
+\Gamma = \frac{75-50}{75+50} = \frac{25}{125} = 0.2, \qquad
+\text{SWR} = \frac{1+0.2}{1-0.2} = \frac{1.2}{0.8} = 1.5.
+\]
+A 1.5:1 SWR, generally considered a mild, acceptable mismatch.
+\end{examplebox}
+
+\section{Power Reflected}
+
+The fraction of incident power that is reflected (rather than
+delivered to the load) is $|\Gamma|^2$:
+\[
+\frac{P_{\text{reflected}}}{P_{\text{forward}}} = |\Gamma|^2.
+\]
+
+\begin{examplebox}[Power lost to reflection]
+For the 1.5:1 SWR example above ($|\Gamma|=0.2$), find the fraction of
+power reflected and the fraction delivered to the load.
+
+\emph{Solution.}
+\[
+\frac{P_{\text{reflected}}}{P_{\text{forward}}} = 0.2^2 = 0.04\ (4\%), \qquad
+\text{delivered} = 96\%.
+\]
+This illustrates why a modest 1.5:1 SWR is rarely a practical problem:
+the actual power lost to reflection is small. Very high SWR (5:1 or
+worse) reflects a much larger fraction of power and can additionally
+stress transmitter output stages and increase line loss significantly.
+\end{examplebox}
+
+\section{Why High SWR Matters}
+
+\begin{itemize}
+\item \textbf{Transmitter stress}: many solid-state transmitters
+automatically reduce power (``foldback'') or shut down when SWR exceeds
+a safe limit, since a severely mismatched load can present the final
+amplifier stage with voltage or current levels well outside its safe
+operating range.
+\item \textbf{Increased line loss}: standing waves increase the peak
+current and voltage on the line relative to a matched condition,
+increasing $I^2R$ and dielectric losses beyond the line's already
+frequency-dependent matched-line loss --- the mismatch loss adds on top
+of, and interacts with, the line's intrinsic loss.
+\item \textbf{Voltage/current peaks}: at high SWR, the standing wave's
+voltage and current maxima can be large enough to cause arcing or
+component stress at those points along the line, even if the average
+power is modest.
+\end{itemize}
+
+\begin{safetynote}
+Very high SWR at significant power levels can generate dangerously high
+RF voltages at points along a feedline or at an antenna feedpoint,
+particularly with unterminated or badly damaged coaxial lines. Address
+high SWR readings before operating at higher power levels.
+\end{safetynote}
+
+\section{Impedance Along a Mismatched Line}
+
+For a lossless line of length $\ell$ and characteristic impedance
+$Z_0$, terminated in load $Z_L$, the impedance seen looking into the
+line varies periodically with distance from the load, repeating every
+half wavelength:
+\[
+Z_{\text{in}} = Z_0\,\frac{Z_L + jZ_0\tan(\beta\ell)}{Z_0 + jZ_L\tan(\beta\ell)}, \qquad \beta = \frac{2\pi}{\lambda}.
+\]
+Two special cases are worth knowing without the full formula:
+
+\begin{itemize}
+\item A line exactly \textbf{one-half wavelength} (or any integer
+multiple) long repeats the load impedance at its input, regardless of
+$Z_0$ --- useful for relocating a matched (or known) impedance to a more
+convenient physical location.
+\item A line exactly \textbf{one-quarter wavelength} long acts as an
+impedance \textbf{inverter/transformer}: $Z_{\text{in}} = Z_0^2/Z_L$.
+This \textbf{quarter-wave transformer} principle is widely used to
+match a real, resistive antenna feedpoint impedance to a different
+feedline impedance using a length of line with an intermediate
+characteristic impedance, $Z_0 = \sqrt{Z_{\text{in}}Z_L}$.
+\end{itemize}
+
+\section{Line Loss}
+
+Real transmission lines dissipate some power even when perfectly
+matched, due to conductor resistance (worse at higher frequency because
+of the \textbf{skin effect}, Chapter~\ref{ch:inductors}) and dielectric
+loss in the insulating material. Manufacturers publish matched-line
+loss in dB per 100\,m (or 100\,ft) at various frequencies; loss
+increases with frequency and, for a fixed cable type, with distance.
+Mismatch (SWR $>1$) adds additional loss on top of this intrinsic
+matched-line loss, an effect that becomes more significant as intrinsic
+cable loss increases (which is one reason high SWR is more consequential
+on a long run of lossy cable than on a short run of low-loss line).
+
+\begin{quickreview}
+\item Characteristic impedance $Z_0 = \sqrt{L'/C'}$ depends on line
+geometry, not length or (ideally) frequency.
+\item $\Gamma = (Z_L-Z_0)/(Z_L+Z_0)$; SWR $=(1+|\Gamma|)/(1-|\Gamma|)$;
+reflected power fraction $=|\Gamma|^2$.
+\item High SWR can stress transmitters, increase line loss, and produce
+dangerous voltage/current peaks at significant power.
+\item A half-wavelength line repeats the load impedance; a
+quarter-wavelength line transforms impedance as
+$Z_{\text{in}} = Z_0^2/Z_L$.
+\item Real lines have intrinsic matched loss (worse at higher
+frequency); mismatch adds further loss on top of this.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item A 50\,$\Omega$ line feeds a purely resistive 100\,$\Omega$ load.
+Find $\Gamma$ and SWR.
+\item For an SWR of 3:1, find $|\Gamma|$ and the fraction of power
+reflected.
+\item Find the characteristic impedance of a quarter-wave matching
+section needed to match a 50\,$\Omega$ line to a 200\,$\Omega$ antenna
+feedpoint.
+\item Explain why a transmitter's automatic power foldback at high SWR
+is a protective feature rather than a fault.
+\item A 1:1 SWR is measured at the transmitter end of a long, lossy
+feedline. Does this guarantee the antenna itself is well matched?
+Explain, considering line loss.
+\end{practiceproblems}

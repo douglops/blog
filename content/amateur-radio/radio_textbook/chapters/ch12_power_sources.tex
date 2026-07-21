@@ -1,0 +1,169 @@
+\chapter{Power Sources and Batteries}
+\label{ch:power-sources}
+
+\section{Ideal and Real Sources}
+
+An \textbf{ideal voltage source} maintains a fixed voltage regardless of
+load current; an \textbf{ideal current source} maintains a fixed current
+regardless of load voltage. Real sources (batteries, power supplies,
+generators) approximate the ideal voltage source but have a small
+\textbf{internal resistance} $R_{\text{int}}$ in series, which causes the
+terminal voltage to sag under load:
+\[
+\boxed{U_{\text{terminal}} = \text{EMF} - I R_{\text{int}}}
+\]
+This single equation explains why a weak or discharged battery's voltage
+recovers somewhat when a load is removed (the $IR_{\text{int}}$ drop
+disappears) and why a heavily loaded supply's voltage is lower than its
+open-circuit (no-load) rating.
+
+\begin{examplebox}[Voltage sag under load]
+A 12\,V battery with internal resistance 0.2\,$\Omega$ supplies 8\,A to a
+transceiver. Find the terminal voltage.
+
+\emph{Solution.}
+\[
+U_{\text{terminal}} = 12 - (8 \times 0.2) = 12 - 1.6 = 10.4\,\text{V}.
+\]
+This sag is one reason mobile/portable radio equipment often specifies a
+minimum operating voltage below the nominal 12\,V or 13.8\,V rating.
+\end{examplebox}
+
+\section{Maximum Power Transfer}
+
+For a source with fixed internal resistance $R_{\text{int}}$ driving a
+variable load $R_L$, the power delivered \emph{to the load} is maximized
+when $R_L = R_{\text{int}}$ (the \textbf{maximum power transfer
+theorem}) --- at that point exactly half the source's total generated
+power is delivered to the load and half is dissipated internally, so
+this condition maximizes load power but not overall efficiency. This
+principle underlies impedance-matching practice throughout RF systems
+(Chapter~\ref{ch:transmission-lines}): matching source and load
+impedance maximizes power transfer, though in power-supply and battery
+contexts, efficiency (minimizing $R_{\text{int}}$ relative to the load)
+is usually the more relevant goal instead.
+
+\section{Cells and Batteries}
+
+A single electrochemical \textbf{cell} converts stored chemical energy
+into electrical energy; a \textbf{battery} is one or more cells combined
+(in series for higher voltage, in parallel for higher capacity, or both).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{@{}l l l l Y@{}}
+\toprule
+Chemistry & Cell V & Rechg.? & Energy density & Notes \\
+\midrule
+Alkaline (Zn-MnO$_2$) & 1.5\,V & No & Low & Cheap, common, poor at high current \\
+NiMH & 1.2\,V & Yes & Moderate & Low self-discharge (LSD) types common \\
+Lead-acid & 2.0\,V/cell & Yes & Low--mod. & High current capable; heavy \\
+Li-ion & 3.6--3.7\,V & Yes & High & Requires protection circuitry \\
+LiFePO$_4$ & 3.2\,V & Yes & High & Safer chemistry, flatter discharge curve \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Series and Parallel Battery Combinations}
+
+\begin{keyidea}
+\textbf{Cells in series} add voltage; capacity (in amp-hours) stays the
+same as a single cell. \textbf{Cells in parallel} add capacity; voltage
+stays the same as a single cell. A common 12\,V lead-acid battery is
+internally six 2\,V cells in series.
+\end{keyidea}
+
+\begin{safetynote}[Mixing cells]
+Never combine cells of different chemistry, capacity, or state of charge
+in the same series or parallel string. Mismatched cells can be forced
+into reverse charge, over-discharge, or unequal current sharing, any of
+which can cause overheating, venting, or fire --- especially with
+lithium-based chemistries, which additionally require dedicated
+protection/balancing circuitry in multi-cell packs.
+\end{safetynote}
+
+\section{Amp-Hour Capacity and Runtime}
+
+Battery capacity is rated in \textbf{amp-hours (Ah)} or milliamp-hours
+(mAh) --- a direct application of $Q = It$ from
+Chapter~\ref{ch:electricity}, expressed with $t$ in hours instead of
+seconds. Approximate runtime for a given load current is
+\[
+t \approx \frac{\text{Capacity (Ah)}}{I_{\text{load}} (\text{A})}
+\]
+(approximate because usable capacity typically falls at high discharge
+current, a behavior described empirically by \textbf{Peukert's law} for
+lead-acid batteries, and because most chemistries should not be
+discharged to 0\% without damage or reduced cycle life).
+
+\begin{examplebox}[Estimating runtime]
+A handheld transceiver draws 300\,mA average on receive and is powered
+by a 2000\,mAh battery. Estimate the receive-only runtime.
+
+\emph{Solution.}
+\[
+t \approx \frac{2000\,\text{mAh}}{300\,\text{mA}} \approx 6.7\,\text{hours}.
+\]
+Real-world runtime will be shorter due to periods of transmit current
+(much higher than receive current) and capacity derating at higher
+discharge rates.
+\end{examplebox}
+
+Energy capacity in watt-hours (useful for comparing different battery
+voltages on an equal footing) is
+\[
+W_h = \text{Ah} \times U_{\text{nominal}}.
+\]
+
+\section{Charging Considerations}
+
+Different chemistries require different charge algorithms (constant
+current then constant voltage for Li-ion; different profiles for NiMH
+and lead-acid), and using the wrong charger or charge rate can
+permanently damage capacity, or in the case of lithium chemistries,
+create a serious fire hazard. \textbf{C-rate} notation describes charge
+or discharge current relative to capacity: a ``1C'' rate for a 2\,Ah
+battery is 2\,A; a ``0.5C'' rate is 1\,A.
+
+\section{DC Power Supplies}
+
+A mains-powered DC \textbf{power supply} typically consists of a
+transformer (Chapter~\ref{ch:transformers}) to change AC mains voltage
+to a convenient level, a rectifier (diodes, Chapter~\ref{ch:semiconductors})
+to convert AC to pulsating DC, a filter capacitor to smooth the
+pulsations into a nearly steady DC voltage, and a voltage regulator to
+hold the output constant despite input ripple and load changes. A
+\textbf{linear regulator} dissipates the voltage difference between
+input and output as heat (simple, low-noise, but inefficient at large
+voltage drops); a \textbf{switching regulator} rapidly switches a
+storage inductor or capacitor to convert voltage with much higher
+efficiency, at the cost of potential RF noise/interference that must be
+filtered --- a genuine concern for a radio amateur choosing a supply to
+sit next to a sensitive receiver.
+
+\begin{quickreview}
+\item Real sources sag under load: $U_{\text{terminal}} = \text{EMF} -
+IR_{\text{int}}$.
+\item Maximum power transfer occurs when load resistance equals source
+internal resistance.
+\item Series cells add voltage; parallel cells add capacity; never mix
+chemistries, capacities, or states of charge in a pack.
+\item Capacity (Ah) combined with load current gives approximate runtime,
+$t \approx \text{Ah}/I$; watt-hours allow comparison across voltages.
+\item Linear regulators are simple and quiet but lossy; switching
+regulators are efficient but can generate RF interference.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item A power supply has an open-circuit voltage of 13.8\,V and internal
+resistance 0.05\,$\Omega$. Find the terminal voltage at a 20\,A load.
+\item Four 1.2\,V, 2000\,mAh NiMH cells are connected in series. Find the
+resulting pack voltage and capacity.
+\item Estimate the runtime of a 7\,Ah battery supplying a constant 1.4\,A
+load.
+\item Explain, using $Q=It$, why amp-hours (not just amps) are the
+correct way to compare battery ``size.''
+\item A radio amateur reports RF hash/noise across several bands after
+switching from a linear to a switching power supply. Explain a likely
+cause and one practical mitigation.
+\end{practiceproblems}

@@ -1,0 +1,160 @@
+\chapter{Decibels, Gain, and Loss}
+\label{ch:decibels}
+
+\section{Why Use a Logarithmic Unit?}
+
+A radio signal chain often includes many stages, each multiplying power
+by some factor: an antenna's gain, a length of feedline's loss, a
+preamplifier's gain, a filter's loss, a receiver's sensitivity. Multiplying
+many such ratios together by hand is tedious and error-prone; expressed
+logarithmically (Chapter~\ref{ch:units}), those same ratios simply
+\emph{add}. This is the entire motivation for the \textbf{decibel (dB)},
+one-tenth of a \textbf{bel} (named for Alexander Graham Bell), and the
+single most-used unit in RF system-level work.
+
+\section{Defining the Decibel}
+
+For \textbf{power} ratios,
+\[
+\boxed{dB = 10\log_{10}\!\left(\frac{P_2}{P_1}\right)}
+\]
+For \textbf{voltage} (or current) ratios measured across the \emph{same}
+impedance, since power is proportional to voltage squared
+($P = U^2/R$), the factor of 2 from squaring moves in front of the log:
+\[
+\boxed{dB = 20\log_{10}\!\left(\frac{U_2}{U_1}\right)}
+\]
+
+\begin{keyidea}[Values worth memorizing]
+\begin{center}
+\begin{tabular}{@{}rll@{}}
+\toprule
+Ratio & Power (dB) & Voltage (dB) \\
+\midrule
+$\times 1$ & 0\,dB & 0\,dB \\
+$\times 2$ & 3\,dB & 6\,dB \\
+$\times 4$ & 6\,dB & 12\,dB \\
+$\times 10$ & 10\,dB & 20\,dB \\
+$\times 100$ & 20\,dB & 40\,dB \\
+$\div 2$ & $-3$\,dB & $-6$\,dB \\
+$\div 10$ & $-10$\,dB & $-20$\,dB \\
+\bottomrule
+\end{tabular}
+\end{center}
+``3\,dB'' meaning a doubling (or, negative, a halving) \emph{of power}
+is one of the most exam-relevant and practically useful facts in this
+entire book --- it is the basis for the $-3\,\text{dB}$ (half-power)
+bandwidth points used to define filter and resonance bandwidth
+(Chapter~\ref{ch:rlc-resonance}).
+\end{keyidea}
+
+\begin{examplebox}[Cascaded gains and losses]
+A signal passes through a preamplifier (+12\,dB), a length of coaxial
+cable ($-2\,\text{dB}$), and a filter ($-1.5\,\text{dB}$). Find the net
+gain or loss.
+
+\emph{Solution.} Because decibels represent logarithms of ratios, they
+simply add along a cascade:
+\[
+12 + (-2) + (-1.5) = 8.5\,\text{dB (net gain)}.
+\]
+Multiplying the equivalent linear power ratios directly
+($10^{1.2}\times10^{-0.2}\times10^{-0.15} \approx 15.85\times0.631\times0.708
+\approx 7.08$, i.e.\ $10\log_{10}(7.08)\approx8.5\,\text{dB}$) confirms
+the same result --- but the addition is far faster.
+\end{examplebox}
+
+\section{Converting Between dB and Linear Ratios}
+
+To go the other direction, from a dB value back to a plain ratio:
+\[
+\frac{P_2}{P_1} = 10^{(dB/10)}, \qquad \frac{U_2}{U_1} = 10^{(dB/20)}.
+\]
+
+\begin{examplebox}[dB to linear]
+An amplifier is specified with 20\,dB of gain. Find the power ratio and
+the voltage ratio it represents.
+
+\emph{Solution.}
+\[
+\frac{P_2}{P_1} = 10^{20/10} = 10^2 = 100, \qquad
+\frac{U_2}{U_1} = 10^{20/20} = 10^1 = 10.
+\]
+\end{examplebox}
+
+\section{Absolute Levels: dBm, dBW, and dBi}
+
+The decibel itself is always a \emph{ratio} (dimensionless); appending a
+reference to the unit turns it into an absolute level:
+
+\begin{itemize}
+\item \textbf{dBm}: power relative to 1\,milliwatt.
+\[
+P(\text{dBm}) = 10\log_{10}\!\left(\frac{P(\text{mW})}{1\,\text{mW}}\right).
+\]
+0\,dBm = 1\,mW; 30\,dBm = 1\,W; 60\,dBm = 1\,kW. dBm is the standard unit
+for receiver sensitivity specifications, signal levels at a mixer or
+amplifier input, and RF test equipment readouts.
+\item \textbf{dBW}: power relative to 1\,watt; $0\,\text{dBW} =
+30\,\text{dBm}$, used for higher-power figures such as transmitter
+output or effective radiated power.
+\item \textbf{dBi}: antenna gain relative to a theoretical
+\textbf{isotropic radiator} (a point source radiating equally in all
+directions) --- the standard way antenna gain is specified
+(Chapter~\ref{ch:antennas}).
+\item \textbf{dBd}: antenna gain relative to a reference half-wave
+dipole; $\text{dBi} = \text{dBd} + 2.15$, since a dipole itself has
+2.15\,dBi of gain over an isotropic radiator.
+\end{itemize}
+
+\begin{examplebox}[dBm arithmetic]
+A transmitter delivers 100\,W to a feedline with 3\,dB of loss, feeding
+an antenna with 6\,dBi of gain. Find the effective radiated power (ERP,
+referenced to a dipole, or EIRP referenced to isotropic).
+
+\emph{Solution.} Convert 100\,W to dBW: $10\log_{10}(100) =
+20\,\text{dBW}$. Apply cascade addition:
+\[
+20\,\text{dBW} - 3\,\text{dB} + 6\,\text{dBi} = 23\,\text{dBW (EIRP)}.
+\]
+Converting back: $10^{23/10} \approx 200\,\text{W EIRP}$ --- twice the
+transmitter's output power, because the antenna gain (6\,dB $\approx
+\times4$) outweighs the feedline loss (3\,dB $\approx \div2$).
+\end{examplebox}
+
+\section{Signal-to-Noise Ratio}
+
+\textbf{Signal-to-noise ratio (SNR)}, expressed in dB, compares wanted
+signal power to unwanted noise power at the same point in a system:
+\[
+\text{SNR (dB)} = 10\log_{10}\!\left(\frac{P_{\text{signal}}}{P_{\text{noise}}}\right).
+\]
+SNR is the single most important figure of merit for whether a
+communication link will be intelligible; it reappears throughout
+Chapters~\ref{ch:receivers} (receiver noise figure) and
+\ref{ch:propagation} (link budgets), and is a core concept behind
+digital mode weak-signal performance (Chapter~\ref{ch:digital-modes}).
+
+\begin{quickreview}
+\item Power ratio in dB: $10\log_{10}(P_2/P_1)$; voltage ratio in dB:
+$20\log_{10}(U_2/U_1)$.
+\item Cascaded gains/losses simply add in dB (versus multiplying as
+linear ratios).
+\item Memorize: $+3\,\text{dB} \approx \times2$ power,
+$+10\,\text{dB} = \times10$ power, $+6\,\text{dB} \approx \times2$
+voltage/current, $+20\,\text{dB} = \times10$ voltage/current.
+\item dBm (ref.\ 1\,mW), dBW (ref.\ 1\,W), dBi (ref.\ isotropic
+antenna), dBd (ref.\ dipole, $= \text{dBi} - 2.15$) are absolute levels
+built on the relative dB unit.
+\item SNR in dB compares signal to noise power and is the key
+determinant of link intelligibility.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Convert a power ratio of 500 into dB.
+\item Convert $-6\,\text{dB}$ into a linear voltage ratio.
+\item A receiver preamplifier has 15\,dB gain; a following filter has
+2.5\,dB loss. Find the net dB and the equivalent linear power ratio.
+\item Convert 5\,W to dBm.
+\item An antenna is rated at 9\,dBd. Express this gain in dBi.
+\end{practiceproblems}

@@ -1,0 +1,187 @@
+\chapter{Non-Sinusoidal Signals and Fourier Analysis}
+\label{ch:non-sine}
+
+Not every useful waveform is a sine wave. Square waves clock digital
+logic, sawtooth waves sweep oscilloscopes and older TV displays, and the
+keyed on/off waveform of Morse code is about as far from a sine wave as a
+signal can get. This chapter explains how such waveforms relate back to
+the sinusoidal theory of Chapter~\ref{ch:ac-theory}, and why that
+relationship matters for bandwidth and interference.
+
+\section{Common Non-Sinusoidal Waveforms}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 2, horizontal sep=1.6cm, vertical sep=1.4cm},
+  width=6.2cm, height=3.6cm, axis lines=middle,
+  xtick=\empty, ytick=\empty, ymin=-1.4, ymax=1.4, xmin=0, xmax=4,
+  domain=0:4, samples=200,
+  every axis plot/.append style={line width=1pt},
+  every axis x label/.style={at={(axis description cs:0.5,-0.05)},anchor=north},
+]
+\nextgroupplot[title={Sine},xlabel={$t$}]
+\addplot[blue] {sin(x*180)};
+
+\nextgroupplot[title={Square},xlabel={$t$}]
+\addplot[red,samples=400,unbounded coords=jump] {sign(sin(x*180))};
+
+\nextgroupplot[title={Triangle},xlabel={$t$}]
+\addplot[rorange] {asin(sin(x*180))/90};
+
+\nextgroupplot[title={Sawtooth},xlabel={$t$}]
+\addplot[rgreenline,samples=400,unbounded coords=jump] {2*(x/2-floor(x/2+0.5))};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Common periodic waveforms: sine, square, triangle, and
+sawtooth, each shown over several cycles.}
+\label{fig:waveforms}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{Square wave}: switches abruptly between two levels, spending
+equal time at each (50\% duty cycle). Produced by digital logic gates,
+keyed CW (approximately), and switching-mode power supplies.
+\item \textbf{Triangle wave}: rises and falls linearly at a constant
+rate. Used in some function generators and as a building block for
+sweep and ramp circuits.
+\item \textbf{Sawtooth wave}: rises linearly then drops sharply (or vice
+versa). Classic use: the horizontal deflection sweep in a
+cathode-ray-tube display.
+\item \textbf{Pulse train}: a waveform that is at one level for a short
+time and at another level for the rest of the period, characterized by
+its \textbf{duty cycle} (fraction of the period spent ``high''). Digital
+data and radar are naturally pulse-like.
+\end{itemize}
+
+\section{Fourier's Theorem}
+\label{sec:fourier}
+
+The mathematician Joseph Fourier proved a result of enormous consequence
+for radio engineering: \emph{any} periodic waveform, no matter its shape,
+can be expressed as a sum (in general, an infinite sum) of sine and
+cosine waves at the fundamental frequency and its integer multiples
+(\textbf{harmonics}):
+\[
+x(t) = a_0 + \sum_{n=1}^{\infty} \left[a_n \cos(n\omega_0 t) + b_n \sin(n\omega_0 t)\right]
+\]
+where $\omega_0 = 2\pi f_0$ is the fundamental angular frequency and
+$a_0, a_n, b_n$ are coefficients determined by the waveform's shape. This
+means a waveform's \emph{shape} and its \emph{frequency content} are two
+views of the same underlying signal, related by the \textbf{Fourier
+transform} (for non-periodic or more general signals) or the
+\textbf{Fourier series} (for periodic signals, as written above).
+
+\begin{keyidea}
+Every non-sinusoidal periodic signal occupies more than one frequency: a
+fundamental plus a ladder of harmonics. A signal's bandwidth --- how much
+of the radio spectrum it actually occupies --- is fundamentally a
+statement about its Fourier content, not just its nominal ``frequency.''
+\end{keyidea}
+
+\subsection{Square Wave Harmonics}
+
+A symmetric square wave of fundamental frequency $f_0$ and peak amplitude
+$A$ contains \emph{only odd} harmonics, with amplitude falling off as
+$1/n$:
+\[
+x(t) = \frac{4A}{\pi}\left[\sin(\omega_0 t) + \frac{1}{3}\sin(3\omega_0 t) + \frac{1}{5}\sin(5\omega_0 t) + \cdots\right]
+\]
+This is why a keyed CW signal or a switching power supply, even though it
+is nominally operating at one frequency, actually radiates energy at that
+frequency's odd multiples too --- a real-world source of harmonic
+interference (Section~\ref{sec:harmonic-interference}) unless filtered.
+
+\begin{examplebox}[Predicting a harmonic frequency]
+A square-wave clock oscillates at 7.023\,MHz. At what frequency would you
+expect to find its strongest spurious harmonic, and in which amateur band
+might it fall?
+
+\emph{Solution.} The strongest harmonic of a square wave (after the
+fundamental) is the third harmonic: $3 \times 7.023 = 21.069\,\text{MHz}$,
+which falls inside the 15\,m amateur band (21.000--21.450\,MHz in most
+IARU Region 1/2/3 allocations) --- a classic real-world case for
+low-pass filtering a keyed oscillator or transmitter output.
+\end{examplebox}
+
+\section{Bandwidth and Rise Time}
+
+A perfectly square edge (instantaneous transition) requires
+\emph{infinite} bandwidth to reproduce exactly, because it needs
+harmonics out to $n \to \infty$ to build the sharp corner. Real circuits
+have finite bandwidth, so real square waves always have a finite
+\textbf{rise time} $t_r$ (time to transition, conventionally measured
+from 10\% to 90\% of full amplitude). A useful rule of thumb links rise
+time and the bandwidth $B$ needed to reproduce it reasonably faithfully:
+\[
+B \approx \frac{0.35}{t_r}.
+\]
+This relationship explains why fast-keyed digital or CW signals, or
+poorly shaped keying waveforms, splatter energy into adjacent parts of
+the band --- an important practical and courtesy consideration when
+operating, and the reason well-designed transmitters deliberately shape
+(``soften'') their keying edges.
+
+\begin{safetynote}[Key clicks and splatter]
+Overly fast keying transitions (``hard keying'') generate broadband
+clicks that can interfere with stations operating hundreds of kilohertz
+away. Modern transmitters shape the CW envelope with a short rise/fall
+time (typically several milliseconds) specifically to keep the emitted
+bandwidth narrow. This is both good operating practice and, in most
+countries, a regulatory requirement on out-of-band emissions.
+\label{sec:harmonic-interference}
+\end{safetynote}
+
+\section{DC Offset and the Mean Value}
+
+The $a_0$ term in the Fourier series represents the waveform's
+\textbf{DC component} --- its average value over a full cycle. A sine
+wave that swings symmetrically about zero has $a_0 = 0$; a keyed pulse
+train that is ``on'' more than it is ``off'' has a nonzero DC component
+equal to (peak value) $\times$ (duty cycle). This matters practically
+when a waveform passes through a transformer or capacitor-coupled stage,
+neither of which passes a DC component --- the shape of the waveform will
+change (its average will be forced back to zero) even though its AC
+content is otherwise preserved.
+
+\section{Spectral (Frequency-Domain) View}
+
+Plotting a signal's amplitude at each frequency, rather than its
+instantaneous value over time, gives its \textbf{spectrum} --- exactly
+what a spectrum analyzer or waterfall display shows. A pure sine wave
+appears as a single vertical line at its frequency; a square wave appears
+as a line at the fundamental plus progressively smaller lines at each odd
+harmonic; a burst of noise appears as energy spread continuously across a
+range of frequencies. Learning to think in both the \textbf{time domain}
+(a scope trace) and the \textbf{frequency domain} (a spectrum display)
+simultaneously is one of the most valuable skills a radio amateur can
+develop, and is essential for understanding modulation
+(Chapter~\ref{ch:modulation}).
+
+\begin{quickreview}
+\item Any periodic waveform is a sum of sine/cosine harmonics of its
+fundamental frequency (Fourier series).
+\item A symmetric square wave contains only odd harmonics, falling off as
+$1/n$ in amplitude.
+\item Sharper edges (shorter rise time) require more bandwidth,
+approximately $B \approx 0.35/t_r$.
+\item A waveform's DC component is its Fourier $a_0$ term --- the
+average value over one cycle.
+\item Time-domain and frequency-domain views describe the same signal
+from two complementary perspectives.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item List the first three nonzero harmonics (as multiples of $f_0$) of a
+symmetric square wave.
+\item A 3.573\,MHz CW oscillator's third harmonic falls near which
+amateur band?
+\item A digital keying circuit has a rise time of 1\,ms. Estimate the
+bandwidth this implies, and comment on whether this is adequate for
+narrow, splatter-free CW.
+\item Explain why a capacitor-coupled audio stage will not faithfully
+pass a waveform with a strong DC offset.
+\item Sketch (in words) how the spectrum of a triangle wave would differ
+from that of a square wave of the same fundamental frequency.
+\end{practiceproblems}

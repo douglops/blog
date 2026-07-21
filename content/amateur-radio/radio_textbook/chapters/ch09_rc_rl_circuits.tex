@@ -1,0 +1,184 @@
+\chapter{RC and RL Circuits: Time Constants and AC Impedance}
+\label{ch:rc-rl}
+
+\section{The RC Charging Transient}
+
+Connect a resistor and capacitor in series with a DC source (a step
+voltage $U_0$ applied at $t=0$, capacitor initially uncharged). Solving
+$i = C\,dU/dt$ together with Kirchhoff's voltage law gives the classic
+exponential charging curve:
+\[
+\boxed{U_C(t) = U_0\left(1 - e^{-t/\tau}\right)}, \qquad \tau = RC
+\]
+where $\tau$ (tau), the \textbf{time constant}, has units of seconds when
+$R$ is in ohms and $C$ is in farads. The current, meanwhile, starts at
+its maximum value and decays exponentially:
+\[
+i(t) = \frac{U_0}{R}\,e^{-t/\tau}.
+\]
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=9.5cm,height=5cm,xlabel={$t/\tau$},ylabel={$U_C/U_0$},
+  xmin=0,xmax=5,ymin=0,ymax=1.05,domain=0:5,samples=80,
+  axis lines=left, ytick={0,0.632,1}, yticklabels={0,0.632,1.0}]
+\addplot[thick,blue] {1-exp(-x)};
+\draw[dashed] (axis cs:1,0) -- (axis cs:1,0.632) -- (axis cs:0,0.632);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{keyidea}[Meaning of the time constant]
+After one time constant ($t=\tau$), the capacitor has charged to
+$1-e^{-1} \approx 63.2\%$ of the final voltage. After five time constants
+($t=5\tau$), it is charged to $>99\%$ and is conventionally considered
+``fully charged'' for practical purposes. The same 63.2\%/5-time-constant
+rule applies to discharge (in reverse) and to the analogous RL circuit
+below.
+\end{keyidea}
+
+\begin{examplebox}[RC time constant]
+A 10\,k$\Omega$ resistor and a 100\,$\mu$F capacitor are placed in
+series across a 9\,V source. Find the time constant and the voltage
+across the capacitor after 2 seconds.
+
+\emph{Solution.} $\tau = RC = 10{,}000 \times 100\times10^{-6} = 1\,\text{s}$.
+At $t=2\,\text{s} = 2\tau$:
+\[
+U_C = 9\left(1-e^{-2}\right) = 9 \times 0.865 \approx 7.79\,\text{V}.
+\]
+\end{examplebox}
+
+\section{RC Discharge}
+
+If a charged capacitor is instead connected across a resistor (source
+removed), the voltage decays exponentially from its initial value
+$U_0$:
+\[
+U_C(t) = U_0\,e^{-t/\tau}, \qquad \tau = RC.
+\]
+This decaying-exponential shape, and its rising-exponential counterpart
+above, appear throughout electronics: power-supply filter ripple decay,
+the discharge of a defibrillator-style pulse capacitor, the decay of a
+keyed CW envelope shaped by an RC network, and the timing element of many
+oscillator and timer circuits.
+
+\section{The RL Transient}
+
+An inductor and resistor in series show the same mathematical shape,
+because the inductor's $u=L\,di/dt$ plays the same differential-equation
+role as the capacitor's $i=C\,dU/dt$, with current and voltage roles
+exchanged. For current building up through an inductor after a voltage
+step $U_0$ is applied:
+\[
+i(t) = \frac{U_0}{R}\left(1 - e^{-t/\tau}\right), \qquad \tau = \frac{L}{R}
+\]
+where now $\tau = L/R$ (seconds, when $L$ is in henries and $R$ is in
+ohms). Current rises toward its final DC value ($U_0/R$, since the
+inductor eventually looks like a plain wire) following the identical
+63.2\%-per-time-constant pattern as the RC charging curve.
+
+\bookfig[0.5]{rl_circuit.png}{A series RL circuit driven by a step voltage.}
+
+\begin{examplebox}[RL time constant]
+A relay coil has $L = 200\,\text{mH}$ and winding resistance
+$R = 50\,\Omega$. Find the time constant, and the time for current to
+reach 63.2\% of its final value.
+
+\emph{Solution.} $\tau = L/R = 0.2/50 = 4\,\text{ms}$. By definition, the
+current reaches 63.2\% of its final value at exactly $t = \tau =
+4\,\text{ms}$.
+\end{examplebox}
+
+\section{Series RC and RL Circuits Under Sinusoidal AC}
+
+Under a sinusoidal (not step) drive, a series RC or RL network behaves as
+a frequency-dependent voltage divider between a real part (resistance)
+and an imaginary part (reactance). Using the complex impedances
+introduced in Chapters~\ref{ch:capacitors}--\ref{ch:inductors}, the
+total impedance of a series RC network is
+\[
+Z = R - jX_C, \qquad |Z| = \sqrt{R^2 + X_C^2}, \qquad
+\theta = -\arctan\!\left(\frac{X_C}{R}\right),
+\]
+and of a series RL network,
+\[
+Z = R + jX_L, \qquad |Z| = \sqrt{R^2 + X_L^2}, \qquad
+\theta = \arctan\!\left(\frac{X_L}{R}\right).
+\]
+Here $\theta$ is the phase angle by which the total current lags (RL) or
+leads (RC) the applied voltage. Ohm's law generalizes directly to
+$U = IZ$, with $U$, $I$, and $Z$ all treated as complex (magnitude and
+phase) quantities.
+
+\begin{examplebox}[Series RC impedance]
+A 1\,k$\Omega$ resistor is in series with a capacitor whose reactance at
+the operating frequency is 750\,$\Omega$. Find the magnitude and phase
+angle of the total impedance.
+
+\emph{Solution.}
+\[
+|Z| = \sqrt{1000^2 + 750^2} = \sqrt{1{,}000{,}000+562{,}500} \approx 1250\,\Omega,
+\]
+\[
+\theta = -\arctan\!\left(\frac{750}{1000}\right) = -36.9\degree.
+\]
+The current leads the applied voltage by $36.9\degree$.
+\end{examplebox}
+
+\section{RC and RL Circuits as Frequency-Selective Filters}
+
+Because $X_C$ and $X_L$ depend on frequency while $R$ does not, a series
+RC or RL network divides voltage between its resistive and reactive
+parts differently at different frequencies --- the basis of simple
+\textbf{filters}:
+
+\begin{itemize}
+\item An RC network, output taken across $C$, passes low frequencies and
+attenuates high frequencies (a \textbf{low-pass filter}): at low
+frequency $X_C$ is large and most of the voltage appears across $C$; at
+high frequency $X_C \to 0$ and the output collapses.
+\item An RC network, output taken across $R$, does the opposite (a
+\textbf{high-pass filter}).
+\item An RL network, output taken across $L$, is a high-pass filter (at
+high frequency $X_L$ dominates); output taken across $R$ is a low-pass
+filter.
+\end{itemize}
+
+The frequency at which $X_C = R$ (RC) or $X_L = R$ (RL) is called the
+\textbf{cutoff (or corner) frequency} $f_c$, where the output power has
+fallen to half its low-frequency (or high-frequency) value, a
+$-3\,\text{dB}$ point in the language of Chapter~\ref{ch:decibels}:
+\[
+f_c = \frac{1}{2\pi RC} \quad \text{(RC)}, \qquad f_c = \frac{R}{2\pi L} \quad \text{(RL)}.
+\]
+These single-order RC/RL filters are gentle (attenuating at roughly
+6\,dB per octave beyond cutoff); sharper filtering requires combining
+reactive elements, covered next in Chapter~\ref{ch:rlc-resonance}.
+
+\begin{quickreview}
+\item RC time constant $\tau = RC$; RL time constant $\tau = L/R$; both
+in seconds when SI units are used.
+\item Charging/current-buildup: $63.2\%$ of final value after one time
+constant; effectively complete after five time constants.
+\item Series impedance: $Z = R \mp jX$ (RC/RL), $|Z|=\sqrt{R^2+X^2}$,
+phase $\theta = \arctan(X/R)$ (sign per RC or RL).
+\item RC/RL networks act as simple low-pass or high-pass filters
+depending on which element the output is taken across.
+\item Cutoff frequency $f_c$ is where $X = R$; the response is down
+$3\,\text{dB}$ (half power) at that point.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item An RC circuit has $R=4.7\,\text{k}\Omega$ and $C=10\,\mu\text{F}$.
+Find $\tau$ and the time to reach 99\% of final charge.
+\item Find the impedance magnitude and phase of a series RL circuit with
+$R=220\,\Omega$ and $X_L=330\,\Omega$.
+\item Find the cutoff frequency of a low-pass RC filter with
+$R=1\,\text{k}\Omega$ and $C=470\,\text{pF}$.
+\item A relay must fully release within 20\,ms of power removal. If its
+coil resistance is 100\,$\Omega$, what is the maximum inductance
+(assuming ``fully released'' means five time constants have elapsed)?
+\item Explain, without equations, why an RC low-pass filter's output
+lags further and further behind the input as frequency increases.
+\end{practiceproblems}

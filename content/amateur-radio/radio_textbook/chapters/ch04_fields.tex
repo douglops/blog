@@ -1,0 +1,213 @@
+\chapter{Electric, Magnetic, and Electromagnetic Fields}
+\label{ch:fields}
+
+Everything a radio does --- store energy in a capacitor, store energy in
+an inductor, radiate a signal from an antenna, propagate that signal
+across an ocean --- is a manifestation of electric and magnetic fields.
+This chapter builds the field concepts needed to understand components
+(Part~II) and antennas and propagation (Part~IV).
+
+\section{The Electric Field}
+
+An \textbf{electric field} exists in the region around any electric
+charge; it is defined as the force per unit charge that a small positive
+``test charge'' would experience at a given point:
+\[
+E = \frac{F}{q} \qquad [\text{volts per metre, V/m}]
+\]
+Field lines point away from positive charges and toward negative charges.
+Between two flat, oppositely charged parallel plates separated by
+distance $d$ with potential difference $U$ between them, the field is
+uniform and given by
+\[
+E = \frac{U}{d}.
+\]
+This is precisely the geometry inside a parallel-plate capacitor
+(Chapter~\ref{ch:capacitors}): a capacitor is, at its core, a device for
+storing energy in an electric field confined between two conductors.
+
+\begin{keyidea}
+The electric field describes how strongly a charge distribution can push
+or pull on other charges. It is the mechanism by which a capacitor stores
+energy and by which a transmitting antenna's near field couples to
+nearby objects.
+\end{keyidea}
+
+\section{The Magnetic Field}
+
+A \textbf{magnetic field} is produced by moving charge (current) and is
+described by the flux density $B$, measured in \textbf{tesla (T)}. Unlike
+electric field lines, magnetic field lines have no starting or ending
+point; they form closed loops. For a long, straight conductor carrying
+current $I$, the field at perpendicular distance $r$ is
+\[
+B = \frac{\mu_0 I}{2\pi r}
+\]
+where $\mu_0 = 4\pi \times 10^{-7}\,\text{H/m}$ is the \textbf{permeability
+of free space}. The direction of the field circles the conductor
+according to the \textbf{right-hand rule}: point the thumb of your right
+hand in the direction of conventional current flow, and your fingers curl
+in the direction of the magnetic field.
+
+Winding a conductor into a coil concentrates and reinforces this field
+inside the loops, which is precisely how an \textbf{inductor}
+(Chapter~\ref{ch:inductors}) stores energy in a magnetic field, and how a
+loop antenna couples to the magnetic component of a radio wave.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+\draw[thick,-{Latex}] (0,0) -- (3,0) node[right] {$I$};
+\foreach \r in {0.5,0.9,1.3}{
+  \draw[thick,-{Latex}] (1.5,0) circle (\r);
+}
+\node at (1.5,-1.8) {Field circles the conductor (right-hand rule)};
+\end{tikzpicture}
+\end{center}
+
+\section{Magnetic Flux and Faraday's Law}
+
+\textbf{Magnetic flux}, $\Phi$, measured in \textbf{webers (Wb)}, is the
+total magnetic field passing through a given area:
+\[
+\Phi = B \cdot A
+\]
+for a uniform field $B$ perpendicular to area $A$. \textbf{Faraday's law of
+induction} states that a changing magnetic flux through a loop induces an
+EMF around that loop:
+\[
+\mathcal{E} = -N\frac{d\Phi}{dt}
+\]
+where $N$ is the number of turns of the loop and the negative sign (Lenz's
+law) indicates that the induced EMF always opposes the change that
+created it. Faraday's law is the working principle behind
+\textbf{inductors} (an inductor opposes changes in current because that
+current change causes a changing flux, which induces an opposing EMF),
+\textbf{transformers} (Chapter~\ref{ch:transformers}), and the reception
+of radio signals by any loop or wire antenna.
+
+\begin{keyidea}[Lenz's law, intuitively]
+An induced current always flows in the direction that opposes the change
+that produced it. This is why inductors resist sudden changes in
+current, and why energy must be supplied to overcome this opposition when
+current is increased or decreased quickly.
+\end{keyidea}
+
+\section{The Electromagnetic Field and Maxwell's Insight}
+
+Electric and magnetic fields are not independent phenomena; they are two
+aspects of a single \textbf{electromagnetic field}. James Clerk Maxwell
+showed in the 1860s, through four coupled equations now called
+\textbf{Maxwell's equations}, that:
+
+\begin{itemize}
+\item A changing electric field produces a magnetic field (this
+completes the symmetry of Faraday's law, and was Maxwell's key
+addition --- the ``displacement current'' term).
+\item A changing magnetic field produces an electric field (Faraday's
+law).
+\end{itemize}
+
+These two facts together mean that, once created, a time-varying
+electric field and a time-varying magnetic field can regenerate each
+other indefinitely, propagating outward from their source as a
+self-sustaining wave --- an \textbf{electromagnetic wave} --- without
+needing a material medium to carry them. Maxwell calculated the
+predicted speed of such a wave from purely electrical and magnetic
+constants,
+\[
+c = \frac{1}{\sqrt{\mu_0 \varepsilon_0}} \approx 2.998 \times 10^{8}\,\text{m/s},
+\]
+and found it matched the already-measured speed of light --- correctly
+concluding that light itself is an electromagnetic wave. Radio waves,
+microwaves, infrared, visible light, ultraviolet, X-rays, and gamma rays
+are all electromagnetic waves, differing only in frequency (and hence
+wavelength); amateur radio operates in the radio-frequency portion of
+this same spectrum.
+
+\section{Properties of a Traveling EM Wave}
+
+In a radio wave traveling through free space, the electric field $E$ and
+magnetic field $H$ oscillate perpendicular to each other and to the
+direction of propagation, in phase, with a fixed ratio between them (the
+\textbf{impedance of free space}, $Z_0 = \sqrt{\mu_0/\varepsilon_0}
+\approx 377\,\Omega$).
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+\draw[thick,blue,domain=0:6,samples=60] plot ({\x},{1.1*sin(\x*90)});
+\node[blue,anchor=south] at (1.5,1.55) {$E$ (vertical plane)};
+\foreach \x in {0.5,1.5,2.5,3.5,4.5,5.5}{
+  \draw[thick,red] (\x,0) ellipse (0.06 and 0.35);
+}
+\node[red,anchor=north] at (4.5,-0.5) {$H$ (horizontal plane)};
+\draw[-{Latex},thick] (-0.3,-1.7) -- (6.3,-1.7);
+\node[anchor=north] at (3,-1.75) {direction of travel};
+\end{tikzpicture}
+\end{center}
+
+The \textbf{wavelength} $\lambda$, \textbf{frequency} $f$, and
+\textbf{speed of light} $c$ are related by
+\[
+\boxed{c = f\lambda} \qquad \Longrightarrow \qquad \lambda = \frac{c}{f}, \quad f = \frac{c}{\lambda}.
+\]
+This single relationship is one of the most exam-relevant formulas in the
+entire book: it converts between the two ways radio frequencies are
+described (as a frequency in Hz, or as a wavelength in metres, as in
+``the 20-metre band'') and underlies antenna dimension calculations in
+Chapter~\ref{ch:antennas}.
+
+\begin{examplebox}[Frequency--wavelength conversion]
+Find the wavelength corresponding to 14.200\,MHz.
+
+\emph{Solution.}
+\[
+\lambda = \frac{c}{f} = \frac{2.998\times10^{8}\,\text{m/s}}{14.200\times10^{6}\,\text{Hz}} \approx 21.1\,\text{m}.
+\]
+This is why 14\,MHz is colloquially called ``the 20\,m band'' --- 21.1\,m
+rounds, by amateur radio band-naming convention, to the nearest
+traditional metre-band label.
+\end{examplebox}
+
+\section{Polarization}
+
+The \textbf{polarization} of an EM wave describes the orientation of its
+electric field vector. If $E$ stays in a fixed plane as the wave travels
+(e.g., always vertical, or always horizontal), the wave is
+\textbf{linearly polarized}; a horizontal dipole radiates a horizontally
+polarized wave, a vertical antenna radiates a vertically polarized wave.
+If the $E$ field instead rotates as the wave travels, tracing a helix, the
+wave is \textbf{circularly} (or, more generally, \textbf{elliptically})
+polarized --- used heavily in satellite work, where a spacecraft's
+orientation relative to a ground station is constantly changing, so
+neither pure horizontal nor pure vertical polarization stays aligned.
+Polarization mismatch between a transmitting and receiving antenna causes
+signal loss (Chapter~\ref{ch:antennas}), which is why matching
+polarization matters when choosing or orienting an antenna.
+
+\begin{quickreview}
+\item Electric field $E = F/q$ (V/m); magnetic flux density $B$ (tesla);
+flux $\Phi = BA$ (weber).
+\item Faraday's law: a changing flux induces an EMF, $\mathcal{E} =
+-N\,d\Phi/dt$; Lenz's law fixes the sign (opposition to change).
+\item Maxwell's equations show that changing $E$ and $B$ fields sustain
+each other, propagating as an electromagnetic wave at $c \approx
+3\times10^{8}\,\text{m/s}$.
+\item $c = f\lambda$ links frequency and wavelength --- essential for
+antenna design and band naming.
+\item Polarization describes the orientation of the wave's electric
+field; mismatched polarization causes signal loss.
+\end{quickreview}
+
+\begin{practiceproblems}
+\item Find the magnetic field 5\,cm from a straight wire carrying 2\,A.
+\item A single-turn loop of area 0.01\,m$^2$ experiences a flux change
+from 0 to 5\,mWb in 0.1\,s. Find the induced EMF.
+\item Calculate the wavelength for 145.500\,MHz and for 433.500\,MHz;
+identify the traditional amateur band name for each.
+\item Explain, in terms of Maxwell's equations, why a radio wave can
+cross the vacuum of space with no medium to carry it, unlike a sound
+wave.
+\item A satellite station uses circular polarization while a fixed home
+station uses a horizontal linear-polarized antenna. Explain qualitatively
+why using circular polarization at both ends often improves the link.
+\end{practiceproblems}
