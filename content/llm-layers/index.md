@@ -60,7 +60,7 @@ A layer-by-layer recommendation:
 
  * L7 — Evaluation. Kohavi, Tang & Xu, Trustworthy Online Controlled Experiments. The multiple-comparisons trap, sample-size calculation, sequential testing and metric degeneracy in Chapter 8 are all treated at far greater depth there. If you take one book off this list beyond Huyen, take this one — the statistical failures in prompt optimisation are the same failures A/B testing spent twenty years learning to avoid.
 
-_**A note on security:**_ John Sotiropoulos's Adversarial AI: Attacks, Mitigations and Defense Strategies is the most useful book-length treatment of the prompt-injection and supply-chain material in §7.9, and it's structured against the OWASP LLM Top 10, which is what your vendor questionnaires will end up referencing anyway. Pair it with the NIST AI RMF and its Generative AI Profile
+_**A note on security:**_ John Sotiropoulos's Adversarial AI: Attacks, Mitigations and Defense Strategies is the most useful book-length treatment of the prompt-injection and supply-chain material in §7.9, and it's structured against the OWASP LLM Top 10. Pair it with the NIST AI RMF and its Generative AI Profile
 
 ---
 
