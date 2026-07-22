@@ -40,6 +40,28 @@ p
 eff
 (L3); index sizing, RRF, IR metrics (L4); LSH dedup, chunking economics, ACL pre-filtering (L5); routing as constrained optimisation with the pointwise Lagrangian solution and cascade break-even (L6); and a heavily statistical L7 — power analysis, paired bootstrap, the multiple-comparisons trap in prompt search, judge validation via 𝜅. Every chapter ends with exercises, also.
 
+**References:** 
+
+Huyen's two books covers the production LLM application stack end to end — evaluation frameworks, prompt design, agent architectures, deployment tradeoffs. It's the nearest published thing to the textbook's scope, and her earlier Designing Machine Learning Systems (2022) is the better book on drift, data pipelines and monitoring even though it predates the LLM era entirely — Chapter 8's PSI and staleness material is downstream of it:
+
+ * Huyen, C. (2025). AI engineering: Building applications with foundation models. O’Reilly Media.
+
+ * Huyen, C. (2022). Designing machine learning systems: An iterative process. O’Reilly Media.
+
+A layer-by-layer recommendation:
+
+ * L1 — Foundation Models. Sebastian Raschka's Build a Large Language Model (From Scratch) if you want the arithmetic in Chapter 2 to become muscle memory; you implement attention, KV caching and sampling in PyTorch. Simon Prince's Understanding Deep Learning (free PDF from the author) is the better theory companion — modern, well-illustrated, and honest about what isn't understood.
+
+ * L2 — Inference & Serving. No good book exists. The closest useful substitutes are Kirk & Hwu's Programming Massively Parallel Processors for reasoning about memory bandwidth and occupancy, which is what the decode-phase argument actually reduces to, and Kleppmann's Designing Data-Intensive Applications for the queueing and tail-latency intuitions behind Little's law and goodput.
+
+ * L3 — Orchestration. Kleppmann again for exactly-once semantics and idempotency, plus Michael Nygard's Release It! — circuit breakers, bulkheads, timeouts and the stability antipatterns in it map one-to-one onto what goes wrong in agent loops. Google's Site Reliability Engineering (free online) for the error-budget framing.
+
+ * L4 — Retrieval. This is the layer where reading old books pays best. Manning, Raghavan & Schütze's Introduction to Information Retrieval (free online) is still the canonical grounding for BM25, index structures and the evaluation metrics in §5.8 — most RAG failures are IR failures that the field solved in 2005. Sebastian Bruch's Foundations of Vector Retrieval (Springer, 2024) is the rigorous treatment of ANN: HNSW, IVF, product quantisation, the theory behind the recall/latency curves. Lin, Nogueira & Yates, Pretrained Transformers for Text Ranking, covers rerankers and dense retrieval properly.
+
+ * L7 — Evaluation. Kohavi, Tang & Xu, Trustworthy Online Controlled Experiments. The multiple-comparisons trap, sample-size calculation, sequential testing and metric degeneracy in Chapter 8 are all treated at far greater depth there. If you take one book off this list beyond Huyen, take this one — the statistical failures in prompt optimisation are the same failures A/B testing spent twenty years learning to avoid.
+
+_**A note on security:**_ John Sotiropoulos's Adversarial AI: Attacks, Mitigations and Defense Strategies is the most useful book-length treatment of the prompt-injection and supply-chain material in §7.9, and it's structured against the OWASP LLM Top 10, which is what your vendor questionnaires will end up referencing anyway. Pair it with the NIST AI RMF and its Generative AI Profile
+
 ---
 
 You can access the rendered PDF file and the original tex file below:
