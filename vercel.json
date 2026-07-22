@@ -1,4 +1,5 @@
 {
-  "buildCommand": "zola build --base-url /",
+  "installCommand": "curl -fsSL https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz | tar xz",
+  "buildCommand": "./zola build --base-url /",
   "outputDirectory": "public"
 }
