@@ -6,6 +6,8 @@
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{{ config.description }}">
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+  <link rel="stylesheet" href="{{ get_url(path="giallo-light.css") }}" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+  <link rel="stylesheet" href="{{ get_url(path="giallo-dark.css") }}" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="{{ get_url(path="badger.png") }}">
   {% if config.generate_feeds %}
   <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path="atom.xml") }}">
