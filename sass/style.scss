@@ -21,6 +21,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -76,13 +80,19 @@ a:hover {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding: 0.9rem 0;
   border-bottom: 1px solid var(--border);
 
   a {
     color: var(--fg);
     font-weight: 500;
   }
+}
+
+.post-excerpt {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .post-date {
@@ -102,15 +112,49 @@ article {
     margin-bottom: 0.25rem;
   }
 
+  h2 {
+    margin-top: 2.5rem;
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem;
+  }
+
+  h3 {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 6px;
+  }
+
   pre {
     padding: 1rem;
     border-radius: 6px;
+    border: 1px solid var(--border);
     overflow-x: auto;
   }
 
   code {
     font-size: 0.9em;
   }
+
+  :not(pre) > code {
+    background: var(--border);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+}
+
+.back-to-top {
+  display: inline-block;
+  margin-top: 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .site-footer {

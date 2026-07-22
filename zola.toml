@@ -1,5 +1,5 @@
 base_url = "https://douglops.github.io/blog"
-title = "Douglops notes"
+title = "Douglops - notes and banters"
 description = "Tales from the neverending sea of diffs"
 
 compile_sass = true
@@ -10,3 +10,7 @@ feed_filenames = ["atom.xml"]
 
 [extra]
 author = "Douglas Oliveira"
+
+[markdown.highlighting]
+light_theme = "github-light"
+dark_theme = "github-dark"

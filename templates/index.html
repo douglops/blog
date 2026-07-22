@@ -3,8 +3,13 @@
 {% block content %}
 <ul class="post-list">
   {% for page in paginator.pages | default(value=section.pages) %}
+  {% set excerpt_src = page.summary %}
+  {% if not excerpt_src %}{% set excerpt_src = page.content %}{% endif %}
   <li class="post-list-item">
-    <a href="{{ page.permalink }}">{{ page.title }}</a>
+    <div>
+      <a href="{{ page.permalink }}">{{ page.title }}</a>
+      <!-- <p class="post-excerpt">{{ excerpt_src | striptags | truncate(length=140) }}</p> -->
+    </div>
     <span class="post-date">{{ page.date | date(format="%B %-d, %Y") }}</span>
   </li>
   {% endfor %}
