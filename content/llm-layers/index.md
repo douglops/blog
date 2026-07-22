@@ -11,7 +11,7 @@ authors = ["Douglas"]
 
 ---
 
-**Goal:** LLMs are a growing field, with tools changing as fast as the opening and closing of the Strait of Hormuz. For this reason, I began searching for a model similar to the "OSI"-like model to tame the endless complexity of LLM ecosystems and found a layered taxonomy proposed by Rishav Hada, ["LLM Application Tech
+**Goal:** LLMs are a growing field, with tools changing as fast as the opening and closing of the Strait of Hormuz. For this reason, I began searching for a model similar to the "OSI" to tame the endless complexity of LLM ecosystems and found a layered taxonomy proposed by Rishav Hada, ["LLM Application Tech
 Stack in 2026" published last year (2025) in Future AGI](https://futureagi.com/blog/llm-application-tech-stack-2025/). Focused primarily on technologies, it addresses little of the relationship and technical considerations between each layer, which motivated me to compile a less fragmented and more engineering-oriented body of knowledge.
 
 Some caveats worth noting:
