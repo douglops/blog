@@ -1,3 +1,4 @@
 public/
+static/processed_images/
 sass/.sass-cache/
 .DS_Store

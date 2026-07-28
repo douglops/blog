@@ -18,7 +18,8 @@
   {% endif %}
 </head>
 <body>
-  <img class="site-banner" src="{{ get_url(path="pseudotsuga-menziesii.jpg") }}" alt="Pseudotsuga menziesii" width="1600" height="1197">
+  {% set banner = resize_image(path="pseudotsuga-menziesii.jpg", width=1360, height=416, op="fill", format="webp", quality=60) %}
+  <img class="site-banner" src="{{ banner.url }}" alt="Pseudotsuga menziesii" width="{{ banner.width }}" height="{{ banner.height }}">
 
   <header class="site-header">
     <a class="site-title" href="{{ config.base_url }}">
