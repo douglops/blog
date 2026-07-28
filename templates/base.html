@@ -1,3 +1,4 @@
+{% set banner = resize_image(path="pseudotsuga-menziesii.jpg", width=1360, height=416, op="fill", format="webp", quality=60) %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
   <meta property="og:description" content="{{ config.description }}">
   <meta property="og:image" content="{{ get_url(path="pseudotsuga-menziesii.jpg") }}">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" as="image" href="{{ banner.url }}" fetchpriority="high">
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
   <link rel="stylesheet" href="{{ get_url(path="giallo-light.css") }}" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
   <link rel="stylesheet" href="{{ get_url(path="giallo-dark.css") }}" media="(prefers-color-scheme: dark)">
@@ -18,8 +20,7 @@
   {% endif %}
 </head>
 <body>
-  {% set banner = resize_image(path="pseudotsuga-menziesii.jpg", width=1360, height=416, op="fill", format="webp", quality=60) %}
-  <img class="site-banner" src="{{ banner.url }}" alt="Pseudotsuga menziesii" width="{{ banner.width }}" height="{{ banner.height }}">
+  <img class="site-banner" src="{{ banner.url }}" alt="Pseudotsuga menziesii" width="{{ banner.width }}" height="{{ banner.height }}" fetchpriority="high">
 
   <header class="site-header">
     <a class="site-title" href="{{ config.base_url }}">
