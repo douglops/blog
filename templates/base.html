@@ -12,8 +12,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" as="image" href="{{ banner.url }}" fetchpriority="high">
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
-  <link rel="stylesheet" href="{{ get_url(path="giallo-light.css") }}" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
-  <link rel="stylesheet" href="{{ get_url(path="giallo-dark.css") }}" media="(prefers-color-scheme: dark)">
+  <style media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">{{ load_data(path="static/giallo-light.css", format="plain") | safe }}</style>
+  <style media="(prefers-color-scheme: dark)">{{ load_data(path="static/giallo-dark.css", format="plain") | safe }}</style>
   <link rel="icon" type="image/png" href="{{ get_url(path="badger.png") }}">
   {% if config.generate_feeds %}
   <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path="atom.xml") }}">
