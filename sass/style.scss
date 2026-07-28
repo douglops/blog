@@ -48,6 +48,17 @@ a:hover {
   text-decoration: underline;
 }
 
+.site-banner {
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  height: 208px;
+  object-fit: cover;
+  object-position: center;
+  margin: 1.5rem auto 0;
+  border-radius: 6px;
+}
+
 .site-header {
   max-width: 680px;
   margin: 0 auto;
@@ -59,9 +70,20 @@ a:hover {
   gap: 0.5rem;
 
   .site-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--fg);
+  }
+
+  .site-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
   }
 
   nav a {
