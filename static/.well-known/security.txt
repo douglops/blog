@@ -1,0 +1,4 @@
+Contact: mailto:dougds@pm.me
+Expires: 2027-07-28T00:00:00.000Z
+Preferred-Languages: en, pt-BR
+Canonical: https://douglops.github.io/blog/.well-known/security.txt
