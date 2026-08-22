@@ -13,6 +13,8 @@ I tried my best to prioritize maintainability and code flexibility over complexi
 
 So below you'll find some examples of useful snippets that simplified my day to day tasks, and other k8s useful stuffs - maybe.
 
+{% raw %}
+
 ## ⎈ Simplified multi-Ingress
 
 ```jsx title="Multi-ingress file" showLineNumbers
@@ -436,3 +438,5 @@ readinessProbe:
 ### 💡 Pro-Tip
 
 Always use a **Readiness Probe** for databases. If your database is doing a heavy internal migration or recovery, you want the Pod to stay "Running" (so it doesn't get killed by a Liveness probe) but you don't want your application to try and connect to it until the migration is finished.
+
+{% endraw %}
