@@ -16,8 +16,8 @@ seemed off to me. Years later I've started to workout on my own just to rediscov
 the world of calisthenics and strength development.
 
 This developed in me a urge to learn more about how we could leverage our bodies to 
-get healthier and stronger in any ways possible. This work as a living and growing 
-development, towards that.
+get healthier and stronger in any ways possible. This work is a living and growing 
+development towards that goal.
 
 # building a living calisthenics workbook
 
