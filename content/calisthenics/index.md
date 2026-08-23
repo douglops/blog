@@ -7,7 +7,7 @@ authors = ["Douglas"]
 [extra]
 +++
 
-# Where it all started
+# where it all started
 
 I've always been curious about strength and body building, and a friend taught 
 me a thing or two about calisthenics in the past. Looking at the growing trend of 
@@ -19,7 +19,7 @@ This developed in me a urge to learn more about how we could leverage our bodies
 get healthier and stronger in any ways possible. This work as a living and growing 
 development, towards that.
 
-# Building a living calisthenics workbook
+# building a living calisthenics workbook
 
 *40 muscles, 40 skills, two editions, and a pipeline that lied to me four times.*
 
@@ -36,7 +36,7 @@ Twenty seconds. Chin over the bar. Hips level with the shoulders. Not "getting t
 The muscle figures rotate. That was the part I most wanted and least expected to get
 for free.
 
-## What "living" actually means
+## what "living" actually means
 
 Two JSON files are the source of truth: `muscles.json` and `skills.json`. Forty muscle
 entries with origin, insertion, action and a note on what the muscle does *in this
@@ -57,7 +57,7 @@ The imagery is fetched by script too, not curated by hand into a folder. Anatomi
 renders come from the BodyParts3D/Anatomography dataset via Wikimedia Commons, licensed
 CC BY-SA. A clean checkout rebuilds the whole thing.
 
-## Why there are two editions
+## why there are two editions
 
 A PDF cannot contain a GIF. That is a hard format limit, not an oversight.
 
@@ -73,7 +73,7 @@ Both come from the same data and the same prose. The reference chapters generate
 straight to XHTML; the hand-written chapters run through pandoc. Nothing is written
 twice.
 
-## The part worth writing down: the bugs all lied
+## the part worth writing down: the bugs all lied
 
 I expected this project to fail loudly. Instead almost every real bug produced output
 that looked *fine*.
@@ -119,7 +119,7 @@ There was one loud failure, and it was the polite kind: Wikimedia returns a flat
 to a generic user agent. Put a real contact URL in it and the same file downloads
 instantly. Their policy says exactly this; I just hadn't read it.
 
-## Licensing, kept honest by the build
+## licensing, kept honest by the build
 
 The default build is redistributable. Every image is CC-licensed or public domain, with
 per-file credits generated into an appendix from the same manifest the fetcher writes —
@@ -135,7 +135,7 @@ I skipped one suggested source entirely because its licence carries a non-commer
 clause, which is incompatible with distributing the book under CC BY-SA. A public-domain
 Gray's plate covered the same muscle.
 
-## Where it stands
+## where it stands
 
 49 pages shareable, 54 with demonstrations. 40 muscle entries, 37 with a plate and 26 of
 those animated. 40 skills, 175 progression steps, a coverage matrix, a glossary, and
@@ -147,7 +147,7 @@ and check what you produced rather than whether the command exited zero. Both of
 paid for themselves several times over — mostly by catching output that was confidently,
 plausibly wrong.
 
-## How to get it
+## how to get it
 
 For not making it so easy to freely distribute and allow unintended sharing, the entire project
 lives in a .zip file. 
