@@ -146,3 +146,15 @@ The thing I would tell anyone building something similar: put the content in dat
 and check what you produced rather than whether the command exited zero. Both of those
 paid for themselves several times over — mostly by catching output that was confidently,
 plausibly wrong.
+
+## How to get it
+
+For not making it so easy to freely distribute and allow unintended sharing, the entire project
+lives in a .zip file. 
+
+For getting the workbook in the form of a private, non-shareable epub file for personal use only, click [here](https://www.16090000.xyz/calisthenics/workbook.epub).
+
+The compressed project lives [here](https://sn2r7d3rdsiapabn.public.blob.vercel-storage.com/calisthenics-workbook-project.zip) 
+and for a convenient pdf file, click [here](https://sn2r7d3rdsiapabn.public.blob.vercel-storage.com/workbook.pdf).
+
+The workbook provides a logbook, but for easy of use, consider giving [CalisthenicsMemory](https://codeberg.org/Gonbei774/CalisthenicsMemory) a go.
