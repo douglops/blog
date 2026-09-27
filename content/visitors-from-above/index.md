@@ -149,3 +149,4 @@ You can access the rendered PDF file and the original LaTeX source below:
 
 - [Read the PDF](visitors-from-above.pdf)
 - [Browse the LaTeX source](https://github.com/douglops/blog/tree/main/content/visitors-from-above/visitors-from-above.tex) and its [bibliography](https://github.com/douglops/blog/tree/main/content/visitors-from-above/references.bib)
+- [Download the full research package](visitors-from-above.zip) (zip, 1.3 MB): the paper, LaTeX source, bibliography, figures and evidence corpus
