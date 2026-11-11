@@ -1,5 +1,5 @@
 +++
-title = "llm seven layers stack model - or - why i'm feeling numb?"
+title = "[ai] llm seven layers stack model - or - why i'm feeling numb?"
 date = 2026-07-19
 authors = ["Douglas"]
 [taxonomies]

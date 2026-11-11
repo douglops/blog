@@ -1,5 +1,5 @@
 +++
-title = "visitors from above? what the world's sacred texts actually say about non-human intelligences"
+title = "[ai] visitors from above? what the world's sacred texts actually say about non-human intelligences"
 date = 2026-09-27
 authors = ["Douglas"]
 [taxonomies]

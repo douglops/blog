@@ -1,5 +1,5 @@
 +++
-title = "learning industrial controls as an it person"
+title = "[ai] learning industrial controls as an it person"
 date = 2026-09-26
 authors = ["Douglas"]
 [taxonomies]

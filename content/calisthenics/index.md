@@ -1,5 +1,5 @@
 +++
-title = "calisthenics 101"
+title = "[ai] calisthenics 101"
 date = 2026-08-22
 authors = ["Douglas"]
 [taxonomies]

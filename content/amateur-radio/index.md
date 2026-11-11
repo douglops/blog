@@ -1,5 +1,5 @@
 +++
-title = "amateur radio textbook for hackers"
+title = "[ai] amateur radio textbook for hackers"
 date = 2026-07-21
 authors = ["Douglas"]
 [taxonomies]
