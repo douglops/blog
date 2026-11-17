@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://douglops.github.io/blog/sitemap.xml
+Disallow: /netwitness-parser-101/
+Disallow: /github-multiaccount/
+Disallow: /helm-chart-tricks/
+Disallow: /pod-recurrent-restarts/
+Disallow: /posts/
+Disallow: /tags/
+
+Sitemap: https://16090000.xyz/sitemap.xml

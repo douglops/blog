@@ -1,6 +1,6 @@
 {
   "framework": null,
   "installCommand": "sh scripts/install-zola.sh",
-  "buildCommand": "./zola build --base-url /",
+  "buildCommand": "./zola build",
   "outputDirectory": "public"
 }

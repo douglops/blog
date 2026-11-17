@@ -1,4 +1,4 @@
-base_url = "https://douglops.github.io/blog"
+base_url = "https://16090000.xyz"
 title = "notes and banters"
 description = "Tales from the neverending sea of diffs"
 
@@ -10,6 +10,7 @@ feed_filenames = ["atom.xml"]
 
 [extra]
 author = "Douglas Oliveira"
+canonical_base = "https://16090000.xyz
 
 [markdown.highlighting]
 style = "class"
