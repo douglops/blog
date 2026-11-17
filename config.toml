@@ -1,5 +1,5 @@
 base_url = "https://douglops.github.io/blog"
-title = "Douglops - notes and banters"
+title = "notes and banters"
 description = "Tales from the neverending sea of diffs"
 
 compile_sass = true
