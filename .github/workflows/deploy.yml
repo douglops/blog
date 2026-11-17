@@ -26,7 +26,7 @@ jobs:
           tool: zola@0.22.1
 
       - name: Build site
-        run: zola build --base-url "https://douglops.github.io/blog
+        run: zola build --base-url "https://douglops.github.io/blog"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
