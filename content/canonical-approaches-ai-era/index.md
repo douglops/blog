@@ -7,7 +7,6 @@ authors = ["Douglas"]
 [extra]
 +++
 
-**Canonical principles and approaches for internal AI usage in organizations.**
 ---
 
 Recently I was reading on Heitor Gouvêa’s core takeaway from Nubank - [that security vulnerabilities and maintenance bottlenecks hide in **the cost of variation**](https://www.linkedin.com/pulse/abordagens-can%C3%B4nicas-o-que-aprendi-nubank-sobre-resolver-gouv%C3%AAa-auwae/) - and noticed that it became an existential problem in the AI era. This text are my notes, with a few extra thoughts on how to apply canonical principles to internal AI tooling.
