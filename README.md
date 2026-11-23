@@ -3,6 +3,7 @@
 Personal blog, built with [Zola](https://www.getzola.org/), a static site generator written in Rust.
 Deployed as a GitHub Pages project site at https://douglops.github.io/blog/.
 
+
 ## Writing a post
 
 Add a new Markdown file under `content/`, e.g. `content/my-new-post.md`:
