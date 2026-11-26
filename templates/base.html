@@ -37,6 +37,17 @@
     </nav>
   </header>
 
+  <aside id="radio-bar" class="radio-bar" aria-live="polite" hidden>
+    <div class="radio-head">
+      <span class="radio-dot" aria-hidden="true"></span>
+      <a href="http://splatterbox.us/">On air</a>
+      <span class="radio-total"></span>
+    </div>
+    <div class="radio-track" aria-hidden="true"></div>
+    <ul class="radio-list"></ul>
+  </aside>
+  <script src="{{ get_url(path="radio.js") }}" defer></script>
+
   <main>
     {% block content %}{% endblock content %}
   </main>

@@ -2,5 +2,8 @@
   "framework": null,
   "installCommand": "sh scripts/install-zola.sh",
   "buildCommand": "./zola build",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/radio/status.json", "destination": "http://splatterbox.us/status-json.xsl" }
+  ]
 }
